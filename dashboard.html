@@ -18,320 +18,193 @@ header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:15px 30px;
+    padding:15px 20px;
     background:#1A1A1A;
+    position:sticky;
+    top:0;
+    z-index:1000;
     box-shadow:0 2px 10px rgba(0,0,0,0.5);
 }
-header h1{font-size:22px;font-weight:600;}
-header button{
+header h1{ font-size:20px; font-weight:600; }
+header .header-buttons{
+    display:flex;
+    gap:10px;
+}
+header button, header a.button{
     padding:8px 16px;
     border-radius:12px;
-    background:#EF4444;
-    color:#fff;
+    background:#22c55e;
+    color:#0F0F0F;
     font-weight:600;
     border:none;
     cursor:pointer;
+    text-decoration:none;
     transition:0.3s;
 }
-header button:hover{box-shadow:0 0 10px #EF444466;}
+header button:hover, header a.button:hover{
+    box-shadow:0 0 10px #22c55e66;
+}
 
-/* Profile Section */
-.profile{
+/* Dashboard cards */
+.container{
+    max-width:1100px;
+    margin:20px auto;
+    padding:0 15px;
+}
+.profile-card{
     display:flex;
     align-items:center;
     gap:20px;
     background:#1A1A1A;
     padding:20px;
     border-radius:15px;
-    max-width:700px;
-    margin:30px auto;
+    margin-bottom:20px;
 }
-.profile img{
+.profile-card img{
     width:100px;
     height:100px;
     border-radius:50%;
     object-fit:cover;
     border:3px solid #22c55e;
 }
-.profile .info h3{margin:0;font-size:22px;}
-.profile .info p{margin:5px 0;font-size:14px;opacity:0.8;}
+.profile-details h2{margin:0; font-size:20px;}
+.profile-details p{margin:3px 0; font-size:14px;}
+.profile-details .rating{color:#FFD700; margin-top:5px;}
 
-/* Dashboard Stats */
-.dashboard{
-    max-width:1200px;
-    margin:20px auto 40px;
+/* Stats cards */
+.stats-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
     gap:20px;
-    padding:0 20px;
+    margin-bottom:20px;
 }
-.card{
+.stats-card{
     background:#1A1A1A;
     border-radius:15px;
     padding:20px;
     text-align:center;
     transition:0.3s;
 }
-.card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 0 15px rgba(34,197,94,0.4);
+.stats-card:hover{ box-shadow:0 0 15px #22c55e66; }
+.stats-card h3{margin:0; font-size:18px; color:#22c55e;}
+.stats-card p{margin:5px 0; font-size:14px;}
+
+/* Marketplace link */
+.marketplace-link{
+    display:block;
+    text-align:center;
+    margin:20px 0;
 }
-.card h2{font-size:28px;margin-bottom:10px;color:#22c55e;}
-.card p{font-size:14px;opacity:0.85;}
+.marketplace-link a.button{
+    font-size:16px;
+}
 
 /* Footer */
 footer{
-    position:fixed;
-    bottom:0;
-    width:100%;
-    background:#1A1A1A;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:10px 0;
-    gap:20px;
+    text-align:center;
+    padding:20px;
+    font-size:14px;
+    opacity:0.7;
+    background:#111;
 }
-footer button{
-    background:none;
-    border:none;
-    color:#22c55e;
-    font-size:24px;
-    cursor:pointer;
-    transition:0.3s;
-}
-footer button:hover{color:#ffffff;}
+footer a{ color:#22c55e; text-decoration:none; }
 
-/* Modal */
-.modal{
-    display:none;
-    position:fixed;
-    top:0; left:0; right:0; bottom:0;
-    background:rgba(0,0,0,0.8);
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-}
-.modal-content{
-    background:#1A1A1A;
-    padding:30px;
-    border-radius:15px;
-    max-width:500px;
-    width:90%;
-    position:relative;
-}
-.modal-content h2{text-align:center;margin-bottom:20px;}
-.modal-content label{display:block;margin-top:15px;font-weight:600;}
-.modal-content input, .modal-content select, .modal-content textarea{
-    width:100%;
-    padding:10px;
-    margin-top:5px;
-    border-radius:10px;
-    border:none;
-    background:#0F0F0F;
-    color:#fff;
-}
-.modal-content button{
-    margin-top:20px;
-    padding:12px 20px;
-    border:none;
-    border-radius:12px;
-    background:#22c55e;
-    color:#0F0F0F;
-    font-weight:600;
-    cursor:pointer;
-}
-.close-modal{
-    position:absolute;
-    top:10px; right:15px;
-    background:none;
-    border:none;
-    font-size:20px;
-    color:#fff;
-    cursor:pointer;
+@media(max-width:600px){
+    .profile-card{flex-direction:column; align-items:center;}
+    .profile-details{text-align:center;}
 }
 </style>
 </head>
 <body>
 
 <header>
-    <h1>Cleaner Dashboard</h1>
-    <button id="logoutBtn">Logout</button>
+    <h1>Dashboard</h1>
+    <div class="header-buttons">
+        <a href="marketplace.html" class="button">Marketplace</a>
+        <button id="logoutBtn">Logout</button>
+    </div>
 </header>
 
-<section class="profile">
-    <img id="profileImage" src="https://via.placeholder.com/100" alt="Profile Image">
-    <div class="info">
-        <h3 id="profileName">Cleaner Name</h3>
-        <p id="profileSpecialty">Specialty</p>
-        <p id="profileLocation">Location</p>
-        <p id="profileExperience">Years of Experience: 0</p>
-        <p id="profileRating">Rating: ★☆☆☆☆ (0)</p>
+<div class="container">
+    <!-- Profile card -->
+    <div class="profile-card">
+        <img id="profileImage" src="https://via.placeholder.com/100" alt="Profile Image">
+        <div class="profile-details">
+            <h2 id="profileName">Name</h2>
+            <p id="profileSpecialty">Specialty</p>
+            <p id="profileLocation">Location</p>
+            <p id="profileExperience">Years of Experience: </p>
+            <p id="profileRate">Rate: </p>
+            <p class="rating" id="profileRating">⭐ 0</p>
+        </div>
     </div>
-</section>
 
-<section class="dashboard">
-    <div class="card">
-        <h2 id="jobsCount">0</h2>
-        <p>Total Jobs Completed</p>
+    <!-- Stats -->
+    <div class="stats-grid">
+        <div class="stats-card">
+            <h3 id="totalJobs">0</h3>
+            <p>Total Jobs</p>
+        </div>
+        <div class="stats-card">
+            <h3 id="totalEarnings">R0</h3>
+            <p>Total Earnings</p>
+        </div>
     </div>
-    <div class="card">
-        <h2 id="earningsTotal">R0</h2>
-        <p>Total Earnings</p>
-    </div>
-    <div class="card">
-        <h2 id="avgRating">0 ★</h2>
-        <p>Average Rating</p>
-    </div>
-</section>
 
-<!-- Profile Modal -->
-<div class="modal" id="profileModal">
-    <div class="modal-content">
-        <button class="close-modal" id="closeModal">&times;</button>
-        <h2>Edit Profile</h2>
-        <img id="modalPreview" src="https://via.placeholder.com/100" alt="Profile Preview" style="display:block;margin:10px auto;width:100px;height:100px;border-radius:50%;border:3px solid #22c55e;">
-        <form id="profileForm">
-            <label for="image">Profile Image</label>
-            <input type="file" id="image" accept="image/*">
-
-            <label for="name">Full Name</label>
-            <input type="text" id="name" placeholder="Jane Doe" required>
-
-            <label for="specialty">Specialty</label>
-            <select id="specialty" required>
-                <option value="">Select Specialty</option>
-                <option value="Kitchen & Bathroom">Kitchen & Bathroom</option>
-                <option value="Luxury Hotel Rooms">Luxury Hotel Rooms</option>
-                <option value="General Cleaning">General Cleaning</option>
-            </select>
-
-            <label for="location">Location (City/Area)</label>
-            <input type="text" id="location" placeholder="Sandton, Johannesburg" required>
-
-            <label for="experience">Years of Experience</label>
-            <input type="number" id="experience" min="0" max="50" placeholder="5" required>
-
-            <label for="rate">Hourly Rate (R)</label>
-            <input type="number" id="rate" min="0" placeholder="350" required>
-
-            <label for="description">Short Description</label>
-            <textarea id="description" rows="4" placeholder="Describe your skills..." required></textarea>
-
-            <button type="submit">Save Profile</button>
-        </form>
+    <div class="marketplace-link">
+        <a href="marketplace.html" class="button">Browse Clients / Bookings</a>
     </div>
 </div>
 
 <footer>
-    <button id="openProfile">&#128100;</button>
+    &copy; 2026 <a href="#">www.goldentouchcleaning.com</a>. Trusted Cleaners. Verified Results.
 </footer>
 
 <script>
-// ============================
-// Persistent login check
-// ============================
+// Fetch logged-in cleaner
 const loggedCleanerPhone = localStorage.getItem("loggedCleaner");
 if(!loggedCleanerPhone){
     alert("No cleaner logged in! Redirecting to login.");
     window.location.href = "cleaner-login.html";
 }
 
-// Load cleaners
+// Load cleaner profile
 let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
-let cleaner = cleaners[loggedCleanerPhone]?.profile || {};
+let profile = cleaners[loggedCleanerPhone]?.profile;
 
-// Render Dashboard
-function renderDashboard(){
-    if(!cleaner) return;
+if(profile){
+    document.getElementById("profileImage").src = profile.image || 'https://via.placeholder.com/100';
+    document.getElementById("profileName").textContent = profile.name || '';
+    document.getElementById("profileSpecialty").textContent = profile.specialty || '';
+    document.getElementById("profileLocation").textContent = profile.location || '';
+    document.getElementById("profileExperience").textContent = "Years of Experience: " + (profile.experience || 0);
+    document.getElementById("profileRate").textContent = "Rate: R" + (profile.rate || 0) + "/hr";
 
-    document.getElementById("profileImage").src = cleaner.image || "https://via.placeholder.com/100";
-    document.getElementById("profileName").innerText = cleaner.name || "Unnamed Cleaner";
-    document.getElementById("profileSpecialty").innerText = cleaner.specialty || "Specialty";
-    document.getElementById("profileLocation").innerText = cleaner.location || "Location";
-    document.getElementById("profileExperience").innerText = `Years of Experience: ${cleaner.experience || 0}`;
+    const avgRating = profile.ratings.length > 0 ? (profile.ratings.reduce((a,b)=>a+b,0)/profile.ratings.length).toFixed(1) : "N/A";
+    document.getElementById("profileRating").textContent = "⭐ " + avgRating;
 
-    const ratings = cleaner.ratings || [];
-    const avg = ratings.length ? (ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1) : 0;
-    const fullStars = Math.floor(avg);
-    const halfStar = avg - fullStars >= 0.5 ? "½" : "";
-    const emptyStars = 5 - fullStars - (halfStar?"1":"0");
-    const stars = "★".repeat(fullStars)+halfStar+"☆".repeat(emptyStars);
-
-    document.getElementById("profileRating").innerText = `Rating: ${stars} (${avg})`;
-    document.getElementById("avgRating").innerText = `${avg} ★`;
-    document.getElementById("jobsCount").innerText = cleaner.totalJobs || 0;
-    document.getElementById("earningsTotal").innerText = `R${cleaner.totalEarnings || 0}`;
+    document.getElementById("totalJobs").textContent = profile.totalJobs || 0;
+    document.getElementById("totalEarnings").textContent = "R" + (profile.totalEarnings || 0);
 }
-renderDashboard();
 
-// ============================
-// Profile Modal
-// ============================
-const modal = document.getElementById("profileModal");
-const openBtn = document.getElementById("openProfile");
-const closeBtn = document.getElementById("closeModal");
-
-openBtn.addEventListener("click", ()=>modal.style.display="flex");
-closeBtn.addEventListener("click", ()=>modal.style.display="none");
-window.addEventListener("click", e=>{if(e.target==modal) modal.style.display="none";});
-
-// ============================
-// Modal Image Preview
-// ============================
-const imageInput = document.getElementById("image");
-const preview = document.getElementById("modalPreview");
-
-imageInput.addEventListener("change", function(){
-    const file = this.files[0];
-    if(file){
-        const reader = new FileReader();
-        reader.onload = e => preview.src=e.target.result;
-        reader.readAsDataURL(file);
-    }
-});
-
-// Load existing profile in modal
-document.getElementById("name").value = cleaner.name || "";
-document.getElementById("specialty").value = cleaner.specialty || "";
-document.getElementById("location").value = cleaner.location || "";
-document.getElementById("experience").value = cleaner.experience || "";
-document.getElementById("rate").value = cleaner.rate || "";
-document.getElementById("description").value = cleaner.description || "";
-if(cleaner.image) preview.src = cleaner.image;
-
-// ============================
-// Save Profile
-// ============================
-document.getElementById("profileForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    const image = preview.src;
-    const name = document.getElementById("name").value;
-    const specialty = document.getElementById("specialty").value;
-    const location = document.getElementById("location").value;
-    const experience = parseInt(document.getElementById("experience").value) || 0;
-    const rate = parseFloat(document.getElementById("rate").value) || 0;
-    const description = document.getElementById("description").value;
-
-    cleaner = {
-        image,name,specialty,location,experience,rate,description,
-        totalJobs: cleaner.totalJobs || 0,
-        totalEarnings: cleaner.totalEarnings || 0,
-        ratings: cleaner.ratings || []
-    };
-    cleaners[loggedCleanerPhone].profile = cleaner;
-    localStorage.setItem("cleanerUsers", JSON.stringify(cleaners));
-    renderDashboard();
-    modal.style.display="none";
-    alert("Profile updated successfully!");
-});
-
-// ============================
 // Logout
-// ============================
 document.getElementById("logoutBtn").addEventListener("click", ()=>{
     localStorage.removeItem("loggedCleaner");
-    window.location.href = "cleaner-login.html";
+    window.location.href = "index.html";
+});
+
+// Update totalJobs and totalEarnings when booking from marketplace
+window.addEventListener("storage", function(e){
+    if(e.key === "cleanerUsers"){
+        let updatedCleaners = JSON.parse(e.newValue);
+        let updatedProfile = updatedCleaners[loggedCleanerPhone]?.profile;
+        if(updatedProfile){
+            document.getElementById("totalJobs").textContent = updatedProfile.totalJobs || 0;
+            document.getElementById("totalEarnings").textContent = "R" + (updatedProfile.totalEarnings || 0);
+        }
+    }
 });
 </script>
+
 </body>
 </html>
