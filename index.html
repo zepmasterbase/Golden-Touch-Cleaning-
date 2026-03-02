@@ -6,11 +6,15 @@
 <title>Golden Touch Cleaning</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <style>
+
 /* Basic Reset */
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; }
 
 /* Body */
-body { background:#0F0F0F; color:#fff; }
+body {
+    background:#0F0F0F;
+    color:#fff;
+}
 
 /* Header */
 header {
@@ -24,17 +28,58 @@ header {
     z-index:1000;
     box-shadow:0 2px 10px rgba(0,0,0,0.5);
 }
-header .logo-container { display:flex; align-items:center; gap:10px; }
-header img { width:50px; height:50px; border-radius:50%; border:2px solid #22c55e; }
-header .logo-text { font-size:22px; font-weight:600; color:#fff; }
-header a.button { padding:10px 20px; border-radius:12px; background:#22c55e; color:#0F0F0F; font-weight:600; text-decoration:none; transition:0.3s; }
-header a.button:hover { box-shadow:0 0 15px #22c55e66; transform:translateY(-2px); }
+header .logo-container {
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+header img {
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    border:2px solid #22c55e;
+    object-fit:cover;
+}
+header .logo-text {
+    font-size:22px;
+    font-weight:600;
+    color:#fff;
+}
+header a.button {
+    padding:10px 20px;
+    border-radius:12px;
+    background:#22c55e;
+    color:#0F0F0F;
+    font-weight:600;
+    text-decoration:none;
+    transition:0.3s;
+}
+header a.button:hover {
+    box-shadow:0 0 15px #22c55e66;
+    transform:translateY(-2px);
+}
 
 /* Hero */
-.hero { text-align:center; padding:80px 20px 60px; }
-.hero h1 { font-size:36px; font-weight:600; margin-bottom:15px; }
-.hero p { font-size:18px; opacity:0.85; margin-bottom:30px; }
-.hero .hero-buttons { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
+.hero {
+    text-align:center;
+    padding:80px 20px 60px;
+}
+.hero h1 {
+    font-size:36px;
+    font-weight:600;
+    margin-bottom:15px;
+}
+.hero p {
+    font-size:18px;
+    opacity:0.85;
+    margin-bottom:30px;
+}
+.hero .hero-buttons {
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
 .hero a.button-hero {
     padding:14px 28px;
     border-radius:12px;
@@ -57,12 +102,27 @@ header a.button:hover { box-shadow:0 0 15px #22c55e66; transform:translateY(-2px
     opacity:0;
     transition:0.3s;
 }
-.hero a.button-hero:hover::after { opacity:1; }
+.hero a.button-hero:hover::after {
+    opacity:1;
+}
 
 /* Verified Cleaners Section */
-.cleaners-section { max-width:1200px; margin:60px auto; padding:0 20px; }
-.cleaners-section h2 { text-align:center; font-weight:600; font-size:28px; margin-bottom:30px; }
-.cleaners-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
+.cleaners-section {
+    max-width:1200px;
+    margin:60px auto;
+    padding:0 20px;
+}
+.cleaners-section h2 {
+    text-align:center;
+    font-weight:600;
+    font-size:28px;
+    margin-bottom:30px;
+}
+.cleaners-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
 .cleaner-card {
     background:#1A1A1A;
     border-radius:15px;
@@ -71,10 +131,13 @@ header a.button:hover { box-shadow:0 0 15px #22c55e66; transform:translateY(-2px
     cursor:pointer;
     position:relative;
 }
-.cleaner-card:hover { transform:translateY(-5px); box-shadow:0 0 20px rgba(34,197,94,0.5); }
+.cleaner-card:hover {
+    transform:translateY(-5px);
+    box-shadow:0 0 20px rgba(34,197,94,0.5);
+}
 .cleaner-card img {
     width:100%;
-    height:250px;
+    aspect-ratio:1/1;   /* Perfect square */
     object-fit:cover;
     border-bottom:3px solid #22c55e;
 }
@@ -87,28 +150,48 @@ header a.button:hover { box-shadow:0 0 15px #22c55e66; transform:translateY(-2px
     font-size:12px;
     border-radius:20px;
     font-weight:600;
+    color:#0F0F0F;
 }
-.cleaner-card .info { padding:12px; }
-.cleaner-card h3 { margin:0 0 5px; font-size:18px; }
-.cleaner-card p { margin:0; font-size:14px; opacity:0.8; }
+.cleaner-card .info {
+    padding:15px;
+}
+.cleaner-card h3 {
+    margin-bottom:5px;
+    font-size:18px;
+}
+.cleaner-card p {
+    font-size:14px;
+    opacity:0.8;
+}
 
 /* Footer */
-footer { text-align:center; padding:20px; font-size:14px; opacity:0.7; background:#111; }
-footer a { color:#22c55e; text-decoration:none; }
+footer {
+    text-align:center;
+    padding:20px;
+    font-size:14px;
+    opacity:0.7;
+    background:#111;
+}
+footer a {
+    color:#22c55e;
+    text-decoration:none;
+}
 
 /* Responsive */
 @media(max-width:768px){
     .hero h1 { font-size:28px; }
     .hero p { font-size:16px; }
-    .cleaner-card img { height:180px; }
 }
+
 </style>
 </head>
 <body>
 
 <header>
     <div class="logo-container">
-        <a href="#"><img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinh5i6ubuplj91nb41rbdl8v15.png" alt="Golden Touch Cleaning Logo"></a>
+        <a href="#">
+            <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinh5i6ubuplj91nb41rbdl8v15.png" alt="Golden Touch Cleaning Logo">
+        </a>
         <span class="logo-text">Golden Touch Cleaning</span>
     </div>
     <a href="services.html" class="button">Services</a>
@@ -126,38 +209,43 @@ footer a { color:#22c55e; text-decoration:none; }
 <section class="cleaners-section">
     <h2>Our Verified Cleaners</h2>
     <div class="cleaners-grid">
+
         <div class="cleaner-card">
-            <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinhu2v6i4c1mi51g01eto1t8h1b.png" alt="Cleaner Female">
+            <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinih43743q1gp277i8pk1o1015.jpg" alt="Female Cleaner">
             <span class="badge">Verified</span>
             <div class="info">
-                <h3>Jane Doe</h3>
+                <h3>Jane M.</h3>
                 <p>Kitchen & Bathroom Specialist</p>
             </div>
         </div>
+
         <div class="cleaner-card">
-            <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jini2c2s19q011gg1etu16db1j8a15.jpg" alt="Cleaner Male">
+            <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinih7ne1qg11gbo1kqr1hvpd171b.jpg" alt="Male Cleaner">
             <span class="badge">Verified</span>
             <div class="info">
-                <h3>John Smith</h3>
-                <p>Luxury Hotel & Residential</p>
+                <h3>Michael T.</h3>
+                <p>Luxury Residential Expert</p>
             </div>
         </div>
+
         <div class="cleaner-card">
-            <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinhu2v6i4c1mi51g01eto1t8h1b.png" alt="Cleaner Female">
+            <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinih43743q1gp277i8pk1o1015.jpg" alt="Female Cleaner">
             <span class="badge">Verified</span>
             <div class="info">
                 <h3>Emily R.</h3>
                 <p>General Cleaning Expert</p>
             </div>
         </div>
+
         <div class="cleaner-card">
-            <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jini2c2s19q011gg1etu16db1j8a15.jpg" alt="Cleaner Male">
+            <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinih7ne1qg11gbo1kqr1hvpd171b.jpg" alt="Male Cleaner">
             <span class="badge">Verified</span>
             <div class="info">
-                <h3>Michael T.</h3>
-                <p>Kitchen & Luxury Hotel Rooms</p>
+                <h3>John S.</h3>
+                <p>Office & Hotel Specialist</p>
             </div>
         </div>
+
     </div>
 </section>
 
