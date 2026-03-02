@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - Golden Touch Cleaning</title>
+<style>
+body{
+    font-family:'Segoe UI', sans-serif;
+    background:#0f172a;
+    color:white;
+    margin:0;
+    padding:20px;
+}
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+header h1{font-weight:600;}
+button.logout{
+    background:#ef4444;
+    color:white;
+    padding:8px 14px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+section{
+    margin-bottom:40px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    border-radius:12px;
+    overflow:hidden;
+}
+th, td{
+    padding:12px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+    text-align:center;
+}
+th{
+    background:rgba(0,0,0,0.3);
+}
+button.action{
+    padding:6px 10px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    margin:2px;
+}
+button.approve{background:#22c55e;color:white;}
+button.reject{background:#ef4444;color:white;}
+button.complete{background:#3b82f6;color:white;}
+h2{margin-bottom:15px;}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Admin Dashboard</h1>
+<button class="logout" onclick="logout()">Logout</button>
+</header>
+
+<div class="container">
+
+<section>
+<h2>Cleaner Accounts</h2>
+<table id="cleanerTable">
+<thead>
+<tr>
+<th>Name</th>
+<th>Phone</th>
+<th>Specialty</th>
+<th>Experience</th>
+<th>Rate</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</section>
+
+<section>
+<h2>Bookings</h2>
+<table id="bookingTable">
+<thead>
+<tr>
+<th>Cleaner</th>
+<th>Client</th>
+<th>Date</th>
+<th>Hours</th>
+<th>Total</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</section>
+
+<script>
+// Admin login protection (basic)
+const adminLoggedIn = true; // For MVP, you can expand with proper auth later
+if(!adminLoggedIn){
+    alert("Not authorized");
+    window.location.href="cleaner-auth.html";
+}
+
+// Load Cleaners
+function loadCleaners(){
+    const users = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
+    const tbody = document.querySelector("#cleanerTable tbody");
+    tbody.innerHTML="";
+    for(let phone in users){
+        const u = users[phone];
+        const profile = u.profile || {};
+        const status = u.approved ? "Approved" : "Pending";
+        const row = document.createElement("tr");
+        row.innerHTML=`
+            <td>${profile.name || "N/A"}</td>
+            <td>${phone}</td>
+            <td>${profile.specialty || "N/A"}</td>
+            <td>${profile.experience || "N/A"}</td>
+            <td>${profile.rate || "N/A"}</td>
+            <td>${status}</td>
+            <td>
+            ${!u.approved ? `<button class="action approve" onclick="approveCleaner('${phone}')">Approve</button>` : ""}
+            ${!u.approved ? `<button class="action reject" onclick="rejectCleaner('${phone}')">Reject</button>` : ""}
+            </td>
+        `;
+        tbody.appendChild(row);
+    }
+}
+
+// Approve / Reject Cleaner
+function approveCleaner(phone){
+    const users = JSON.parse(localStorage.getItem("cleanerUsers"));
+    users[phone].approved = true;
+    localStorage.setItem("cleanerUsers",JSON.stringify(users));
+    loadCleaners();
+}
+function rejectCleaner(phone){
+    const users = JSON.parse(localStorage.getItem("cleanerUsers"));
+    delete users[phone];
+    localStorage.setItem("cleanerUsers",JSON.stringify(users));
+    loadCleaners();
+}
+
+// Load Bookings
+function loadBookings(){
+    const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+    const tbody = document.querySelector("#bookingTable tbody");
+    tbody.innerHTML="";
+    bookings.forEach(b=>{
+        const users = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
+        const cleanerName = users[b.cleanerPhone]?.profile?.name || "Unknown";
+        const row = document.createElement("tr");
+        row.innerHTML=`
+            <td>${cleanerName}</td>
+            <td>${b.clientName}</td>
+            <td>${b.date}</td>
+            <td>${b.hours}</td>
+            <td>R ${b.total}</td>
+            <td>${b.status}</td>
+            <td>
+            ${b.status==="pending" ? `<button class="action approve" onclick="updateBooking(${b.id},'confirmed')">Confirm</button>` : ""}
+            ${b.status==="confirmed" ? `<button class="action complete" onclick="updateBooking(${b.id},'completed')">Complete</button>` : ""}
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+// Update booking status
+function updateBooking(id,status){
+    const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+    bookings.forEach(b=>{
+        if(b.id===id){b.status=status;}
+    });
+    localStorage.setItem("bookings",JSON.stringify(bookings));
+    loadBookings();
+}
+
+// Logout
+function logout(){
+    window.location.href="cleaner-auth.html";
+}
+
+loadCleaners();
+loadBookings();
+</script>
+
+</body>
+</html>
