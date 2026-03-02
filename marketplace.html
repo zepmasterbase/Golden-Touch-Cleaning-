@@ -3,268 +3,307 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verified Cleaners Marketplace</title>
+<title>Verified Cleaners Marketplace - Golden Touch</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <style>
 body{
-    font-family: 'Segoe UI', sans-serif;
-    background:#0f172a;
-    color:white;
+    font-family:'Montserrat',sans-serif;
     margin:0;
-    padding:0;
+    background:#0F172A;
+    color:white;
 }
 header{
+    padding:30px 20px;
     text-align:center;
-    padding:40px 20px;
+    background:rgba(0,0,0,0.3);
+    position:relative;
+    overflow:hidden;
 }
 header h1{
     font-weight:600;
-    font-size:32px;
+    font-size:28px;
 }
-header p{
-    margin-top:10px;
-    opacity:0.8;
+header::after{
+    content:"";
+    position:absolute;
+    top:0; left:0; width:100%; height:100%;
+    box-shadow:0 0 30px #00E5FF inset;
+    animation:pulse 3s infinite;
+    pointer-events:none;
 }
+@keyframes pulse{
+    0%,100%{opacity:1;}
+    50%{opacity:0.8;}
+}
+
+.search-bar{
+    margin:20px auto;
+    text-align:center;
+}
+.search-bar input[type="number"]{
+    padding:8px 12px;
+    border-radius:8px;
+    border:none;
+    width:100px;
+    margin-right:10px;
+}
+.search-bar button{
+    padding:8px 14px;
+    border:none;
+    border-radius:8px;
+    background:#00E5FF;
+    color:#0F172A;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+.search-bar button:hover{
+    box-shadow:0 0 10px #00E5FF;
+}
+
 .container{
     max-width:1200px;
     margin:20px auto;
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:25px;
+    gap:20px;
     padding:0 20px;
 }
+
 .card{
     background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(10px);
+    backdrop-filter:blur(8px);
     border-radius:15px;
-    padding:20px;
-    transition:0.3s ease;
-    display:flex;
-    flex-direction:column;
+    padding:15px;
+    transition:0.3s;
+    cursor:pointer;
 }
 .card:hover{
     transform:translateY(-5px);
-    box-shadow:0 0 20px rgba(0,255,255,0.2);
+    box-shadow:0 0 15px #00E5FF55;
 }
 .card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:12px;
+    margin-bottom:10px;
+}
+.card .badge{
+    background:#22c55e;
+    display:inline-block;
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:12px;
+    margin-bottom:5px;
+}
+.card h3{margin:5px 0;}
+.card .rating{color:#FFD700;font-size:14px; margin-bottom:5px;}
+.card .details{font-size:13px;opacity:0.85;margin-bottom:3px;}
+.card button{
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    width:100%;
+    background:#7C3AED;
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+.card button:hover{
+    box-shadow:0 0 12px #7C3AED55;
+}
+
+/* Modal */
+.modal{
+    display:none;
+    position:fixed;
+    top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.7);
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+}
+.modal-content{
+    background:#1e293b;
+    border-radius:15px;
+    padding:25px;
+    max-width:400px;
+    width:90%;
+    position:relative;
+}
+.modal-content img{
     width:100%;
     height:200px;
     object-fit:cover;
     border-radius:12px;
     margin-bottom:15px;
 }
-.badge{
-    display:inline-block;
-    padding:4px 10px;
-    background:#22c55e;
-    border-radius:20px;
-    font-size:12px;
-    margin-bottom:10px;
+.modal-content .close{
+    position:absolute;
+    top:10px; right:15px;
+    cursor:pointer;
+    font-size:18px;
+    color:#ef4444;
 }
-.details{
-    font-size:14px;
-    opacity:0.9;
-    margin-bottom:5px;
-}
-.rating{
-    font-size:14px;
-    color:#FFD700;
-    margin-bottom:8px;
-}
-button{
+.modal-content h2{margin-bottom:8px;}
+.modal-content .rating{margin-bottom:10px;color:#FFD700;}
+.modal-content p{margin-bottom:6px;opacity:0.85;}
+.modal-content button{
+    width:100%;
+    margin-top:10px;
     padding:10px;
     border:none;
     border-radius:10px;
-    background:linear-gradient(90deg,#00f2ff,#7c3aed);
-    color:white;
+    background:#00E5FF;
+    color:#0F172A;
     font-weight:600;
     cursor:pointer;
-    transition:0.3s;
 }
-button:hover{
-    box-shadow:0 0 15px #00f2ff66;
-}
-.modal{
-    position:fixed;
-    top:0;left:0;
-    width:100%;height:100%;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    background:rgba(0,0,0,0.6);
-}
-.modal-content{
-    background:#1e293b;
-    padding:25px;
-    border-radius:15px;
-    width:320px;
-}
-.modal-content input{
-    width:100%;
-    padding:8px;
-    margin-bottom:10px;
-    border:none;
-    border-radius:6px;
-}
-.close{float:right;cursor:pointer;color:red;}
-.empty{
-    text-align:center;
-    margin-top:50px;
-    opacity:0.7;
+
+/* Responsive */
+@media(max-width:768px){
+    .card img{height:150px;}
+    .modal-content img{height:150px;}
+    header h1{font-size:22px;}
 }
 </style>
 </head>
 <body>
 
 <header>
-<h1>Find Verified Cleaners Near You</h1>
-<p>Professional. Trusted. Rated by clients.</p>
+    <h1>Find Verified Cleaners Near You</h1>
 </header>
 
-<div class="container" id="cleanerContainer"></div>
-<p class="empty" id="emptyMsg">Loading cleaners...</p>
+<div class="search-bar">
+    <label for="radius">Radius (miles): </label>
+    <input type="number" id="radius" value="5" min="1" max="20">
+    <button onclick="displayCleaners()">Search</button>
+</div>
 
-<!-- Booking Modal -->
-<div class="modal" id="bookingModal">
+<div class="container" id="cleanerContainer">
+<!-- Cleaner cards will appear here -->
+</div>
+
+<p id="emptyMsg" style="text-align:center; margin-top:40px; opacity:0.7;"></p>
+
+<!-- Cleaner Modal -->
+<div class="modal" id="cleanerModal">
 <div class="modal-content">
-<span class="close" onclick="closeModal()">✖</span>
-<h3>Book Cleaner</h3>
-<input type="text" id="clientName" placeholder="Your Name" required>
-<input type="text" id="clientPhone" placeholder="Your Phone" required>
-<input type="date" id="serviceDate" required>
-<input type="number" id="hours" placeholder="Number of Hours" required>
-<button onclick="submitBooking()">Submit Booking</button>
+    <span class="close" onclick="closeModal()">✖</span>
+    <img id="modalImage" src="placeholder.jpg">
+    <h2 id="modalName">Name</h2>
+    <div class="rating" id="modalRating">⭐⭐⭐</div>
+    <p><strong>Specialty:</strong> <span id="modalSpecialty"></span></p>
+    <p><strong>Experience:</strong> <span id="modalExperience"></span> years</p>
+    <p><strong>Rate:</strong> R <span id="modalRate"></span>/hour</p>
+    <button id="bookBtn">Book Cleaner</button>
 </div>
 </div>
 
 <script>
-// Business WhatsApp number
+// WhatsApp booking number template
 const businessWhatsAppNumber = "27624676223";
 
-// Helper: Haversine distance formula
-function distance(lat1, lon1, lat2, lon2) {
-    const R = 6371; // km
-    const dLat = (lat2-lat1)*Math.PI/180;
-    const dLon = (lon2-lon1)*Math.PI/180;
-    const a = Math.sin(dLat/2)**2 +
-        Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) *
-        Math.sin(dLon/2)**2;
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    return R * c;
-}
-
-// Load cleaners
-const container = document.getElementById("cleanerContainer");
-const emptyMsg = document.getElementById("emptyMsg");
-
+// Fetch cleaners from localStorage
 let users = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
-let cleanersFound = 0;
 let clientLat=0, clientLon=0;
-
-// Get client location
 navigator.geolocation.getCurrentPosition(pos=>{
     clientLat=pos.coords.latitude;
     clientLon=pos.coords.longitude;
     displayCleaners();
 }, err=>{
-    alert("Location access needed to find cleaners near you.");
+    alert("Location needed to find nearby cleaners.");
     displayCleaners();
 });
 
-let selectedCleaner = null;
+// Haversine formula to calculate distance
+function distance(lat1, lon1, lat2, lon2){
+    const R=6371; // km
+    const dLat=(lat2-lat1)*Math.PI/180;
+    const dLon=(lon2-lon1)*Math.PI/180;
+    const a=Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
+    const c=2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R*c; // km
+}
 
+// Display cleaners
 function displayCleaners(){
+    const container=document.getElementById("cleanerContainer");
+    const radiusMiles = Number(document.getElementById("radius").value);
+    const radiusKm = radiusMiles*1.60934;
     container.innerHTML="";
-    cleanersFound=0;
-
+    let found=0;
     for(let phone in users){
-        let u = users[phone];
+        const u=users[phone];
         if(u.profile && u.approved){
             const p = u.profile;
-            
-            // Geo filter (if location known)
-            let show = true;
+            let show=true;
             if(clientLat && clientLon && p.lat && p.lon){
-                let d = distance(clientLat, clientLon, p.lat, p.lon);
-                if(d>8){show=false;} // ~5 miles = 8 km
+                const d=distance(clientLat,clientLon,p.lat,p.lon);
+                if(d>radiusKm) show=false;
             }
-
             if(show){
-                cleanersFound++;
-                
-                let ratings = p.ratings || [];
-                let avgRating = ratings.length ? (ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1) : "N/A";
-                let stars = "";
+                found++;
+                const ratings = p.ratings||[];
+                const avgRating = ratings.length ? (ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1) : "N/A";
+                let stars="";
                 if(avgRating!=="N/A"){
-                    let full = Math.floor(avgRating);
-                    let half = avgRating - full >=0.5 ? 1 : 0;
-                    let empty = 5 - full - half;
-                    stars = "★".repeat(full) + (half?"½":"") + "☆".repeat(empty);
-                } else {
-                    stars = "No ratings";
-                }
-
+                    let full=Math.floor(avgRating);
+                    let half=avgRating-full>=0.5?1:0;
+                    let empty=5-full-half;
+                    stars="★".repeat(full)+(half?"½":"")+"☆".repeat(empty);
+                } else { stars="No ratings"; }
                 const card = document.createElement("div");
                 card.className="card";
                 card.innerHTML=`
-                    <img src="${p.image || 'https://via.placeholder.com/400x300'}">
-                    <span class="badge">Verified Cleaner</span>
+                    <img src="${p.image||'https://via.placeholder.com/400x300'}">
+                    <span class="badge">Verified</span>
                     <h3>${p.name}</h3>
                     <div class="rating">${stars} (${avgRating})</div>
                     <div class="details"><strong>Specialty:</strong> ${p.specialty}</div>
                     <div class="details"><strong>Experience:</strong> ${p.experience} years</div>
                     <div class="details"><strong>Rate:</strong> R ${p.rate}/hour</div>
-                    <button onclick="openBooking('${phone}')">Book Cleaner</button>
                 `;
+                card.onclick=()=>openModal(phone);
                 container.appendChild(card);
             }
         }
     }
-    if(cleanersFound===0){
-        emptyMsg.innerText="No verified cleaners nearby. Try expanding your location range.";
-    } else {
-        emptyMsg.innerText="";
-    }
+    document.getElementById("emptyMsg").innerText=found===0?"No cleaners found within radius.": "";
 }
 
-// Booking Modal
-function openBooking(phone){
-    selectedCleaner = phone;
-    document.getElementById("bookingModal").style.display="flex";
+// Cleaner modal
+let selectedCleaner=null;
+function openModal(phone){
+    selectedCleaner=phone;
+    const p=users[phone].profile;
+    document.getElementById("modalImage").src=p.image||'https://via.placeholder.com/400x300';
+    document.getElementById("modalName").innerText=p.name;
+    const ratings=p.ratings||[];
+    const avgRating = ratings.length ? (ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1) : "N/A";
+    let stars="";
+    if(avgRating!=="N/A"){
+        let full=Math.floor(avgRating);
+        let half=avgRating-full>=0.5?1:0;
+        let empty=5-full-half;
+        stars="★".repeat(full)+(half?"½":"")+"☆".repeat(empty);
+    } else { stars="No ratings"; }
+    document.getElementById("modalRating").innerText=`${stars} (${avgRating})`;
+    document.getElementById("modalSpecialty").innerText=p.specialty;
+    document.getElementById("modalExperience").innerText=p.experience;
+    document.getElementById("modalRate").innerText=p.rate;
+    document.getElementById("bookBtn").onclick=()=>bookCleaner(phone);
+    document.getElementById("cleanerModal").style.display="flex";
 }
-
 function closeModal(){
-    document.getElementById("bookingModal").style.display="none";
+    document.getElementById("cleanerModal").style.display="none";
 }
-
-function submitBooking(){
-    const clientName=document.getElementById("clientName").value;
-    const clientPhone=document.getElementById("clientPhone").value;
-    const date=document.getElementById("serviceDate").value;
-    const hours=document.getElementById("hours").value;
-
-    if(!clientName||!clientPhone||!date||!hours){
-        alert("Please fill all fields");
-        return;
-    }
-
-    const rate = users[selectedCleaner].profile.rate;
-    const total = rate*hours;
-
-    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
-    bookings.push({
-        id:Date.now(),
-        cleanerPhone:selectedCleaner,
-        clientName,
-        clientPhone,
-        date,
-        hours,
-        rate,
-        total,
-        status:"pending"
-    });
-    localStorage.setItem("bookings",JSON.stringify(bookings));
-    alert("Booking request sent! Cleaner will confirm shortly.");
-    closeModal();
+function bookCleaner(phone){
+    const p=users[phone].profile;
+    const message=`Hi ${p.name}, I would like to book your cleaning service.`;
+    window.open(`https://wa.me/${businessWhatsAppNumber}?text=${encodeURIComponent(message)}`);
 }
 </script>
 
