@@ -49,35 +49,73 @@ header button.logout:hover{
 
 /* Main container */
 .container{
-    max-width:1000px;
+    max-width:900px;
     margin:20px auto;
     padding:0 15px;
 }
 
-/* Cleaner Card */
+/* Cleaner card - modern sleek */
 .cleaner-card{
     display:flex;
-    background:#1A1A1A;
-    border-radius:15px;
-    padding:15px;
+    background:#111;
+    border-radius:20px;
+    padding:15px 20px;
     align-items:center;
+    justify-content:space-between;
     margin-bottom:20px;
     transition:0.3s;
 }
 .cleaner-card:hover{
-    box-shadow:0 0 15px #22c55e66;
+    box-shadow:0 0 20px #22c55e77;
 }
-.cleaner-card img{
-    width:80px;
-    height:80px;
+.cleaner-card-left{
+    display:flex;
+    align-items:center;
+}
+.cleaner-card-left img{
+    width:90px;
+    height:90px;
     border-radius:50%;
     object-fit:cover;
-    margin-right:15px;
     border:2px solid #22c55e;
+    margin-right:15px;
 }
-.cleaner-card-info{
+.cleaner-card-left div{
     display:flex;
     flex-direction:column;
+}
+.cleaner-card-left h3{
+    margin:0;
+    font-size:18px;
+}
+.cleaner-card-left p{
+    margin:2px 0;
+    font-size:14px;
+}
+.cleaner-card-right{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+}
+.cleaner-card-right p{
+    margin:2px 0;
+}
+.cleaner-card-right .rating{
+    color:#22c55e;
+    font-weight:600;
+}
+.cleaner-card-right button{
+    padding:8px 14px;
+    border:none;
+    border-radius:12px;
+    background:#22c55e;
+    color:#0F0F0F;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+.cleaner-card-right button:hover{
+    box-shadow:0 0 10px #22c55e77;
 }
 
 /* Stats grid */
@@ -88,14 +126,14 @@ header button.logout:hover{
     margin-bottom:30px;
 }
 .stat-card{
-    background:#1A1A1A;
-    border-radius:15px;
+    background:#111;
+    border-radius:20px;
     padding:20px;
     text-align:center;
     transition:0.3s;
 }
 .stat-card:hover{
-    box-shadow:0 0 15px #22c55e66;
+    box-shadow:0 0 20px #22c55e77;
 }
 .stat-card h3{
     font-size:18px;
@@ -103,6 +141,14 @@ header button.logout:hover{
 }
 .stat-card p{
     font-size:16px;
+}
+
+/* Earnings Chart */
+#earningsChart{
+    background:#111;
+    padding:15px;
+    border-radius:20px;
+    margin-bottom:30px;
 }
 
 /* Footer */
@@ -119,10 +165,6 @@ footer{
 footer a{
     color:#22c55e;
     text-decoration:none;
-    font-size:20px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
 }
 footer img{
     width:45px;
@@ -130,18 +172,11 @@ footer img{
     border-radius:50%;
     border:2px solid #22c55e;
 }
-
-/* Earnings Graph */
-#earningsChart{
-    background:#1A1A1A;
-    padding:15px;
-    border-radius:15px;
-}
 @media(max-width:480px){
-    header h1{font-size:16px;}
-    .stat-card h3{font-size:16px;}
-    .stat-card p{font-size:14px;}
-    .cleaner-card img{width:60px;height:60px;}
+    .cleaner-card-left img{width:70px;height:70px;}
+    .cleaner-card-left h3{font-size:16px;}
+    .cleaner-card-left p,.cleaner-card-right p{font-size:12px;}
+    .cleaner-card-right button{font-size:12px;padding:6px 10px;}
 }
 </style>
 </head>
@@ -159,39 +194,27 @@ footer img{
 
     <!-- Cleaner Info Card -->
     <div class="cleaner-card" id="cleanerCard">
-        <img id="profileImage" src="https://via.placeholder.com/80" alt="Cleaner">
-        <div class="cleaner-card-info">
-            <h3 id="cleanerName">Cleaner Name</h3>
-            <p id="cleanerSpecialty">Specialty</p>
-            <p id="cleanerLocation">City</p>
-            <p id="cleanerRating">⭐ 0.0</p>
+        <div class="cleaner-card-left">
+            <img id="profileImage" src="https://via.placeholder.com/90" alt="Cleaner">
+            <div>
+                <h3 id="cleanerName">Cleaner Name</h3>
+                <p id="cleanerSpecialty">Specialty</p>
+                <p id="cleanerLocation">City</p>
+                <p class="rating" id="cleanerRating">⭐ 0.0</p>
+            </div>
         </div>
-    </div>
-
-    <!-- Stats Grid -->
-    <div class="stats-grid">
-        <div class="stat-card">
-            <h3>Total Jobs</h3>
-            <p id="totalJobs">0</p>
-        </div>
-        <div class="stat-card">
-            <h3>Total Earnings</h3>
-            <p id="totalEarnings">R0</p>
-        </div>
-        <div class="stat-card">
-            <h3>Weekly Jobs</h3>
-            <p id="weeklyJobs">0</p>
-        </div>
-        <div class="stat-card">
-            <h3>Monthly Jobs</h3>
-            <p id="monthlyJobs">0</p>
+        <div class="cleaner-card-right">
+            <p id="totalJobs">Total Jobs: 0</p>
+            <p id="totalEarnings">Earnings: R0</p>
+            <p id="weeklyJobs">Weekly: 0</p>
+            <p id="monthlyJobs">Monthly: 0</p>
+            <button onclick="editProfile()">Profile</button>
         </div>
     </div>
 
     <!-- Earnings Graph -->
-    <div id="earningsChartContainer">
-        <canvas id="earningsChart"></canvas>
-    </div>
+    <canvas id="earningsChart"></canvas>
+
 </div>
 
 <footer>
@@ -202,14 +225,19 @@ footer img{
 // Logout
 function logout(){
     localStorage.removeItem("loggedCleaner");
-    window.location.href="index.html";
+    window.location.href="login-register.html";
+}
+
+// Open profile
+function editProfile(){
+    window.location.href="profile.html";
 }
 
 // Fetch logged-in cleaner
 const loggedCleanerPhone = localStorage.getItem("loggedCleaner");
 if(!loggedCleanerPhone){
-    alert("No cleaner logged in! Redirecting to login.");
-    window.location.href="cleaner-login.html";
+    alert("No cleaner logged in! Redirecting...");
+    window.location.href="login-register.html";
 }
 
 // Load cleaner data
@@ -217,51 +245,41 @@ let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
 let cleaner = cleaners[loggedCleanerPhone]?.profile;
 
 if(cleaner){
-    document.getElementById("profileImage").src = cleaner.image || "https://via.placeholder.com/80";
+    document.getElementById("profileImage").src = cleaner.image || "https://via.placeholder.com/90";
     document.getElementById("footerProfileImage").src = cleaner.image || "https://via.placeholder.com/45";
     document.getElementById("cleanerName").textContent = cleaner.name;
     document.getElementById("cleanerSpecialty").textContent = cleaner.specialty;
     document.getElementById("cleanerLocation").textContent = cleaner.location;
-    const avgRating = cleaner.ratings.length > 0 ? (cleaner.ratings.reduce((a,b)=>a+b,0)/cleaner.ratings.length).toFixed(1) : "N/A";
+    const avgRating = cleaner.ratings?.length > 0 ? (cleaner.ratings.reduce((a,b)=>a+b,0)/cleaner.ratings.length).toFixed(1) : "N/A";
     document.getElementById("cleanerRating").textContent = "⭐ "+avgRating;
 
-    document.getElementById("totalJobs").textContent = cleaner.totalJobs || 0;
-    document.getElementById("totalEarnings").textContent = "R"+(cleaner.totalEarnings || 0);
-    
-    // Weekly and Monthly Jobs (dummy calculation, can expand to track per booking date)
-    const weeklyJobs = Math.floor((cleaner.totalJobs || 0)/4); // approximate
-    const monthlyJobs = cleaner.totalJobs || 0;
-    document.getElementById("weeklyJobs").textContent = weeklyJobs;
-    document.getElementById("monthlyJobs").textContent = monthlyJobs;
+    document.getElementById("totalJobs").textContent = "Total Jobs: " + (cleaner.totalJobs || 0);
+    document.getElementById("totalEarnings").textContent = "Earnings: R" + (cleaner.totalEarnings || 0);
+    document.getElementById("weeklyJobs").textContent = "Weekly: " + ((cleaner.weeklyJobs)||0);
+    document.getElementById("monthlyJobs").textContent = "Monthly: " + ((cleaner.monthlyJobs)||0);
 }
 
 // Earnings Graph
 const ctx = document.getElementById('earningsChart').getContext('2d');
-const earningsChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Week 1','Week 2','Week 3','Week 4'],
-        datasets: [{
-            label: 'Weekly Earnings (R)',
-            data: [
-                ((cleaner?.totalEarnings || 0)/4).toFixed(2),
-                ((cleaner?.totalEarnings || 0)/4).toFixed(2),
-                ((cleaner?.totalEarnings || 0)/4).toFixed(2),
-                ((cleaner?.totalEarnings || 0)/4).toFixed(2)
+const earningsChart = new Chart(ctx,{
+    type:'bar',
+    data:{
+        labels:['Week 1','Week 2','Week 3','Week 4'],
+        datasets:[{
+            label:'Weekly Earnings (R)',
+            data:[
+                ((cleaner?.totalEarnings||0)/4).toFixed(2),
+                ((cleaner?.totalEarnings||0)/4).toFixed(2),
+                ((cleaner?.totalEarnings||0)/4).toFixed(2),
+                ((cleaner?.totalEarnings||0)/4).toFixed(2)
             ],
             backgroundColor:'#22c55e'
         }]
     },
-    options: {
+    options:{
         responsive:true,
-        plugins:{
-            legend:{display:false}
-        },
-        scales:{
-            y:{
-                beginAtZero:true
-            }
-        }
+        plugins:{legend:{display:false}},
+        scales:{y:{beginAtZero:true}}
     }
 });
 </script>
