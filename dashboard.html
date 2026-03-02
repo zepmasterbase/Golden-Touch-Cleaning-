@@ -5,16 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cleaner Dashboard - Golden Touch Cleaning</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-body {
+body{
     margin:0;
     font-family:'Montserrat',sans-serif;
     background:#0F0F0F;
     color:#fff;
 }
 
-/* Header */
 header{
     display:flex;
     justify-content:space-between;
@@ -24,8 +22,8 @@ header{
     box-shadow:0 2px 10px rgba(0,0,0,0.5);
 }
 header img.logo{
-    width:40px;
-    height:40px;
+    width:45px;
+    height:45px;
     border-radius:50%;
 }
 header h1{
@@ -34,7 +32,7 @@ header h1{
     margin-left:10px;
 }
 header button.logout{
-    padding:6px 12px;
+    padding:6px 14px;
     border:none;
     border-radius:10px;
     background:#22c55e;
@@ -49,41 +47,50 @@ header button.logout:hover{
 
 /* Main container */
 .container{
-    max-width:1000px;
+    max-width:950px;
     margin:20px auto;
     padding:0 15px;
 }
 
-/* Cleaner Card */
-.cleaner-card{
-    display:flex;
+/* Profile card */
+.profile-card{
     background:#1A1A1A;
     border-radius:15px;
-    padding:15px;
+    display:flex;
     align-items:center;
-    margin-bottom:20px;
+    padding:20px;
+    margin-bottom:30px;
+    box-shadow:0 0 10px #22c55e44;
     transition:0.3s;
 }
-.cleaner-card:hover{
+.profile-card:hover{
     box-shadow:0 0 15px #22c55e66;
 }
-.cleaner-card img{
-    width:80px;
-    height:80px;
+.profile-card img{
+    width:120px;
+    height:120px;
     border-radius:50%;
     object-fit:cover;
-    margin-right:15px;
-    border:2px solid #22c55e;
+    border:3px solid #22c55e;
+    margin-right:20px;
 }
-.cleaner-card-info{
-    display:flex;
-    flex-direction:column;
+.profile-details h2{
+    margin:0 0 5px 0;
+    font-size:20px;
+}
+.profile-details p{
+    margin:3px 0;
+    font-size:14px;
+}
+.profile-details .rating{
+    color:#FFD700;
+    margin-top:5px;
 }
 
 /* Stats grid */
 .stats-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
     gap:20px;
     margin-bottom:30px;
 }
@@ -125,30 +132,24 @@ footer a{
     justify-content:center;
 }
 footer img{
-    width:45px;
-    height:45px;
+    width:40px;
+    height:40px;
     border-radius:50%;
-    border:2px solid #22c55e;
-}
-
-/* Earnings Graph */
-#earningsChart{
-    background:#1A1A1A;
-    padding:15px;
-    border-radius:15px;
 }
 @media(max-width:480px){
     header h1{font-size:16px;}
+    .profile-card{flex-direction:column; text-align:center;}
+    .profile-card img{margin-bottom:10px; margin-right:0;}
+    .profile-details h2{font-size:18px;}
+    .profile-details p, .stat-card p{font-size:14px;}
     .stat-card h3{font-size:16px;}
-    .stat-card p{font-size:14px;}
-    .cleaner-card img{width:60px;height:60px;}
 }
 </style>
 </head>
 <body>
 
 <header>
-    <div style="display:flex;align-items:center;">
+    <div style="display:flex; align-items:center;">
         <img class="logo" src="https://payhip.com/cdn-cgi/image/format=auto,width=1500/https://pe56d.s3.amazonaws.com/o_1jin4vd70ca01qei1kso11qo1sek15.jpg" alt="Logo">
         <h1>Dashboard</h1>
     </div>
@@ -157,18 +158,17 @@ footer img{
 
 <div class="container">
 
-    <!-- Cleaner Info Card -->
-    <div class="cleaner-card" id="cleanerCard">
-        <img id="profileImage" src="https://via.placeholder.com/80" alt="Cleaner">
-        <div class="cleaner-card-info">
-            <h3 id="cleanerName">Cleaner Name</h3>
-            <p id="cleanerSpecialty">Specialty</p>
-            <p id="cleanerLocation">City</p>
-            <p id="cleanerRating">⭐ 0.0</p>
+    <div class="profile-card" id="profileCard">
+        <!-- Profile image, name, city, specialty, rating -->
+        <img src="https://via.placeholder.com/120" alt="Profile">
+        <div class="profile-details">
+            <h2 id="profileName">Cleaner Name</h2>
+            <p id="profileSpecialty">Specialty</p>
+            <p id="profileLocation">Location</p>
+            <p class="rating" id="profileRating">⭐ N/A</p>
         </div>
     </div>
 
-    <!-- Stats Grid -->
     <div class="stats-grid">
         <div class="stat-card">
             <h3>Total Jobs</h3>
@@ -179,23 +179,18 @@ footer img{
             <p id="totalEarnings">R0</p>
         </div>
         <div class="stat-card">
-            <h3>Weekly Jobs</h3>
-            <p id="weeklyJobs">0</p>
+            <h3>Weekly Earnings</h3>
+            <p id="weeklyEarnings">R0</p>
         </div>
         <div class="stat-card">
-            <h3>Monthly Jobs</h3>
-            <p id="monthlyJobs">0</p>
+            <h3>Monthly Earnings</h3>
+            <p id="monthlyEarnings">R0</p>
         </div>
-    </div>
-
-    <!-- Earnings Graph -->
-    <div id="earningsChartContainer">
-        <canvas id="earningsChart"></canvas>
     </div>
 </div>
 
 <footer>
-    <a href="profile.html" title="Profile"><img id="footerProfileImage" src="https://via.placeholder.com/45" alt="Profile"></a>
+    <a href="profile.html" title="Profile"><img src="https://via.placeholder.com/40" alt="Profile"></a>
 </footer>
 
 <script>
@@ -208,60 +203,39 @@ function logout(){
 // Fetch logged-in cleaner
 const loggedCleanerPhone = localStorage.getItem("loggedCleaner");
 if(!loggedCleanerPhone){
-    alert("No cleaner logged in! Redirecting to login.");
+    alert("No cleaner logged in!");
     window.location.href="cleaner-login.html";
 }
 
-// Load cleaner data
+// Load cleaner profile
 let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
-let cleaner = cleaners[loggedCleanerPhone]?.profile;
+let profile = cleaners[loggedCleanerPhone]?.profile || {};
 
-if(cleaner){
-    document.getElementById("profileImage").src = cleaner.image || "https://via.placeholder.com/80";
-    document.getElementById("footerProfileImage").src = cleaner.image || "https://via.placeholder.com/45";
-    document.getElementById("cleanerName").textContent = cleaner.name;
-    document.getElementById("cleanerSpecialty").textContent = cleaner.specialty;
-    document.getElementById("cleanerLocation").textContent = cleaner.location;
-    const avgRating = cleaner.ratings.length > 0 ? (cleaner.ratings.reduce((a,b)=>a+b,0)/cleaner.ratings.length).toFixed(1) : "N/A";
-    document.getElementById("cleanerRating").textContent = "⭐ "+avgRating;
+// Update profile card
+document.getElementById("profileCard").querySelector("img").src = profile.image || "https://via.placeholder.com/120";
+document.getElementById("profileName").innerText = profile.name || "Cleaner Name";
+document.getElementById("profileSpecialty").innerText = profile.specialty || "Specialty";
+document.getElementById("profileLocation").innerText = profile.location || "Location";
+let avgRating = profile.ratings?.length > 0 ? (profile.ratings.reduce((a,b)=>a+b,0)/profile.ratings.length).toFixed(1) : "N/A";
+document.getElementById("profileRating").innerText = `⭐ ${avgRating}`;
 
-    document.getElementById("totalJobs").textContent = cleaner.totalJobs || 0;
-    document.getElementById("totalEarnings").textContent = "R"+(cleaner.totalEarnings || 0);
-    
-    // Weekly and Monthly Jobs (dummy calculation, can expand to track per booking date)
-    const weeklyJobs = Math.floor((cleaner.totalJobs || 0)/4); // approximate
-    const monthlyJobs = cleaner.totalJobs || 0;
-    document.getElementById("weeklyJobs").textContent = weeklyJobs;
-    document.getElementById("monthlyJobs").textContent = monthlyJobs;
-}
+// Update earnings and jobs
+document.getElementById("totalJobs").innerText = profile.totalJobs || 0;
+document.getElementById("totalEarnings").innerText = `R${profile.totalEarnings || 0}`;
 
-// Earnings Graph
-const ctx = document.getElementById('earningsChart').getContext('2d');
-const earningsChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Week 1','Week 2','Week 3','Week 4'],
-        datasets: [{
-            label: 'Weekly Earnings (R)',
-            data: [
-                ((cleaner?.totalEarnings || 0)/4).toFixed(2),
-                ((cleaner?.totalEarnings || 0)/4).toFixed(2),
-                ((cleaner?.totalEarnings || 0)/4).toFixed(2),
-                ((cleaner?.totalEarnings || 0)/4).toFixed(2)
-            ],
-            backgroundColor:'#22c55e'
-        }]
-    },
-    options: {
-        responsive:true,
-        plugins:{
-            legend:{display:false}
-        },
-        scales:{
-            y:{
-                beginAtZero:true
-            }
-        }
+// Weekly & monthly earnings (dummy calculation for demonstration)
+document.getElementById("weeklyEarnings").innerText = `R${Math.floor((profile.totalEarnings||0)*0.25)}`;
+document.getElementById("monthlyEarnings").innerText = `R${profile.totalEarnings || 0}`;
+
+// Marketplace integration: updates totalJobs/totalEarnings on booking
+window.addEventListener("storage", function(e){
+    if(e.key==="cleanerUsers"){
+        let updatedCleaners = JSON.parse(e.newValue);
+        let updatedProfile = updatedCleaners[loggedCleanerPhone]?.profile || {};
+        document.getElementById("totalJobs").innerText = updatedProfile.totalJobs || 0;
+        document.getElementById("totalEarnings").innerText = `R${updatedProfile.totalEarnings || 0}`;
+        document.getElementById("weeklyEarnings").innerText = `R${Math.floor((updatedProfile.totalEarnings||0)*0.25)}`;
+        document.getElementById("monthlyEarnings").innerText = `R${updatedProfile.totalEarnings || 0}`;
     }
 });
 </script>
