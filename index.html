@@ -3,126 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Find verified professional cleaners instantly. Book trusted cleaners or become verified yourself with our high-tech platform.">
+  <meta name="description" content="Find verified professional cleaners in Johannesburg instantly. Book trusted cleaners or become verified yourself.">
   <title>Golden Touch Cleaning | Verified Cleaners Near You</title>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* Reset */
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: 'Montserrat', sans-serif; background:#0B0F1A; color:#fff; overflow-x:hidden; }
+    body { font-family:'Montserrat', sans-serif; background:#0B0F1A; color:#fff; }
     a { text-decoration:none; color:inherit; }
 
+    .container { max-width:1200px; margin:auto; padding:0 20px; }
+
     /* Hero Section */
-    header {
-      position:relative;
-      height:100vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      background: linear-gradient(135deg, #0B0F1A 0%, #1B1F3A 100%);
-      overflow:hidden;
-    }
-    header::after {
-      content:"";
-      position:absolute;
-      top:0; left:0; width:100%; height:100%;
-      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920') center/cover no-repeat;
-      opacity:0.2; z-index:0;
-    }
+    header { position:relative; height:90vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; overflow:hidden; }
+    .hero-image { width:100%; height:100%; position:absolute; top:0; left:0; z-index:0; display:flex; }
+    .hero-image img { width:33.33%; height:100%; object-fit:cover; filter:brightness(0.5); }
+
     .hero-content { position:relative; z-index:1; }
     header h1 { font-size:3rem; color:#39FF14; font-weight:700; margin-bottom:20px; }
     header p { font-size:1.25rem; color:#00E5FF; margin-bottom:30px; }
 
-    /* Hero CTA Buttons */
     .cta-primary {
-      padding:18px 40px;
-      font-size:1.1rem;
-      font-weight:700;
-      border-radius:12px;
-      border:none;
-      background:#00E5FF;
-      color:#0B0F1A;
-      box-shadow: 0 0 15px #00E5FF, 0 0 30px #39FF14;
-      cursor:pointer;
-      transition: all 0.3s ease;
+      padding:18px 40px; font-size:1.1rem; font-weight:700; border-radius:12px; border:none;
+      background:#00E5FF; color:#0B0F1A; cursor:pointer; transition: all 0.3s ease;
+      box-shadow:0 0 15px #00E5FF, 0 0 30px #39FF14;
     }
-    .cta-primary:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #00E5FF, 0 0 50px #39FF14;
-    }
+    .cta-primary:hover { transform:scale(1.05); box-shadow:0 0 25px #00E5FF, 0 0 50px #39FF14; }
+
     .cta-secondary {
-      padding:10px 20px;
-      font-size:0.95rem;
-      font-weight:600;
-      border-radius:25px;
-      border:1px solid #39FF14;
-      background:transparent;
-      color:#39FF14;
-      position:absolute;
-      top:30px;
-      right:30px;
-      transition: all 0.3s ease;
+      padding:10px 20px; font-size:0.95rem; font-weight:600; border-radius:25px; border:1px solid #39FF14;
+      background:transparent; color:#39FF14; position:absolute; top:30px; right:30px; transition: all 0.3s ease;
     }
-    .cta-secondary:hover {
-      background:#39FF14; color:#0B0F1A;
-      box-shadow: 0 0 10px #39FF14;
-    }
+    .cta-secondary:hover { background:#39FF14; color:#0B0F1A; box-shadow:0 0 10px #39FF14; }
 
     /* Service Request Section */
     .service-request { padding:80px 20px; text-align:center; }
     .service-request h2 { font-size:2.5rem; color:#FFD700; margin-bottom:40px; }
     .service-form { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; max-width:900px; margin:auto; }
     .service-form input, .service-form select, .service-form button {
-      padding:15px 20px;
-      border-radius:12px;
-      border:none;
-      font-size:1rem;
-      outline:none;
+      padding:15px 20px; border-radius:12px; border:none; font-size:1rem; outline:none;
     }
     .service-form input, .service-form select { flex:1 1 200px; background:#1B1F3A; color:#fff; }
     .service-form button {
-      background:#39FF14;
-      color:#0B0F1A;
-      font-weight:700;
-      cursor:pointer;
-      transition:all 0.3s ease;
-      flex:1 1 150px;
+      background:#39FF14; color:#0B0F1A; font-weight:700; cursor:pointer; flex:1 1 150px;
+      transition:all 0.3s ease; box-shadow:0 0 10px #39FF14;
     }
-    .service-form button:hover {
-      background:#00E5FF;
-      box-shadow: 0 0 15px #00E5FF, 0 0 30px #39FF14;
-    }
+    .service-form button:hover { background:#00E5FF; box-shadow:0 0 20px #00E5FF,0 0 35px #39FF14; }
 
     /* Verified Cleaners Section */
     .verified-cleaners { padding:80px 20px; text-align:center; background:#0F1224; }
     .verified-cleaners h2 { font-size:2.5rem; color:#FFD700; margin-bottom:40px; }
     .cleaner-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:30px; }
-    .cleaner-card { background:#1B1F3A; border-radius:15px; overflow:hidden; width:250px; transition:transform 0.3s ease, box-shadow 0.3s ease; position:relative; }
-    .cleaner-card:hover { transform:translateY(-8px); box-shadow:0 0 20px #00E5FF, 0 0 35px #39FF14; }
+    .cleaner-card { background:#1B1F3A; border-radius:15px; overflow:hidden; width:250px; transition:transform 0.3s ease, box-shadow 0.3s ease; }
+    .cleaner-card:hover { transform:translateY(-8px); box-shadow:0 0 20px #00E5FF,0 0 35px #39FF14; }
     .cleaner-card img { width:100%; height:200px; object-fit:cover; }
     .cleaner-info { padding:15px; text-align:left; }
     .cleaner-info h3 { font-size:1.2rem; color:#FFD700; margin-bottom:5px; }
     .cleaner-info p { font-size:0.95rem; color:#fff; margin-bottom:10px; }
-    .verified-badge {
-      display:inline-block;
-      padding:5px 10px;
-      background:#00E5FF;
-      color:#0B0F1A;
-      border-radius:6px;
-      font-size:0.75rem;
-      font-weight:700;
-      animation: floatBadge 3s ease-in-out infinite;
-    }
-
-    @keyframes floatBadge {
-      0%,100% { transform:translateY(0px); }
-      50% { transform:translateY(-3px); }
-    }
+    .verified-badge { display:inline-block; padding:5px 10px; background:#00E5FF; color:#0B0F1A; border-radius:6px; font-size:0.75rem; font-weight:700; }
 
     /* Footer */
     footer { background:#111827; text-align:center; padding:30px 20px; }
@@ -137,6 +77,7 @@
       .cta-secondary { position:static; margin-bottom:20px; }
       .service-form { flex-direction:column; align-items:center; }
       .cleaner-grid { flex-direction:column; align-items:center; }
+      .hero-image img { width:100%; height:200px; object-fit:cover; }
     }
   </style>
 </head>
@@ -145,10 +86,15 @@
   <!-- Hero Section -->
   <header>
     <button class="cta-secondary">Become a Verified Cleaner</button>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1598300051455-8ee273de33ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800" alt="Kitchen Cleaning">
+      <img src="https://images.unsplash.com/photo-1614680375935-94b40f36c86e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800" alt="Bathroom Cleaning">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800" alt="Luxury Hotel Room Cleaning">
+    </div>
     <div class="hero-content">
       <h1>Find Verified Cleaners Near You Instantly</h1>
       <p>Book appointments with trusted professionals in minutes.</p>
-      <button class="cta-primary">Request a Cleaner</button>
+      <a href="#" class="cta-primary" target="_blank">Request a Cleaner</a>
     </div>
   </header>
 
@@ -159,17 +105,18 @@
       <input type="text" placeholder="Enter your location" />
       <select>
         <option selected disabled>Type of Cleaning Service</option>
+        <option>Kitchen Cleaning</option>
+        <option>Bathroom Cleaning</option>
+        <option>Luxury Hotel Room Cleaning</option>
         <option>Home Cleaning</option>
         <option>Office Cleaning</option>
-        <option>Deep Cleaning</option>
-        <option>Move-in / Move-out</option>
       </select>
       <input type="datetime-local" />
       <button type="submit">Schedule Appointment</button>
     </form>
   </section>
 
-  <!-- Verified Cleaner Trust Section -->
+  <!-- Verified Cleaners Section -->
   <section class="verified-cleaners">
     <h2>Our Verified Cleaners</h2>
     <div class="cleaner-grid">
