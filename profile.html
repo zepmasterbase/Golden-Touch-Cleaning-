@@ -6,12 +6,14 @@
 <title>Cleaner Profile - Golden Touch Cleaning</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <style>
+/* Base */
 body{
     margin:0;
     font-family:'Montserrat',sans-serif;
     background:#0F0F0F;
     color:#fff;
 }
+a { text-decoration:none; }
 
 /* Header */
 header{
@@ -35,7 +37,6 @@ header a.button{
     background:#22c55e;
     color:#0F0F0F;
     font-weight:600;
-    text-decoration:none;
     transition:0.3s;
 }
 header a.button:hover{
@@ -91,7 +92,7 @@ header a.button:hover{
     box-shadow:0 0 15px #22c55e66;
 }
 
-/* Profile preview */
+/* Profile Preview */
 #preview{
     display:block;
     margin:10px auto 20px;
@@ -112,9 +113,9 @@ footer{
 }
 footer a{
     color:#22c55e;
-    text-decoration:none;
 }
 
+/* Responsive */
 @media(max-width:480px){
     header h1{font-size:18px;}
     .container{padding:15px; margin:10px;}
@@ -197,6 +198,7 @@ imageInput.addEventListener("change", function(){
 let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
 let profile = cleaners[loggedCleanerPhone]?.profile || {};
 
+// Fill form fields
 document.getElementById("name").value = profile.name || "";
 document.getElementById("specialty").value = profile.specialty || "";
 document.getElementById("location").value = profile.location || "";
@@ -220,7 +222,8 @@ document.getElementById("profileForm").addEventListener("submit", function(e){
         image,name,specialty,location,experience,rate,description,
         totalJobs: profile.totalJobs || 0,
         totalEarnings: profile.totalEarnings || 0,
-        ratings: profile.ratings || []
+        ratings: profile.ratings || [],
+        approved: profile.approved || false
     };
 
     cleaners[loggedCleanerPhone] = {profile: profileData};
