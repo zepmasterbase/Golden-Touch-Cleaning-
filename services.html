@@ -6,12 +6,11 @@
 <title>Services - Golden Touch Cleaning</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <style>
-body {
-    margin:0;
-    font-family:'Montserrat',sans-serif;
-    background:#0F0F0F;
-    color:#fff;
-}
+/* Basic Reset */
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; }
+
+/* Body */
+body { background:#0F0F0F; color:#fff; line-height:1.5; }
 
 /* Header */
 header {
@@ -25,166 +24,153 @@ header {
     z-index:1000;
     box-shadow:0 2px 10px rgba(0,0,0,0.5);
 }
-header img {
-    width:50px;
-    height:50px;
-    border-radius:50%;
-    border:2px solid #22c55e;
-}
-header a.button {
-    padding:10px 20px;
-    border-radius:12px;
-    background:#22c55e;
-    color:#0F0F0F;
-    font-weight:600;
-    text-decoration:none;
-    transition:0.3s;
-}
+header .logo-container { display:flex; align-items:center; gap:10px; }
+header img { width:50px; height:50px; border-radius:50%; border:2px solid #22c55e; }
+header .logo-text { font-size:22px; font-weight:600; color:#fff; }
+header a.button { padding:10px 20px; border-radius:12px; background:#22c55e; color:#0F0F0F; font-weight:600; text-decoration:none; transition:0.3s; }
 header a.button:hover { box-shadow:0 0 15px #22c55e66; transform:translateY(-2px); }
 
-/* Hero */
-.hero {
-    text-align:center;
-    padding:60px 20px 40px;
-}
-.hero h1 {
-    font-size:32px;
-    font-weight:600;
-    margin-bottom:10px;
-}
-.hero p {
-    font-size:16px;
-    opacity:0.8;
-}
+/* Page Title */
+.page-title { text-align:center; padding:50px 20px 20px; font-size:32px; font-weight:600; }
 
-/* Services section */
-.services-section {
-    max-width:1200px;
-    margin:40px auto;
+/* Packages Table */
+.packages {
+    max-width:1000px;
+    margin:0 auto 50px;
     padding:0 20px;
+    overflow-x:auto;
 }
-.services-section h2 {
+.packages table {
+    width:100%;
+    border-collapse:collapse;
     text-align:center;
-    font-weight:600;
-    font-size:28px;
-    margin-bottom:30px;
 }
-
-/* Grid layout */
-.services-grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:20px;
+.packages th, .packages td {
+    padding:15px;
+    border-bottom:1px solid #222;
 }
-
-/* Service card */
-.service-card {
+.packages th {
     background:#1A1A1A;
-    border-radius:15px;
-    padding:20px;
-    text-align:center;
-    transition:0.3s;
-    cursor:pointer;
+    color:#22c55e;
+    font-size:16px;
 }
-.service-card:hover {
-    transform:translateY(-5px);
-    box-shadow:0 0 20px rgba(34,197,94,0.4);
+.packages td {
+    background:#111;
+    font-size:15px;
 }
-.service-card h3 {
-    font-size:20px;
-    margin-bottom:10px;
-}
-.service-card p {
-    font-size:14px;
-    opacity:0.8;
-    margin-bottom:15px;
-}
-.service-card .price {
-    font-size:18px;
+.packages td button {
+    padding:10px 18px;
+    border:none;
+    border-radius:12px;
+    background:#22c55e;
+    color:#0F0F0F;
     font-weight:600;
-    margin-bottom:10px;
+    cursor:pointer;
+    transition:0.3s;
 }
-.service-card .monthly {
-    font-size:14px;
-    opacity:0.7;
+.packages td button:hover {
+    box-shadow:0 0 15px #22c55e66;
+    transform:translateY(-2px);
 }
 
-/* Button inside card */
-.service-card a {
-    display:inline-block;
-    margin-top:10px;
-    padding:10px 18px;
+/* Chat Button */
+.chat-button {
+    display:flex;
+    justify-content:center;
+    margin-bottom:50px;
+}
+.chat-button a {
+    padding:12px 30px;
     border-radius:12px;
     background:#22c55e;
     color:#0F0F0F;
     font-weight:600;
     text-decoration:none;
+    font-size:16px;
     transition:0.3s;
 }
-.service-card a:hover { box-shadow:0 0 15px #22c55e66; transform:translateY(-2px); }
+.chat-button a:hover {
+    box-shadow:0 0 15px #22c55e66;
+    transform:translateY(-2px);
+}
 
 /* Footer */
-footer {
-    text-align:center;
-    padding:20px;
-    font-size:14px;
-    opacity:0.7;
-    background:#111;
-}
+footer { text-align:center; padding:20px; font-size:14px; opacity:0.7; background:#111; }
 footer a { color:#22c55e; text-decoration:none; }
 
-@media(max-width:480px){
-    .hero h1{ font-size:26px; }
-    .hero p{ font-size:14px; }
-    .service-card h3{ font-size:18px; }
-    .service-card .price{ font-size:16px; }
+/* Responsive */
+@media(max-width:768px){
+    .page-title { font-size:26px; }
+    .packages th, .packages td { padding:10px; font-size:14px; }
+    .packages td button { font-size:14px; padding:8px 14px; }
+    .chat-button a { font-size:14px; padding:10px 20px; }
 }
 </style>
 </head>
 <body>
 
 <header>
-    <a href="index.html"><img src="https://payhip.com/cdn-cgi/image/format=auto,width=1500/https://pe56d.s3.amazonaws.com/o_1jin4vd70ca01qei1kso11qo1sek15.jpg" alt="Golden Touch Cleaning Logo"></a>
-    <a href="marketplace.html" class="button">Find Cleaner Nearby</a>
+    <div class="logo-container">
+        <a href="index.html"><img src="https://payhip.com/cdn-cgi/image/format=auto,width=1500/https://pe56d.s3.amazonaws.com/o_1jin4vd70ca01qei1kso11qo1sek15.jpg" alt="Golden Touch Cleaning Logo"></a>
+        <span class="logo-text">Golden Touch Cleaning</span>
+    </div>
+    <a href="index.html" class="button">Home</a>
 </header>
 
-<section class="hero">
-    <h1>Our Cleaning Services</h1>
-    <p>Choose from our professional cleaning packages for homes, hotels, hospitals, and more.</p>
-</section>
+<h1 class="page-title">Monthly Cleaning Packages</h1>
 
-<section class="services-section">
-    <h2>Service Packages & Pricing</h2>
-    <div class="services-grid">
-        <div class="service-card">
-            <h3>Home / Apartment Cleaning</h3>
-            <p>Standard domestic cleaning for kitchens, bathrooms, living areas, and bedrooms.</p>
-            <div class="price">R75/hr</div>
-            <div class="monthly">Monthly Subscription: R3000 (4 sessions)</div>
-            <a href="application.html">Jobs Near Me</a>
-        </div>
-        <div class="service-card">
-            <h3>Hotels & Luxury Rooms</h3>
-            <p>Professional cleaning for hotels, guest rooms, and luxury apartments.</p>
-            <div class="price">R120/hr</div>
-            <div class="monthly">Monthly Subscription: R4800 (4 sessions)</div>
-            <a href="application.html">Jobs Near Me</a>
-        </div>
-        <div class="service-card">
-            <h3>Hospitals & Clinics</h3>
-            <p>Specialized sanitation and hygiene cleaning services for medical facilities.</p>
-            <div class="price">R120/hr</div>
-            <div class="monthly">Monthly Subscription: R5000 (4 sessions)</div>
-            <a href="application.html">Jobs Near Me</a>
-        </div>
-        <div class="service-card">
-            <h3>Move-in / Move-out Cleaning</h3>
-            <p>One-time intensive cleaning for properties being vacated or prepared.</p>
-            <div class="price">R600 per service</div>
-            <a href="application.html">Jobs Near Me</a>
-        </div>
-    </div>
-</section>
+<div class="packages">
+    <table>
+        <thead>
+            <tr>
+                <th>Package</th>
+                <th>Rooms Covered</th>
+                <th>Service Frequency</th>
+                <th>Standard Cleaning (R)</th>
+                <th>Luxury Cleaning (R)</th>
+                <th>Book Now</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bronze</td>
+                <td>2-3 rooms</td>
+                <td>Weekly</td>
+                <td>1,520</td>
+                <td>1,900</td>
+                <td><button onclick="window.open('#','_blank')">Book Now</button></td>
+            </tr>
+            <tr>
+                <td>Silver</td>
+                <td>4-5 rooms</td>
+                <td>Weekly</td>
+                <td>2,280</td>
+                <td>2,850</td>
+                <td><button onclick="window.open('#','_blank')">Book Now</button></td>
+            </tr>
+            <tr>
+                <td>Gold</td>
+                <td>6-7 rooms</td>
+                <td>Twice Weekly</td>
+                <td>3,800</td>
+                <td>4,750</td>
+                <td><button onclick="window.open('#','_blank')">Book Now</button></td>
+            </tr>
+            <tr>
+                <td>Platinum</td>
+                <td>8+ rooms</td>
+                <td>Twice Weekly</td>
+                <td>5,700</td>
+                <td>7,125</td>
+                <td><button onclick="window.open('#','_blank')">Book Now</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="chat-button">
+    <a href="https://wa.me/27712345678" target="_blank">Chat Us Now</a>
+</div>
 
 <footer>
     &copy; 2026 <a href="#">www.goldentouchcleaning.com</a>. Trusted Cleaners. Verified Results.
