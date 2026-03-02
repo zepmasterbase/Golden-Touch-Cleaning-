@@ -31,14 +31,13 @@ header {
 header .logo-container {
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:10px;
 }
-header img {
-    width:50px;
-    height:50px;
+header img.logo {
+    width:55px;
+    height:55px;
     border-radius:50%;
     border:2px solid #22c55e;
-    object-fit:cover;
 }
 header .logo-text {
     font-size:22px;
@@ -137,7 +136,7 @@ header a.button:hover {
 }
 .cleaner-card img {
     width:100%;
-    aspect-ratio:1/1;   /* Perfect square */
+    aspect-ratio:1/1;   /* Square images */
     object-fit:cover;
     border-bottom:3px solid #22c55e;
 }
@@ -150,16 +149,16 @@ header a.button:hover {
     font-size:12px;
     border-radius:20px;
     font-weight:600;
-    color:#0F0F0F;
 }
 .cleaner-card .info {
     padding:15px;
 }
 .cleaner-card h3 {
-    margin-bottom:5px;
+    margin:0 0 5px;
     font-size:18px;
 }
 .cleaner-card p {
+    margin:0;
     font-size:14px;
     opacity:0.8;
 }
@@ -190,7 +189,7 @@ footer a {
 <header>
     <div class="logo-container">
         <a href="#">
-            <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinh5i6ubuplj91nb41rbdl8v15.png" alt="Golden Touch Cleaning Logo">
+            <img class="logo" src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinh5i6ubuplj91nb41rbdl8v15.png" alt="Golden Touch Cleaning Logo">
         </a>
         <span class="logo-text">Golden Touch Cleaning</span>
     </div>
@@ -214,7 +213,7 @@ footer a {
             <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinih43743q1gp277i8pk1o1015.jpg" alt="Female Cleaner">
             <span class="badge">Verified</span>
             <div class="info">
-                <h3>Jane M.</h3>
+                <h3>Jane Doe</h3>
                 <p>Kitchen & Bathroom Specialist</p>
             </div>
         </div>
@@ -223,26 +222,26 @@ footer a {
             <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinih7ne1qg11gbo1kqr1hvpd171b.jpg" alt="Male Cleaner">
             <span class="badge">Verified</span>
             <div class="info">
-                <h3>Michael T.</h3>
-                <p>Luxury Residential Expert</p>
+                <h3>John Smith</h3>
+                <p>Luxury Hotel & Residential</p>
             </div>
         </div>
 
         <div class="cleaner-card">
-            <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinih43743q1gp277i8pk1o1015.jpg" alt="Female Cleaner">
+            <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinj9bfm32n176d1tt0vbt9ms1b.jpg" alt="Male Cleaner">
             <span class="badge">Verified</span>
             <div class="info">
-                <h3>Emily R.</h3>
+                <h3>Michael T.</h3>
                 <p>General Cleaning Expert</p>
             </div>
         </div>
 
         <div class="cleaner-card">
-            <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinih7ne1qg11gbo1kqr1hvpd171b.jpg" alt="Male Cleaner">
+            <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinj96btmio1qp54cqjic97n15.jpg" alt="Female Cleaner">
             <span class="badge">Verified</span>
             <div class="info">
-                <h3>John S.</h3>
-                <p>Office & Hotel Specialist</p>
+                <h3>Emily R.</h3>
+                <p>Luxury & Residential Cleaning</p>
             </div>
         </div>
 
