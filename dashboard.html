@@ -25,10 +25,7 @@ header{
     z-index:100;
     box-shadow:0 2px 10px rgba(0,0,0,0.5);
 }
-header h1{
-    font-size:22px;
-    font-weight:600;
-}
+header h1{font-size:22px;font-weight:600;}
 header a.button{
     padding:8px 16px;
     border-radius:12px;
@@ -38,9 +35,7 @@ header a.button{
     text-decoration:none;
     transition:0.3s;
 }
-header a.button:hover{
-    box-shadow:0 0 10px #22c55e66;
-}
+header a.button:hover{box-shadow:0 0 10px #22c55e66;}
 
 /* Profile section */
 .profile{
@@ -50,7 +45,7 @@ header a.button:hover{
     background:#1A1A1A;
     padding:20px;
     border-radius:15px;
-    max-width:600px;
+    max-width:700px;
     margin:30px auto;
 }
 .profile img{
@@ -60,15 +55,8 @@ header a.button:hover{
     object-fit:cover;
     border:3px solid #22c55e;
 }
-.profile .info h3{
-    margin:0;
-    font-size:22px;
-}
-.profile .info p{
-    margin:5px 0;
-    font-size:14px;
-    opacity:0.8;
-}
+.profile .info h3{margin:0;font-size:22px;}
+.profile .info p{margin:5px 0;font-size:14px;opacity:0.8;}
 
 /* Dashboard cards */
 .dashboard{
@@ -95,10 +83,7 @@ header a.button:hover{
     margin-bottom:10px;
     color:#22c55e;
 }
-.card p{
-    font-size:14px;
-    opacity:0.85;
-}
+.card p{font-size:14px;opacity:0.85;}
 
 /* Footer */
 footer{
@@ -108,10 +93,7 @@ footer{
     opacity:0.7;
     background:#111;
 }
-footer a{
-    color:#22c55e;
-    text-decoration:none;
-}
+footer a{color:#22c55e;text-decoration:none;}
 
 /* Responsive */
 @media(max-width:768px){
@@ -162,33 +144,31 @@ footer a{
 </footer>
 
 <script>
-// Logged-in cleaner phone stored on login
+// Logged-in cleaner
 const loggedCleanerPhone = localStorage.getItem("loggedCleaner");
-if(!loggedCleanerPhone){
-    alert("No cleaner logged in!");
-}
+if(!loggedCleanerPhone) alert("No cleaner logged in!");
 
-// Fetch cleaner data
+// Load cleaners from localStorage
 let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
 let cleaner = cleaners[loggedCleanerPhone]?.profile || null;
 
 function updateDashboard(){
     if(!cleaner) return;
-    // Profile
+
+    // Profile info
     document.getElementById("profileImage").src = cleaner.image || "https://via.placeholder.com/100";
     document.getElementById("profileName").innerText = cleaner.name || "Unnamed Cleaner";
     document.getElementById("profileSpecialty").innerText = cleaner.specialty || "Specialty";
     document.getElementById("profileLocation").innerText = cleaner.location || "Unknown";
     document.getElementById("profileExperience").innerText = `Years of Experience: ${cleaner.experience || 0}`;
-    
-    // Ratings
+
+    // Rating
     const ratings = cleaner.ratings || [];
     const avg = ratings.length ? (ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1) : 0;
     const fullStars = Math.floor(avg);
     const halfStar = avg - fullStars >= 0.5 ? "½" : "";
     const emptyStars = 5 - fullStars - (halfStar?"1":"0");
     const stars = "★".repeat(fullStars)+halfStar+"☆".repeat(emptyStars);
-    
     document.getElementById("profileRating").innerText = `Rating: ${stars} (${avg})`;
     document.getElementById("avgRating").innerText = `${avg} ★`;
 
@@ -199,10 +179,10 @@ function updateDashboard(){
     document.getElementById("earningsTotal").innerText = `R${cleaner.totalEarnings}`;
 }
 
-// Update stats dynamically when job booked from marketplace
+// Function to increment stats when booking happens from marketplace
 function addBooking(rate){
-    cleaner.totalJobs = (cleaner.totalJobs || 0) + 1;
-    cleaner.totalEarnings = (cleaner.totalEarnings || 0) + rate;
+    cleaner.totalJobs +=1;
+    cleaner.totalEarnings += rate;
     cleaners[loggedCleanerPhone].profile = cleaner;
     localStorage.setItem("cleanerUsers", JSON.stringify(cleaners));
     updateDashboard();
@@ -210,9 +190,6 @@ function addBooking(rate){
 
 // Initialize dashboard
 updateDashboard();
-
-// Example: simulate booking
-// addBooking(350);
 </script>
 
 </body>
