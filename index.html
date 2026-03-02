@@ -6,7 +6,7 @@
 <title>Golden Touch Cleaning</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <style>
-body{
+body {
     margin:0;
     font-family:'Montserrat',sans-serif;
     background:#0F0F0F;
@@ -14,7 +14,7 @@ body{
 }
 
 /* Header */
-header{
+header {
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -25,13 +25,13 @@ header{
     z-index:100;
     box-shadow:0 2px 10px rgba(0,0,0,0.5);
 }
-header img{
+header img {
     width:50px;
     height:50px;
     border-radius:50%;
 }
-header a.button{
-    padding:8px 16px;
+header a.button {
+    padding:10px 20px;
     border-radius:12px;
     background:#22c55e;
     color:#0F0F0F;
@@ -39,26 +39,32 @@ header a.button{
     text-decoration:none;
     transition:0.3s;
 }
-header a.button:hover{
-    box-shadow:0 0 10px #22c55e66;
+header a.button:hover {
+    box-shadow:0 0 15px #22c55e66;
 }
 
 /* Hero section */
-.hero{
+.hero {
     text-align:center;
     padding:80px 20px 60px;
 }
-.hero h1{
+.hero h1 {
     font-size:36px;
     font-weight:600;
     margin-bottom:15px;
 }
-.hero p{
+.hero p {
     font-size:18px;
     opacity:0.85;
     margin-bottom:25px;
 }
-.hero a.button{
+.hero .hero-buttons {
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+.hero a.button {
     padding:12px 24px;
     border-radius:12px;
     background:#22c55e;
@@ -68,28 +74,28 @@ header a.button:hover{
     font-size:16px;
     transition:0.3s;
 }
-.hero a.button:hover{
+.hero a.button:hover {
     box-shadow:0 0 15px #22c55e66;
 }
 
 /* Verified Cleaners section */
-.cleaners-section{
+.cleaners-section {
     max-width:1200px;
     margin:0 auto 40px;
     padding:0 20px;
 }
-.cleaners-section h2{
+.cleaners-section h2 {
     text-align:center;
     font-weight:600;
     font-size:28px;
     margin-bottom:30px;
 }
-.cleaners-grid{
+.cleaners-grid {
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:20px;
 }
-.cleaner-card{
+.cleaner-card {
     background:#1A1A1A;
     border-radius:15px;
     overflow:hidden;
@@ -97,17 +103,17 @@ header a.button:hover{
     cursor:pointer;
     position:relative;
 }
-.cleaner-card:hover{
+.cleaner-card:hover {
     transform:translateY(-5px);
     box-shadow:0 0 15px rgba(34,197,94,0.4);
 }
-.cleaner-card img{
+.cleaner-card img {
     width:100%;
     height:200px;
     object-fit:cover;
     border-bottom:3px solid #22c55e;
 }
-.cleaner-card .badge{
+.cleaner-card .badge {
     position:absolute;
     top:10px;
     left:10px;
@@ -117,37 +123,37 @@ header a.button:hover{
     border-radius:20px;
     font-weight:600;
 }
-.cleaner-card .info{
+.cleaner-card .info {
     padding:12px;
 }
-.cleaner-card h3{
+.cleaner-card h3 {
     margin:0 0 5px;
     font-size:18px;
 }
-.cleaner-card p{
+.cleaner-card p {
     margin:0;
     font-size:14px;
     opacity:0.8;
 }
 
 /* Footer */
-footer{
+footer {
     text-align:center;
     padding:20px;
     font-size:14px;
     opacity:0.7;
     background:#111;
 }
-footer a{
+footer a {
     color:#22c55e;
     text-decoration:none;
 }
 
 /* Responsive */
 @media(max-width:768px){
-    .hero h1{font-size:28px;}
-    .hero p{font-size:16px;}
-    .cleaner-card img{height:150px;}
+    .hero h1 {font-size:28px;}
+    .hero p {font-size:16px;}
+    .cleaner-card img {height:150px;}
 }
 </style>
 </head>
@@ -155,13 +161,16 @@ footer a{
 
 <header>
     <a href="#"><img src="https://payhip.com/cdn-cgi/image/format=auto,width=1500/https://pe56d.s3.amazonaws.com/o_1jin4vd70ca01qei1kso11qo1sek15.jpg" alt="Golden Touch Cleaning Logo"></a>
-    <a href="marketplace.html" class="button">Find Verified Cleaners</a>
+    <a href="services.html" class="button">Services</a>
 </header>
 
 <section class="hero">
     <h1>Professional Cleaners At Your Fingertips</h1>
     <p>Book trusted, verified cleaners instantly for your home, kitchen, bathroom, or luxury rooms.</p>
-    <a href="marketplace.html" class="button">Browse Verified Cleaners</a>
+    <div class="hero-buttons">
+        <a href="services.html" class="button">Browse Services</a>
+        <a href="application.html" class="button">Apply for Jobs</a>
+    </div>
 </section>
 
 <section class="cleaners-section">
