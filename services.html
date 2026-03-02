@@ -6,11 +6,11 @@
 <title>Services - Golden Touch Cleaning</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <style>
-/* Basic Reset */
+/* Reset */
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; }
 
 /* Body */
-body { background:#0F0F0F; color:#fff; line-height:1.5; }
+body { background:#0F0F0F; color:#fff; }
 
 /* Header */
 header {
@@ -31,13 +31,13 @@ header a.button { padding:10px 20px; border-radius:12px; background:#22c55e; col
 header a.button:hover { box-shadow:0 0 15px #22c55e66; transform:translateY(-2px); }
 
 /* Page Title */
-.page-title { text-align:center; padding:40px 20px 20px; font-size:32px; font-weight:600; }
+.page-title { text-align:center; padding:50px 20px 20px; font-size:32px; font-weight:600; }
 
-/* Packages Grid */
-.packages-grid {
+/* Packages Cards */
+.packages-container {
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
     max-width:1200px;
     margin:0 auto 50px;
     padding:0 20px;
@@ -50,23 +50,20 @@ header a.button:hover { box-shadow:0 0 15px #22c55e66; transform:translateY(-2px
     position:relative;
     transition:0.3s;
     cursor:pointer;
-    border:2px solid rgba(34,197,94,0.2);
+    box-shadow:0 0 10px rgba(34,197,94,0.2);
     animation: pulse 3s infinite;
 }
 @keyframes pulse {
-    0% { box-shadow: 0 0 0px rgba(34,197,94,0.2);}
-    50% { box-shadow: 0 0 15px rgba(34,197,94,0.5);}
-    100% { box-shadow: 0 0 0px rgba(34,197,94,0.2);}
+    0%, 100% { box-shadow:0 0 10px rgba(34,197,94,0.2); }
+    50% { box-shadow:0 0 20px rgba(34,197,94,0.4); }
 }
-.package-card:hover {
-    transform:translateY(-5px);
-    box-shadow:0 0 20px rgba(34,197,94,0.6);
-}
-.package-card h3 { font-size:20px; margin-bottom:10px; }
-.package-card p { font-size:14px; opacity:0.85; margin-bottom:15px; }
-.package-card .price { font-size:18px; font-weight:600; margin-bottom:15px; }
+.package-card h3 { font-size:22px; margin-bottom:15px; font-weight:600; }
+.package-card p { font-size:14px; opacity:0.85; margin:5px 0; }
+.package-card .rates { margin:15px 0; }
+.package-card .rates span { display:block; font-size:16px; font-weight:600; margin:5px 0; }
 .package-card button {
-    padding:12px 25px;
+    margin-top:10px;
+    padding:12px 24px;
     border:none;
     border-radius:12px;
     background:#22c55e;
@@ -75,10 +72,17 @@ header a.button:hover { box-shadow:0 0 15px #22c55e66; transform:translateY(-2px
     cursor:pointer;
     transition:0.3s;
 }
-.package-card button:hover { box-shadow:0 0 15px #22c55e66; transform:translateY(-2px); }
+.package-card button:hover {
+    box-shadow:0 0 20px #22c55e66;
+    transform:translateY(-2px);
+}
 
 /* Chat Button */
-.chat-button { display:flex; justify-content:center; margin-bottom:50px; }
+.chat-button {
+    display:flex;
+    justify-content:center;
+    margin-bottom:50px;
+}
 .chat-button a {
     padding:12px 30px;
     border-radius:12px;
@@ -89,7 +93,10 @@ header a.button:hover { box-shadow:0 0 15px #22c55e66; transform:translateY(-2px
     font-size:16px;
     transition:0.3s;
 }
-.chat-button a:hover { box-shadow:0 0 15px #22c55e66; transform:translateY(-2px); }
+.chat-button a:hover {
+    box-shadow:0 0 15px #22c55e66;
+    transform:translateY(-2px);
+}
 
 /* Footer */
 footer { text-align:center; padding:20px; font-size:14px; opacity:0.7; background:#111; }
@@ -98,9 +105,10 @@ footer a { color:#22c55e; text-decoration:none; }
 /* Responsive */
 @media(max-width:768px){
     .page-title { font-size:26px; }
-    .package-card { padding:20px; }
-    .package-card h3 { font-size:18px; }
-    .package-card .price { font-size:16px; }
+    .package-card { padding:20px 15px; }
+    .package-card h3 { font-size:20px; }
+    .package-card p, .package-card .rates span { font-size:14px; }
+    .package-card button { font-size:14px; padding:10px 20px; }
 }
 </style>
 </head>
@@ -114,37 +122,49 @@ footer a { color:#22c55e; text-decoration:none; }
     <a href="index.html" class="button">Home</a>
 </header>
 
-<h1 class="page-title">Cleaning Packages</h1>
+<h1 class="page-title">Monthly Cleaning Packages</h1>
 
-<div class="packages-grid">
+<div class="packages-container">
     <div class="package-card">
         <h3>Bronze</h3>
-        <p>2-3 rooms | Weekly</p>
-        <p class="price">Standard: R1,520 | Luxury: R1,900</p>
-        <button onclick="window.open('#','_blank')">Book Now</button>
+        <p>Rooms: 2-3 | Weekly</p>
+        <div class="rates">
+            <span>Standard: R1,520</span>
+            <span>Luxury: R1,900</span>
+        </div>
+        <button onclick="window.open('https://wa.me/27624676223','_blank')">Book Now</button>
     </div>
     <div class="package-card">
         <h3>Silver</h3>
-        <p>4-5 rooms | Weekly</p>
-        <p class="price">Standard: R2,280 | Luxury: R2,850</p>
-        <button onclick="window.open('#','_blank')">Book Now</button>
+        <p>Rooms: 4-5 | Weekly</p>
+        <div class="rates">
+            <span>Standard: R2,280</span>
+            <span>Luxury: R2,850</span>
+        </div>
+        <button onclick="window.open('https://wa.me/27624676223','_blank')">Book Now</button>
     </div>
     <div class="package-card">
         <h3>Gold</h3>
-        <p>6-7 rooms | Twice Weekly</p>
-        <p class="price">Standard: R3,800 | Luxury: R4,750</p>
-        <button onclick="window.open('#','_blank')">Book Now</button>
+        <p>Rooms: 6-7 | Twice Weekly</p>
+        <div class="rates">
+            <span>Standard: R3,800</span>
+            <span>Luxury: R4,750</span>
+        </div>
+        <button onclick="window.open('https://wa.me/27624676223','_blank')">Book Now</button>
     </div>
     <div class="package-card">
         <h3>Platinum</h3>
-        <p>8+ rooms | Twice Weekly</p>
-        <p class="price">Standard: R5,700 | Luxury: R7,125</p>
-        <button onclick="window.open('#','_blank')">Book Now</button>
+        <p>Rooms: 8+ | Twice Weekly</p>
+        <div class="rates">
+            <span>Standard: R5,700</span>
+            <span>Luxury: R7,125</span>
+        </div>
+        <button onclick="window.open('https://wa.me/27624676223','_blank')">Book Now</button>
     </div>
 </div>
 
 <div class="chat-button">
-    <a href="https://wa.me/27712345678" target="_blank">Chat Us Now</a>
+    <a href="https://wa.me/27624676223" target="_blank">Chat Us Now</a>
 </div>
 
 <footer>
