@@ -3,100 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Golden Touch Marketplace - Find Verified Cleaners</title>
+<title>Marketplace - Golden Touch Cleaning</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <style>
-body {
-    font-family: 'Montserrat', sans-serif;
+body{
     margin:0;
+    font-family:'Montserrat',sans-serif;
     background:#0F0F0F;
     color:#fff;
 }
-
-/* Header */
 header{
-    background:#E5E5E5;
-    color:#0F0F0F;
-    padding:18px 20px;
-    text-align:center;
-    font-weight:600;
-    font-size:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 30px;
+    background:#1A1A1A;
     position:sticky;
     top:0;
     z-index:100;
-    border-bottom:1px solid #ccc;
-    animation:pulseHeader 3s infinite;
+    box-shadow:0 2px 10px rgba(0,0,0,0.5);
 }
-@keyframes pulseHeader {
-    0%,100% {opacity:1;}
-    50% {opacity:0.85;}
-}
-
-/* Search & Service filter */
-.search-bar{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:10px;
-    margin:15px 0;
-    flex-wrap:wrap;
-}
-.search-bar select, .search-bar input[type="number"]{
-    padding:8px 12px;
-    border-radius:10px;
-    border:none;
-    font-size:14px;
-}
-.search-bar button{
-    padding:8px 14px;
-    border:none;
-    border-radius:10px;
+header h1{font-size:22px;font-weight:600;}
+header a.button{
+    padding:8px 16px;
+    border-radius:12px;
     background:#22c55e;
     color:#0F0F0F;
     font-weight:600;
-    cursor:pointer;
+    text-decoration:none;
     transition:0.3s;
 }
-.search-bar button:hover{
-    box-shadow:0 0 10px #22c55e55;
+header a.button:hover{
+    box-shadow:0 0 10px #22c55e66;
 }
 
 /* Cleaner cards */
 .container{
     max-width:1200px;
-    margin:20px auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
-    gap:20px;
-    padding:0 15px;
+    margin:30px auto;
+    padding:0 20px;
 }
-
+.cleaners-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
 .card{
     background:#1A1A1A;
     border-radius:15px;
     overflow:hidden;
-    cursor:pointer;
     transition:0.3s;
     position:relative;
-    display:flex;
-    flex-direction:column;
 }
-.card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 0 20px rgba(34,197,94,0.4);
-}
+.card:hover{transform:translateY(-5px);box-shadow:0 0 15px rgba(34,197,94,0.4);}
 .card img{
     width:100%;
-    height:180px;
+    height:200px;
     object-fit:cover;
-    border-bottom:2px solid #22c55e;
+    border-bottom:3px solid #22c55e;
 }
 .card .info{
     padding:12px;
-    flex-grow:1;
-    display:flex;
-    flex-direction:column;
 }
+.card .info h3{margin:0 0 5px;font-size:18px;}
+.card .info p{margin:0;font-size:14px;opacity:0.85;}
 .card .badge{
     position:absolute;
     top:10px;
@@ -107,231 +77,114 @@ header{
     border-radius:20px;
     font-weight:600;
 }
-.card h3{
-    margin:5px 0;
-    font-size:16px;
-    font-weight:600;
-}
-.card .details{
-    font-size:13px;
-    opacity:0.85;
-    margin-bottom:5px;
-}
-.card .rating{
-    color:#22c55e;
-    font-size:14px;
-    margin-bottom:10px;
-}
 .card button{
-    padding:8px;
-    border:none;
-    border-radius:12px;
+    margin-top:10px;
+    padding:10px 14px;
+    width:100%;
     background:#22c55e;
     color:#0F0F0F;
+    border:none;
+    border-radius:10px;
     font-weight:600;
     cursor:pointer;
     transition:0.3s;
 }
-.card button:hover{
-    box-shadow:0 0 12px #22c55e55;
+.card button:hover{box-shadow:0 0 15px #22c55e66;}
+footer{
+    text-align:center;
+    padding:20px;
+    font-size:14px;
+    opacity:0.7;
+    background:#111;
 }
-
-/* Modal */
-.modal{
-    display:none;
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:rgba(0,0,0,0.85);
-    justify-content:center;
-    align-items:center;
-    z-index:1000;
-}
-.modal-content{
-    background:#1A1A1A;
-    border-radius:15px;
-    padding:25px;
-    max-width:400px;
-    width:90%;
-    position:relative;
-}
-.modal-content img{
-    width:100%;
-    height:200px;
-    object-fit:cover;
-    border-radius:12px;
-    margin-bottom:15px;
-}
-.modal-content .close{
-    position:absolute;
-    top:10px; right:15px;
-    cursor:pointer;
-    font-size:18px;
-    color:#ef4444;
-}
-.modal-content h2{margin-bottom:8px;}
-.modal-content p{margin-bottom:6px; opacity:0.85;}
-.modal-content .rating{color:#22c55e; margin-bottom:10px;}
-.modal-content button{
-    width:100%;
-    padding:10px;
-    border:none;
-    border-radius:12px;
-    background:#22c55e;
-    color:#0F0F0F;
-    font-weight:600;
-    cursor:pointer;
-    transition:0.3s;
-}
-.modal-content button:hover{
-    box-shadow:0 0 10px #22c55e55;
-}
-
-/* Responsive */
+footer a{color:#22c55e;text-decoration:none;}
 @media(max-width:768px){
     .card img{height:150px;}
-    .modal-content img{height:150px;}
-    header{font-size:18px;}
 }
 </style>
 </head>
 <body>
 
 <header>
-    Browse Verified Cleaners
+    <h1>Marketplace</h1>
+    <a href="dashboard.html" class="button">Dashboard</a>
 </header>
 
-<div class="search-bar">
-    <select id="serviceType">
-        <option value="all">All Services</option>
-        <option value="Kitchen">Kitchen</option>
-        <option value="Bathroom">Bathroom</option>
-        <option value="Hotel">Luxury Hotel Room</option>
-        <option value="General">General Cleaning</option>
-    </select>
-    <label for="radius">Radius (miles):</label>
-    <input type="number" id="radius" value="5" min="1" max="20">
-    <button onclick="displayCleaners()">Search</button>
+<div class="container">
+    <div class="cleaners-grid" id="cleanersGrid">
+        <!-- Cleaner cards populated dynamically -->
+    </div>
 </div>
 
-<div class="container" id="cleanerContainer"></div>
-<p id="emptyMsg" style="text-align:center; margin-top:30px; opacity:0.7;"></p>
-
-<!-- Modal -->
-<div class="modal" id="cleanerModal">
-<div class="modal-content">
-    <span class="close" onclick="closeModal()">✖</span>
-    <img id="modalImage" src="https://via.placeholder.com/400x300">
-    <h2 id="modalName">Name</h2>
-    <div class="rating" id="modalRating">⭐⭐⭐</div>
-    <p><strong>Specialty:</strong> <span id="modalSpecialty"></span></p>
-    <p><strong>Experience:</strong> <span id="modalExperience"></span> years</p>
-    <p><strong>Rate:</strong> R <span id="modalRate"></span>/hour</p>
-    <button id="bookBtn">Book Cleaner</button>
-</div>
-</div>
+<footer>
+    &copy; 2026 <a href="#">www.goldentouchcleaning.com</a>. Trusted Cleaners. Verified Results.
+</footer>
 
 <script>
-const businessWhatsAppNumber = "27624676223";
-let clientLat=0, clientLon=0;
+// Logged-in cleaner (admin can see marketplace, or client user can browse)
+const loggedCleanerPhone = localStorage.getItem("loggedCleaner");
 
-navigator.geolocation.getCurrentPosition(pos=>{
-    clientLat=pos.coords.latitude;
-    clientLon=pos.coords.longitude;
-    displayCleaners();
-}, err=>{
-    displayCleaners();
-});
+// Fetch all verified cleaners
+let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
+let cleanersGrid = document.getElementById("cleanersGrid");
 
-// Haversine formula
-function distance(lat1, lon1, lat2, lon2){
-    const R=6371;
-    const dLat=(lat2-lat1)*Math.PI/180;
-    const dLon=(lon2-lon1)*Math.PI/180;
-    const a=Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
-    const c=2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    return R*c;
+// Helper: Calculate average rating
+function getAverageRating(ratings){
+    if(!ratings || ratings.length===0) return 0;
+    return (ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1);
 }
 
-function displayCleaners(){
-    const container=document.getElementById("cleanerContainer");
-    const serviceFilter = document.getElementById("serviceType").value;
-    const radiusMiles = Number(document.getElementById("radius").value);
-    const radiusKm = radiusMiles*1.60934;
-    container.innerHTML="";
-    let found=0;
-    const users = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
-    for(let phone in users){
-        const u=users[phone];
-        if(u.profile && u.approved){
-            const p=u.profile;
-            if(serviceFilter !== 'all' && p.specialty !== serviceFilter) continue;
-            let show=true;
-            if(clientLat && clientLon && p.lat && p.lon){
-                const d=distance(clientLat, clientLon, p.lat, p.lon);
-                if(d>radiusKm) show=false;
-            }
-            if(show){
-                found++;
-                const ratings=p.ratings||[];
-                const avgRating = ratings.length ? (ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1) : "N/A";
-                let stars="";
-                if(avgRating!=="N/A"){
-                    let full=Math.floor(avgRating);
-                    let half=avgRating-full>=0.5?1:0;
-                    let empty=5-full-half;
-                    stars="★".repeat(full)+(half?"½":"")+"☆".repeat(empty);
-                } else stars="No ratings";
-                const card=document.createElement("div");
-                card.className="card";
-                card.innerHTML=`
-                    <img src="${p.image||'https://via.placeholder.com/400x300'}">
-                    <span class="badge">Verified</span>
-                    <div class="info">
-                        <h3>${p.name}</h3>
-                        <div class="details"><strong>Specialty:</strong> ${p.specialty}</div>
-                        <div class="details"><strong>Experience:</strong> ${p.experience} years</div>
-                        <div class="rating">${stars} (${avgRating})</div>
-                        <button>View Profile</button>
-                    </div>
-                `;
-                card.onclick=()=>openModal(phone);
-                container.appendChild(card);
-            }
-        }
+// Render cleaner cards
+function renderCleaners(){
+    cleanersGrid.innerHTML = '';
+    for(const phone in cleaners){
+        const c = cleaners[phone].profile;
+        if(!c) continue;
+        const avg = getAverageRating(c.ratings);
+        const fullStars = Math.floor(avg);
+        const halfStar = avg - fullStars >= 0.5 ? "½" : "";
+        const emptyStars = 5 - fullStars - (halfStar?"1":"0");
+        const stars = "★".repeat(fullStars)+halfStar+"☆".repeat(emptyStars);
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <img src="${c.image || 'https://via.placeholder.com/200'}" alt="${c.name}">
+            <span class="badge">Verified</span>
+            <div class="info">
+                <h3>${c.name}</h3>
+                <p>${c.specialty}</p>
+                <p>${c.location}</p>
+                <p>Experience: ${c.experience || 0} yrs</p>
+                <p>Rating: ${stars} (${avg})</p>
+                <p>Rate: R${c.rate || 0}/hr</p>
+                <button onclick="bookCleaner('${phone}')">Book via WhatsApp</button>
+            </div>
+        `;
+        cleanersGrid.appendChild(card);
     }
-    document.getElementById("emptyMsg").innerText = found===0 ? "No cleaners found matching your criteria." : "";
 }
 
-// Modal functions
-let selectedCleaner=null;
-function openModal(phone){
-    selectedCleaner=phone;
-    const p=JSON.parse(localStorage.getItem("cleanerUsers"))[phone].profile;
-    document.getElementById("modalImage").src=p.image||'https://via.placeholder.com/400x300';
-    document.getElementById("modalName").innerText=p.name;
-    const ratings=p.ratings||[];
-    const avgRating = ratings.length ? (ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1) : "N/A";
-    let stars="";
-    if(avgRating!=="N/A"){
-        let full=Math.floor(avgRating);
-        let half=avgRating-full>=0.5?1:0;
-        let empty=5-full-half;
-        stars="★".repeat(full)+(half?"½":"")+"☆".repeat(empty);
-    } else stars="No ratings";
-    document.getElementById("modalRating").innerText=`${stars} (${avgRating})`;
-    document.getElementById("modalSpecialty").innerText=p.specialty;
-    document.getElementById("modalExperience").innerText=p.experience;
-    document.getElementById("modalRate").innerText=p.rate;
-    document.getElementById("bookBtn").onclick=()=>bookCleaner(phone);
-    document.getElementById("cleanerModal").style.display="flex";
-}
-function closeModal(){document.getElementById("cleanerModal").style.display="none";}
+// Booking via WhatsApp and updating stats
 function bookCleaner(phone){
-    const p=JSON.parse(localStorage.getItem("cleanerUsers"))[phone].profile;
-    const message=`Hi ${p.name}, I would like to book your cleaning service.`;
-    window.open(`https://wa.me/${businessWhatsAppNumber}?text=${encodeURIComponent(message)}`);
+    const c = cleaners[phone].profile;
+    const clientMessage = encodeURIComponent(`Hello ${c.name}, I would like to book your cleaning service.`);
+    const whatsappNumber = "+27624676223"; // your WhatsApp number
+    window.open(`https://wa.me/${whatsappNumber}?text=${clientMessage}`, '_blank');
+
+    // Update stats: totalJobs & totalEarnings
+    c.totalJobs = (c.totalJobs || 0) + 1;
+    c.totalEarnings = (c.totalEarnings || 0) + (c.rate || 0);
+    cleaners[phone].profile = c;
+    localStorage.setItem("cleanerUsers", JSON.stringify(cleaners));
+
+    // Re-render to update stats dynamically
+    renderCleaners();
 }
+
+// Initialize
+renderCleaners();
 </script>
+
 </body>
 </html>
