@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marketplace - Golden Touch Cleaning</title>
+<title>Cleaner Marketplace - Golden Touch Cleaning</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <style>
 body{
@@ -12,18 +12,20 @@ body{
     background:#0F0F0F;
     color:#fff;
 }
+
+/* Header */
 header{
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding:15px 30px;
     background:#1A1A1A;
-    position:sticky;
-    top:0;
-    z-index:100;
     box-shadow:0 2px 10px rgba(0,0,0,0.5);
 }
-header h1{font-size:22px;font-weight:600;}
+header h1{
+    font-size:22px;
+    font-weight:600;
+}
 header a.button{
     padding:8px 16px;
     border-radius:12px;
@@ -37,59 +39,65 @@ header a.button:hover{
     box-shadow:0 0 10px #22c55e66;
 }
 
-/* Cleaner cards */
-.container{
+/* Marketplace Grid */
+.marketplace{
     max-width:1200px;
     margin:30px auto;
-    padding:0 20px;
-}
-.cleaners-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:20px;
+    padding:0 20px;
 }
+
+/* Cleaner Card */
 .card{
     background:#1A1A1A;
     border-radius:15px;
-    overflow:hidden;
+    padding:20px;
+    text-align:center;
     transition:0.3s;
-    position:relative;
 }
-.card:hover{transform:translateY(-5px);box-shadow:0 0 15px rgba(34,197,94,0.4);}
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 15px rgba(34,197,94,0.4);
+}
 .card img{
-    width:100%;
-    height:200px;
+    width:120px;
+    height:120px;
+    border-radius:50%;
     object-fit:cover;
-    border-bottom:3px solid #22c55e;
+    border:3px solid #22c55e;
+    margin-bottom:10px;
 }
-.card .info{
-    padding:12px;
+.card h3{
+    margin:5px 0;
+    font-size:20px;
 }
-.card .info h3{margin:0 0 5px;font-size:18px;}
-.card .info p{margin:0;font-size:14px;opacity:0.85;}
-.card .badge{
-    position:absolute;
-    top:10px;
-    left:10px;
-    background:#22c55e;
-    padding:4px 10px;
-    font-size:12px;
-    border-radius:20px;
-    font-weight:600;
+.card p{
+    margin:2px 0;
+    font-size:14px;
+    opacity:0.8;
+}
+.card .rating{
+    color:#22c55e;
+    margin:5px 0;
 }
 .card button{
     margin-top:10px;
-    padding:10px 14px;
-    width:100%;
-    background:#22c55e;
-    color:#0F0F0F;
+    padding:10px 16px;
     border:none;
     border-radius:10px;
+    background:#22c55e;
+    color:#0F0F0F;
     font-weight:600;
     cursor:pointer;
     transition:0.3s;
 }
-.card button:hover{box-shadow:0 0 15px #22c55e66;}
+.card button:hover{
+    box-shadow:0 0 15px #22c55e66;
+}
+
+/* Footer */
 footer{
     text-align:center;
     padding:20px;
@@ -98,92 +106,85 @@ footer{
     background:#111;
 }
 footer a{color:#22c55e;text-decoration:none;}
-@media(max-width:768px){
-    .card img{height:150px;}
-}
 </style>
 </head>
 <body>
 
 <header>
-    <h1>Marketplace</h1>
+    <h1>Verified Cleaners</h1>
     <a href="dashboard.html" class="button">Dashboard</a>
 </header>
 
-<div class="container">
-    <div class="cleaners-grid" id="cleanersGrid">
-        <!-- Cleaner cards populated dynamically -->
-    </div>
-</div>
+<section class="marketplace" id="marketplace">
+    <!-- Cleaner cards injected here -->
+</section>
 
 <footer>
     &copy; 2026 <a href="#">www.goldentouchcleaning.com</a>. Trusted Cleaners. Verified Results.
 </footer>
 
 <script>
-// Logged-in cleaner (admin can see marketplace, or client user can browse)
-const loggedCleanerPhone = localStorage.getItem("loggedCleaner");
-
-// Fetch all verified cleaners
+// Fetch all cleaners
 let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
-let cleanersGrid = document.getElementById("cleanersGrid");
 
-// Helper: Calculate average rating
-function getAverageRating(ratings){
-    if(!ratings || ratings.length===0) return 0;
-    return (ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1);
+// WhatsApp number template
+const whatsappBase = "https://wa.me/27624676223?text=";
+
+// Helper to render stars
+function renderStars(ratings){
+    if(!ratings || ratings.length===0) return "☆☆☆☆☆ (0)";
+    const avg = (ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1);
+    const fullStars = Math.floor(avg);
+    const halfStar = avg - fullStars >= 0.5 ? "½" : "";
+    const emptyStars = 5 - fullStars - (halfStar?"1":"0");
+    const stars = "★".repeat(fullStars)+halfStar+"☆".repeat(emptyStars);
+    return `${stars} (${avg})`;
 }
 
-// Render cleaner cards
-function renderCleaners(){
-    cleanersGrid.innerHTML = '';
-    for(const phone in cleaners){
-        const c = cleaners[phone].profile;
-        if(!c) continue;
-        const avg = getAverageRating(c.ratings);
-        const fullStars = Math.floor(avg);
-        const halfStar = avg - fullStars >= 0.5 ? "½" : "";
-        const emptyStars = 5 - fullStars - (halfStar?"1":"0");
-        const stars = "★".repeat(fullStars)+halfStar+"☆".repeat(emptyStars);
+// Render approved cleaners
+function renderMarketplace(){
+    const container = document.getElementById("marketplace");
+    container.innerHTML = "";
 
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-            <img src="${c.image || 'https://via.placeholder.com/200'}" alt="${c.name}">
-            <span class="badge">Verified</span>
-            <div class="info">
-                <h3>${c.name}</h3>
-                <p>${c.specialty}</p>
-                <p>${c.location}</p>
-                <p>Experience: ${c.experience || 0} yrs</p>
-                <p>Rating: ${stars} (${avg})</p>
-                <p>Rate: R${c.rate || 0}/hr</p>
-                <button onclick="bookCleaner('${phone}')">Book via WhatsApp</button>
-            </div>
-        `;
-        cleanersGrid.appendChild(card);
-    }
+    Object.keys(cleaners).forEach(phone=>{
+        const cleaner = cleaners[phone].profile;
+        if(cleaners[phone].approved){ // Only approved cleaners
+            const card = document.createElement("div");
+            card.className="card";
+
+            card.innerHTML = `
+                <img src="${cleaner.image || 'https://via.placeholder.com/120'}" alt="Cleaner Image">
+                <h3>${cleaner.name || "Unnamed Cleaner"}</h3>
+                <p>${cleaner.specialty || "Specialty"}</p>
+                <p>${cleaner.location || "Location"}</p>
+                <p class="rating">${renderStars(cleaner.ratings)}</p>
+                <p>R${cleaner.rate || 0} / hr</p>
+                <button>Book via WhatsApp</button>
+            `;
+
+            // Booking button
+            const btn = card.querySelector("button");
+            btn.addEventListener("click",()=>{
+                // Update cleaner stats dynamically
+                cleaner.totalJobs = (cleaner.totalJobs || 0) + 1;
+                cleaner.totalEarnings = (cleaner.totalEarnings || 0) + (cleaner.rate || 0);
+                cleaners[phone].profile = cleaner;
+                localStorage.setItem("cleanerUsers", JSON.stringify(cleaners));
+
+                // Open WhatsApp link
+                window.open(whatsappBase + encodeURIComponent(`Hello ${cleaner.name}, I would like to book you for a cleaning service.`), "_blank");
+
+                // Re-render to show updated jobs if needed
+                renderMarketplace();
+            });
+
+            container.appendChild(card);
+        }
+    });
 }
 
-// Booking via WhatsApp and updating stats
-function bookCleaner(phone){
-    const c = cleaners[phone].profile;
-    const clientMessage = encodeURIComponent(`Hello ${c.name}, I would like to book your cleaning service.`);
-    const whatsappNumber = "+27624676223"; // your WhatsApp number
-    window.open(`https://wa.me/${whatsappNumber}?text=${clientMessage}`, '_blank');
-
-    // Update stats: totalJobs & totalEarnings
-    c.totalJobs = (c.totalJobs || 0) + 1;
-    c.totalEarnings = (c.totalEarnings || 0) + (c.rate || 0);
-    cleaners[phone].profile = c;
-    localStorage.setItem("cleanerUsers", JSON.stringify(cleaners));
-
-    // Re-render to update stats dynamically
-    renderCleaners();
-}
-
-// Initialize
-renderCleaners();
+// Initialize marketplace
+renderMarketplace();
 </script>
 
 </body>
