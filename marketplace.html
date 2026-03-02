@@ -5,178 +5,259 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marketplace - Golden Touch Cleaning</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Montserrat',sans-serif;}
+
 body{
-    margin:0;
-    font-family:'Montserrat',sans-serif;
     background:#0F0F0F;
     color:#fff;
 }
 
+/* HEADER */
 header{
     display:flex;
+    justify-content:space-between;
     align-items:center;
-    padding:15px 20px;
+    padding:15px 25px;
     background:#111;
-    box-shadow:0 2px 8px rgba(0,0,0,0.5);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 15px rgba(0,0,0,0.6);
 }
-header img.logo{
+
+.logo-container{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo-container img{
     width:50px;
     height:50px;
     border-radius:50%;
-    margin-right:15px;
+    border:2px solid #22c55e;
 }
-header h1{
-    font-size:22px;
+
+.logo-text{
+    font-weight:600;
+    font-size:20px;
+}
+
+.search-bar{
+    max-width:400px;
+    width:100%;
+}
+
+.search-bar input{
+    width:100%;
+    padding:10px 15px;
+    border-radius:25px;
+    border:none;
+    background:#1a1a1a;
+    color:#fff;
+    outline:none;
+}
+
+/* CLEANER GRID */
+.cleaners{
+    max-width:1200px;
+    margin:40px auto;
+    padding:0 20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:#1a1a1a;
+    border-radius:18px;
+    overflow:hidden;
+    transition:0.3s;
+    position:relative;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 0 25px rgba(34,197,94,0.4);
+}
+
+.card img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+}
+
+.badge{
+    position:absolute;
+    top:12px;
+    left:12px;
+    background:#22c55e;
+    color:#000;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
     font-weight:600;
 }
 
-.container{
-    max-width:1200px;
-    margin:20px auto;
-    padding:0 15px;
+.card-content{
+    padding:18px;
 }
 
-.cleaner-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
+.card-content h3{
+    margin-bottom:5px;
 }
 
-.cleaner-card{
-    background:#1A1A1A;
-    border-radius:15px;
-    padding:20px;
-    transition:0.3s;
-    box-shadow:0 0 10px #22c55e44;
-}
-.cleaner-card:hover{
-    box-shadow:0 0 15px #22c55e66;
-}
-.cleaner-card img{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-    border-radius:12px;
-    margin-bottom:10px;
-}
-.cleaner-card h3{
-    margin:0 0 5px 0;
-}
-.cleaner-card p{
-    margin:3px 0;
+.card-content p{
     font-size:14px;
+    opacity:0.8;
+    margin-bottom:8px;
 }
-.cleaner-card .rating{
-    color:#FFD700;
-}
-.cleaner-card .approved{
-    background:#22c55e;
-    color:#0F0F0F;
-    font-size:12px;
-    padding:2px 6px;
-    border-radius:8px;
-    display:inline-block;
-    margin-top:5px;
+
+.rating{
+    margin:8px 0;
+    color:#22c55e;
+    font-size:14px;
 }
 
 .book-btn{
-    display:block;
-    width:100%;
     margin-top:10px;
-    padding:10px 0;
-    background:#22c55e;
-    color:#0F0F0F;
+    width:100%;
+    padding:10px;
     border:none;
     border-radius:10px;
+    background:#22c55e;
+    color:#000;
     font-weight:600;
     cursor:pointer;
     transition:0.3s;
-    text-align:center;
-    text-decoration:none;
 }
+
 .book-btn:hover{
-    box-shadow:0 0 15px #22c55e66;
+    box-shadow:0 0 15px #22c55e;
 }
 
 footer{
     text-align:center;
     padding:20px;
-    font-size:14px;
-    opacity:0.7;
     background:#111;
+    opacity:0.7;
+    margin-top:40px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+    .search-bar{display:none;}
 }
 </style>
 </head>
 <body>
 
 <header>
-    <img class="logo" src="https://payhip.com/cdn-cgi/image/format=auto,width=1500/https://pe56d.s3.amazonaws.com/o_1jin4vd70ca01qei1kso11qo1sek15.jpg" alt="Logo">
-    <h1>Cleaner Marketplace</h1>
+    <div class="logo-container">
+        <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinh5i6ubuplj91nb41rbdl8v15.png">
+        <span class="logo-text">Golden Touch Cleaning</span>
+    </div>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search by name, city or speciality...">
+    </div>
 </header>
 
-<div class="container">
-    <div class="cleaner-grid" id="cleanerGrid">
-        <!-- Cleaner cards populated by JS -->
-    </div>
-</div>
+<section class="cleaners" id="cleanerGrid"></section>
 
 <footer>
-    &copy; 2026 <a href="#">www.goldentouchcleaning.com</a>
+    © 2026 Golden Touch Cleaning. Verified & Trusted Professionals.
 </footer>
 
 <script>
-// WhatsApp number
-const whatsappNumber = "+27624676223";
+const cleaners = [
+{
+    id:1,
+    name:"Jane Doe",
+    city:"Johannesburg",
+    speciality:"Kitchen & Bathroom Specialist",
+    rate:95,
+    image:"https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinih43743q1gp277i8pk1o1015.jpg"
+},
+{
+    id:2,
+    name:"John Smith",
+    city:"Pretoria",
+    speciality:"Luxury Residential Cleaning",
+    rate:120,
+    image:"https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinih7ne1qg11gbo1kqr1hvpd171b.jpg"
+},
+{
+    id:3,
+    name:"Michael T.",
+    city:"Cape Town",
+    speciality:"General Cleaning Expert",
+    rate:95,
+    image:"https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinj9bfm32n176d1tt0vbt9ms1b.jpg"
+},
+{
+    id:4,
+    name:"Emily R.",
+    city:"Durban",
+    speciality:"Luxury & Office Cleaning",
+    rate:120,
+    image:"https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jinj96btmio1qp54cqjic97n15.jpg"
+}
+];
 
-// Load cleaners
-let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
-const grid = document.getElementById("cleanerGrid");
+function renderCleaners(list){
+    const grid=document.getElementById("cleanerGrid");
+    grid.innerHTML="";
 
-function renderCleaners(){
-    grid.innerHTML = "";
-    for(let phone in cleaners){
-        let profile = cleaners[phone].profile;
-        if(!profile.approved) continue; // Only approved cleaners
+    list.forEach(cleaner=>{
+        const ratingData = JSON.parse(localStorage.getItem("ratings_"+cleaner.id)) || {total:0,count:0};
+        const average = ratingData.count>0 ? (ratingData.total/ratingData.count).toFixed(1) : "New";
 
-        // Calculate average rating
-        let avgRating = profile.ratings?.length ? (profile.ratings.reduce((a,b)=>a+b,0)/profile.ratings.length).toFixed(1) : "N/A";
-
-        const card = document.createElement("div");
-        card.classList.add("cleaner-card");
-        card.innerHTML = `
-            <img src="${profile.image || 'https://via.placeholder.com/300'}" alt="${profile.name}">
-            <h3>${profile.name}</h3>
-            <p>${profile.specialty} | ${profile.location}</p>
-            <p class="rating">⭐ ${avgRating}</p>
-            <p class="approved">Verified</p>
-            <p>Rate: R${profile.rate || 0}/hour</p>
-            <a href="https://wa.me/${whatsappNumber}?text=Hi ${profile.name}, I want to book your cleaning service" class="book-btn" target="_blank" onclick="bookCleaner('${phone}')">Book via WhatsApp</a>
+        grid.innerHTML+=`
+        <div class="card">
+            <img src="${cleaner.image}">
+            <span class="badge">Verified</span>
+            <div class="card-content">
+                <h3>${cleaner.name}</h3>
+                <p>${cleaner.city}</p>
+                <p>${cleaner.speciality}</p>
+                <div class="rating">⭐ ${average} (${ratingData.count} reviews)</div>
+                <p>Rate: R${cleaner.rate}/hr</p>
+                <button class="book-btn" onclick="bookCleaner(${cleaner.id}, ${cleaner.rate})">
+                    Book via WhatsApp
+                </button>
+            </div>
+        </div>
         `;
-        grid.appendChild(card);
-    }
+    });
 }
 
-// Function to update cleaner stats after booking
-function bookCleaner(phone){
-    let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
-    let profile = cleaners[phone]?.profile || {};
-    profile.totalJobs = (profile.totalJobs || 0) + 1;
-    profile.totalEarnings = (profile.totalEarnings || 0) + (profile.rate || 0);
-    cleaners[phone].profile = profile;
-    localStorage.setItem("cleanerUsers", JSON.stringify(cleaners));
+function bookCleaner(id, rate){
+    let jobs = parseInt(localStorage.getItem("totalJobs")) || 0;
+    let earnings = parseFloat(localStorage.getItem("totalEarnings")) || 0;
+
+    jobs += 1;
+    earnings += rate;
+
+    localStorage.setItem("totalJobs", jobs);
+    localStorage.setItem("totalEarnings", earnings);
+
+    window.open("https://wa.me/27624676223","_blank");
 }
 
-// Initial render
-renderCleaners();
-
-// Update in real-time if localStorage changes
-window.addEventListener("storage", function(e){
-    if(e.key==="cleanerUsers"){
-        cleaners = JSON.parse(e.newValue);
-        renderCleaners();
-    }
+document.getElementById("searchInput").addEventListener("keyup",function(){
+    const value=this.value.toLowerCase();
+    const filtered = cleaners.filter(c =>
+        c.name.toLowerCase().includes(value) ||
+        c.city.toLowerCase().includes(value) ||
+        c.speciality.toLowerCase().includes(value)
+    );
+    renderCleaners(filtered);
 });
+
+renderCleaners(cleaners);
 </script>
 
 </body>
