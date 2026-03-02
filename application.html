@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golden Touch Cleaning | Cleaner Application</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Montserrat', sans-serif; background: linear-gradient(145deg, #0B0F1A, #1B1F3A); color:#fff; overflow-x:hidden; }
+a { text-decoration:none; color:inherit; }
+
+/* Header */
+header { display:flex; justify-content:space-between; align-items:center; padding:20px 40px; background:#0F1224; position:sticky; top:0; z-index:1000; box-shadow:0 0 12px rgba(0,0,0,0.5);}
+.logo { font-size:1.8rem; font-weight:700; color:#FFD700; }
+.nav-link { font-weight:600; color:#00E5FF; }
+
+/* Hero */
+.hero { height:25vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; background: linear-gradient(180deg, #0B0F1A, #111827); padding:20px; }
+.hero h1 { font-size:2.5rem; color:#FFD700; margin-bottom:10px; }
+.hero p { font-size:1.1rem; color:#00E5FF; }
+
+/* Application Section */
+.application { max-width:800px; margin:50px auto; background:#1B1F3A; border-radius:15px; padding:30px; box-shadow:0 0 15px rgba(0,0,0,0.5); }
+.application h2 { color:#FFD700; font-size:2rem; margin-bottom:20px; text-align:center; }
+.application p { font-size:1rem; margin-bottom:15px; line-height:1.6; }
+.application ul { margin-left:20px; margin-bottom:20px; }
+.application ul li { margin-bottom:10px; }
+.application .form-btn {
+  display:inline-block; padding:14px 32px; background:#00E5FF; color:#0B0F1A; font-weight:700; border-radius:12px; text-align:center; transition:all 0.3s ease;
+}
+.application .form-btn:hover { transform:scale(1.05); box-shadow:0 0 20px #00E5FF,0 0 30px #39FF14; }
+
+/* Footer */
+footer { background:#111827; text-align:center; padding:25px 20px; margin-top:50px; }
+footer p { font-size:0.9rem; color:#888; margin-bottom:10px; }
+footer a { margin:0 8px; transition: color 0.3s; }
+footer a:hover { color:#39FF14; }
+
+/* Responsive */
+@media(max-width:768px){
+  .hero h1 { font-size:2rem; }
+  .hero p { font-size:1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo">Golden Touch</div>
+  <a href="index.html" class="nav-link">Home</a>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>Apply to Become a Verified Cleaner</h1>
+  <p>Join our premium team of trusted professionals in Johannesburg.</p>
+</div>
+
+<!-- Application Info Section -->
+<div class="application">
+  <h2>Cleaner Application Instructions</h2>
+  <p>To maintain our luxury and verified service standards, please ensure you submit all required information:</p>
+  <ul>
+    <li>Full Name and Contact Details</li>
+    <li>Curriculum Vitae (CV)</li>
+    <li>Government-issued ID copy</li>
+    <li>Proof of residential address</li>
+    <li>SAPS Police Clearance Certificate (not older than 2 years)</li>
+  </ul>
+  <p>Once your application is received and reviewed, our team will manually verify your documents and experience. Approved cleaners will receive a secure login to create their profile for the <strong>Cleaner Marketplace</strong>.</p>
+  <p>Click the button below to fill out your application form:</p>
+  <a href="YOUR_GOOGLE_FORM_LINK_HERE" target="_blank" class="form-btn">Fill Application Form</a>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>Trusted Cleaners. Verified Results.</p>
+  <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" width="24" alt="Facebook"></a>
+  <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="24" alt="Instagram"></a>
+  <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="24" alt="LinkedIn"></a>
+</footer>
+
+</body>
+</html>
