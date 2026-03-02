@@ -6,7 +6,7 @@
 <title>Cleaner Profile - Golden Touch Cleaning</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <style>
-body {
+body{
     margin:0;
     font-family:'Montserrat',sans-serif;
     background:#0F0F0F;
@@ -21,212 +21,193 @@ header{
     padding:15px 30px;
     background:#1A1A1A;
     box-shadow:0 2px 10px rgba(0,0,0,0.5);
-    position:sticky;
-    top:0;
-    z-index:100;
 }
-header h2{font-size:22px;font-weight:600;}
+header h1{
+    font-size:22px;
+    font-weight:600;
+}
 header a.button{
     padding:8px 16px;
     border-radius:12px;
     background:#22c55e;
     color:#0F0F0F;
-    text-decoration:none;
     font-weight:600;
+    text-decoration:none;
     transition:0.3s;
 }
-header a.button:hover{box-shadow:0 0 10px #22c55e66;}
-header button.logout{
-    padding:8px 12px;
+header a.button:hover{
+    box-shadow:0 0 10px #22c55e66;
+}
+
+/* Form styles */
+.container{
+    max-width:700px;
+    margin:30px auto;
+    background:#1A1A1A;
+    padding:30px;
+    border-radius:15px;
+}
+.container h2{
+    text-align:center;
+    margin-bottom:25px;
+    font-weight:600;
+}
+.container label{
+    display:block;
+    margin-bottom:5px;
+    margin-top:15px;
+    font-weight:600;
+}
+.container input, .container textarea, .container select{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+    margin-bottom:10px;
+    background:#0F0F0F;
+    color:#fff;
+}
+.container input[type="file"]{
+    padding:5px;
+}
+.container button{
+    margin-top:15px;
+    padding:12px 20px;
     border:none;
     border-radius:12px;
-    background:#ef4444;
-    color:white;
-    cursor:pointer;
+    background:#22c55e;
+    color:#0F0F0F;
     font-weight:600;
+    cursor:pointer;
     transition:0.3s;
 }
-header button.logout:hover{box-shadow:0 0 10px #ef444466;}
-
-/* Profile Section */
-.profile{
-    display:flex;
-    align-items:center;
-    gap:20px;
-    background:#1A1A1A;
-    padding:20px;
-    border-radius:15px;
-    max-width:600px;
-    margin:30px auto;
+.container button:hover{
+    box-shadow:0 0 15px #22c55e66;
 }
-.profile img{
-    width:80px;
-    height:80px;
+
+/* Profile preview */
+#preview{
+    display:block;
+    margin:10px auto 20px;
+    width:120px;
+    height:120px;
     border-radius:50%;
     object-fit:cover;
     border:3px solid #22c55e;
 }
-.profile .info h3{margin:0;font-size:20px;}
-.profile .info p{margin:5px 0 0;font-size:14px;opacity:0.85;}
 
-/* Stats Cards */
-.stats{
-    max-width:1200px;
-    margin:20px auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:20px;
-    padding:0 20px;
-}
-.card{
-    background:#1A1A1A;
+/* Footer */
+footer{
+    text-align:center;
     padding:20px;
-    border-radius:15px;
-    text-align:center;
-    transition:0.3s;
+    font-size:14px;
+    opacity:0.7;
+    background:#111;
 }
-.card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 0 15px rgba(34,197,94,0.4);
-}
-.card h3{font-size:28px;color:#22c55e;margin-bottom:8px;}
-.card p{font-size:14px;opacity:0.85;}
-
-/* Table */
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:30px;
-}
-th,td{
-    padding:12px;
-    border-bottom:1px solid #333;
-    text-align:center;
-}
-th{opacity:0.8;}
-button.action{
-    padding:6px 10px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:600;
-    transition:0.3s;
-}
-button.accept{background:#22c55e;color:#0F0F0F;}
-button.complete{background:#3b82f6;color:#0F0F0F;}
-button.accept:hover{box-shadow:0 0 10px #22c55e66;}
-button.complete:hover{box-shadow:0 0 10px #3b82f666;}
-
-/* Responsive */
-@media(max-width:768px){
-    .profile{
-        flex-direction:column;
-        align-items:center;
-    }
-    .profile img{margin-bottom:10px;}
+footer a{
+    color:#22c55e;
+    text-decoration:none;
 }
 </style>
 </head>
 <body>
 
-<script>
-const loggedIn = localStorage.getItem("loggedInCleaner");
-if(!loggedIn){window.location.href="cleaner-auth.html";}
-</script>
-
 <header>
-    <h2>Cleaner Profile</h2>
-    <div>
-        <a href="dashboard.html" class="button">Home</a>
-        <button class="logout" onclick="logout()">Logout</button>
-    </div>
+    <h1>Cleaner Profile</h1>
+    <a href="dashboard.html" class="button">Dashboard</a>
 </header>
 
-<div class="profile" id="profileBox"></div>
+<div class="container">
+    <h2>Update Your Profile</h2>
+    <img id="preview" src="https://via.placeholder.com/120" alt="Profile Preview">
+    <form id="profileForm">
+        <label for="image">Profile Image</label>
+        <input type="file" id="image" accept="image/*">
 
-<div class="stats">
-    <div class="card"><h3 id="pendingCount">0</h3><p>Pending Jobs</p></div>
-    <div class="card"><h3 id="confirmedCount">0</h3><p>Confirmed Jobs</p></div>
-    <div class="card"><h3 id="completedCount">0</h3><p>Completed Jobs</p></div>
-    <div class="card"><h3 id="earnings">R 0</h3><p>Total Earnings</p></div>
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Jane Doe" required>
+
+        <label for="specialty">Specialty</label>
+        <select id="specialty" required>
+            <option value="">Select Specialty</option>
+            <option value="Kitchen & Bathroom">Kitchen & Bathroom</option>
+            <option value="Luxury Hotel Rooms">Luxury Hotel Rooms</option>
+            <option value="General Cleaning">General Cleaning</option>
+        </select>
+
+        <label for="location">Location (City/Area)</label>
+        <input type="text" id="location" placeholder="Sandton, Johannesburg" required>
+
+        <label for="experience">Years of Experience</label>
+        <input type="number" id="experience" min="0" max="50" placeholder="5" required>
+
+        <label for="rate">Hourly Rate (R)</label>
+        <input type="number" id="rate" min="0" placeholder="350" required>
+
+        <label for="description">Short Description</label>
+        <textarea id="description" rows="4" placeholder="Describe your skills and specialties..." required></textarea>
+
+        <button type="submit">Save Profile</button>
+    </form>
 </div>
 
-<h3 style="text-align:center;margin-top:40px;">Booking Requests</h3>
-<table>
-<thead>
-<tr>
-<th>Client</th>
-<th>Date</th>
-<th>Hours</th>
-<th>Total</th>
-<th>Status</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody id="bookingTable"></tbody>
-</table>
+<footer>
+    &copy; 2026 <a href="#">www.goldentouchcleaning.com</a>. Trusted Cleaners. Verified Results.
+</footer>
 
 <script>
-let users = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
-let profile = users[loggedIn]?.profile;
-
-if(profile){
-    document.getElementById("profileBox").innerHTML=`
-    <img src="${profile.image || 'https://via.placeholder.com/80'}">
-    <div class="info">
-        <h3>${profile.name || "Unnamed Cleaner"}</h3>
-        <p>${profile.experience || 0} years experience</p>
-        <p>${profile.specialty || "Specialty"}</p>
-    </div>
-    `;
+// Fetch logged-in cleaner
+const loggedCleanerPhone = localStorage.getItem("loggedCleaner");
+if(!loggedCleanerPhone){
+    alert("No cleaner logged in!");
 }
 
-function loadBookings(){
-    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
-    let table=document.getElementById("bookingTable");
-    table.innerHTML="";
-    let pending=0,confirmed=0,completed=0,earnings=0;
+// Preview image
+const imageInput = document.getElementById("image");
+const preview = document.getElementById("preview");
 
-    bookings.forEach(b=>{
-        if(b.cleanerPhone===loggedIn){
-            if(b.status==="pending") pending++;
-            if(b.status==="confirmed") confirmed++;
-            if(b.status==="completed"){completed++; earnings+=b.total;}
-
-            let row=document.createElement("tr");
-            row.innerHTML=`
-            <td>${b.clientName}</td>
-            <td>${b.date}</td>
-            <td>${b.hours}</td>
-            <td>R ${b.total}</td>
-            <td>${b.status}</td>
-            <td>
-            ${b.status==="pending" ? `<button class="action accept" onclick="updateStatus(${b.id},'confirmed')">Accept</button>`:''}
-            ${b.status==="confirmed" ? `<button class="action complete" onclick="updateStatus(${b.id},'completed')">Complete</button>`:''}
-            </td>`;
-            table.appendChild(row);
+imageInput.addEventListener("change", function(){
+    const file = this.files[0];
+    if(file){
+        const reader = new FileReader();
+        reader.onload = function(e){
+            preview.src = e.target.result;
         }
-    });
+        reader.readAsDataURL(file);
+    }
+});
 
-    document.getElementById("pendingCount").innerText=pending;
-    document.getElementById("confirmedCount").innerText=confirmed;
-    document.getElementById("completedCount").innerText=completed;
-    document.getElementById("earnings").innerText="R "+earnings;
-}
+// Load existing profile
+let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
+let profile = cleaners[loggedCleanerPhone]?.profile || {};
 
-function updateStatus(id,status){
-    let bookings=JSON.parse(localStorage.getItem("bookings")) || [];
-    bookings.forEach(b=>{if(b.id===id) b.status=status;});
-    localStorage.setItem("bookings",JSON.stringify(bookings));
-    loadBookings();
-}
+document.getElementById("name").value = profile.name || "";
+document.getElementById("specialty").value = profile.specialty || "";
+document.getElementById("location").value = profile.location || "";
+document.getElementById("experience").value = profile.experience || "";
+document.getElementById("rate").value = profile.rate || "";
+document.getElementById("description").value = profile.description || "";
+if(profile.image) preview.src = profile.image;
 
-function logout(){
-    localStorage.removeItem("loggedInCleaner");
-    window.location.href="cleaner-auth.html";
-}
+// Save profile
+document.getElementById("profileForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    const image = preview.src;
+    const name = document.getElementById("name").value;
+    const specialty = document.getElementById("specialty").value;
+    const location = document.getElementById("location").value;
+    const experience = parseInt(document.getElementById("experience").value) || 0;
+    const rate = parseFloat(document.getElementById("rate").value) || 0;
+    const description = document.getElementById("description").value;
 
-loadBookings();
+    const profileData = {image,name,specialty,location,experience,rate,description,totalJobs: profile.totalJobs || 0,totalEarnings: profile.totalEarnings || 0,ratings: profile.ratings || []};
+
+    cleaners[loggedCleanerPhone] = {profile: profileData};
+    localStorage.setItem("cleanerUsers", JSON.stringify(cleaners));
+
+    alert("Profile updated successfully!");
+});
 </script>
 
 </body>
