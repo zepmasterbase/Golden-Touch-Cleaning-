@@ -3,222 +3,208 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Golden Touch Cleaning | Luxury Cleaning Services</title>
+  <meta name="description" content="Golden Touch Cleaning - Find cleaning jobs near you. Work independently, choose your schedule, and earn instantly.">
+  <meta name="keywords" content="cleaning jobs, freelance cleaners, Golden Touch Cleaning, premium cleaning, earn from home">
+  <title>Golden Touch Cleaning | Be Your Own Boss</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      margin: 0;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      background-color: #0f0f0f;
-      color: #f5f5f5;
-      line-height: 1.6;
-    }
+    /* Reset */
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background-color: #0F172A; color: #fff; }
+    a { text-decoration: none; }
 
-    /* Sticky Navigation */
-    nav {
-      position: sticky;
-      top: 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 40px;
-      background: rgba(0,0,0,0.9);
-      z-index: 100;
-      border-bottom: 1px solid #333;
-    }
+    /* Container */
+    .container { max-width: 1200px; margin: auto; padding: 0 20px; }
 
-    nav .logo {
-      font-size: 1.5rem;
-      color: #d4af37;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 30px;
-      margin: 0;
-      padding: 0;
-    }
-
-    nav ul li a {
-      color: #f5f5f5;
-      text-decoration: none;
-      font-weight: 500;
-      position: relative;
-      transition: 0.3s;
-    }
-
-    nav ul li a:hover::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      background: #d4af37;
-      bottom: -4px;
-      left: 0;
-    }
-
+    /* Hero Section */
     header {
-      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                  url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c') center/cover;
-      height: 90vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 20px;
+      min-height: 90vh;
+      background: #0F172A;
+      position: relative;
     }
-
-    h1 {
+    header h1 {
       font-size: 3rem;
-      color: #d4af37;
-      margin-bottom: 10px;
-    }
-
-    .tagline {
-      font-size: 1.3rem;
-      max-width: 600px;
-    }
-
-    .btn {
-      margin-top: 20px;
-      padding: 12px 28px;
-      background: #d4af37;
-      color: #000;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background: #f0c94a;
-    }
-
-    section {
-      padding: 60px 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    h2 {
-      color: #d4af37;
+      font-weight: 700;
+      color: #FFD700;
       margin-bottom: 20px;
-      text-align: center;
     }
-
-    .services, .why-choose-us {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
+    header p {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: #00E5FF;
+      margin-bottom: 30px;
     }
-
-    .card {
-      background: #1a1a1a;
-      padding: 20px;
+    .cta-btn {
+      padding: 15px 30px;
+      background: #39FF14;
+      color: #0F172A;
+      font-weight: 700;
+      font-size: 1.1rem;
       border-radius: 8px;
-      border: 1px solid #333;
+      transition: all 0.3s ease;
+    }
+    .cta-btn:hover {
+      background: #00E5FF;
+      color: #0F172A;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00E5FF, 0 0 25px #39FF14;
     }
 
-    .card h3 {
-      color: #d4af37;
+    /* Cleaners Section */
+    .cleaners-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+      padding: 80px 0;
+      gap: 40px;
     }
-
-    .cta {
-      background: #d4af37;
-      color: #000;
+    .cleaner-card {
+      position: relative;
+      flex: 1 1 400px;
+      max-width: 400px;
       text-align: center;
-      padding: 40px 20px;
-      border-radius: 8px;
+      transition: transform 0.3s ease;
     }
-
-    footer {
-      background: #000;
-      text-align: center;
-      padding: 20px;
+    .cleaner-card img {
+      width: 100%;
+      border-radius: 12px;
+    }
+    .cleaner-card:hover {
+      transform: translateY(-10px);
+    }
+    /* Holographic UI elements */
+    .ui-element {
+      position: absolute;
+      background: rgba(0, 229, 255, 0.2);
+      border: 1px solid #00E5FF;
+      color: #00E5FF;
+      padding: 10px 15px;
+      border-radius: 12px;
       font-size: 0.9rem;
-      color: #aaa;
+      font-weight: 500;
+      animation: float 3s ease-in-out infinite;
+    }
+    .ui-element.earnings { top: 10%; left: -10%; }
+    .ui-element.jobs { bottom: 10%; right: -10%; }
+    .ui-element.map { top: 50%; right: -15%; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Earnings / Job Cards Section */
+    .cards-section {
+      padding: 60px 0;
+      text-align: center;
+    }
+    .cards-section h2 {
+      font-size: 2.5rem;
+      color: #FFD700;
+      margin-bottom: 40px;
+    }
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+    .card {
+      background: #1E293B;
+      border-radius: 12px;
+      padding: 25px;
+      flex: 1 1 250px;
+      max-width: 300px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 20px #FFD700, 0 0 40px #00E5FF;
+    }
+    .card h3 { color: #39FF14; font-size: 1.5rem; margin-bottom: 15px; }
+    .card p { font-size: 1rem; color: #fff; }
+
+    /* Footer */
+    footer {
+      background: #111827;
+      text-align: center;
+      padding: 30px 0;
+      margin-top: 50px;
+    }
+    footer p { margin-bottom: 10px; }
+    footer a { color: #00E5FF; margin: 0 10px; transition: color 0.3s ease; }
+    footer a:hover { color: #39FF14; }
+
+    /* Responsive */
+    @media(max-width: 768px){
+      header h1 { font-size: 2.2rem; }
+      header p { font-size: 1rem; }
+      .cleaners-section { flex-direction: column; }
     }
   </style>
 </head>
-
 <body>
 
-<!-- Premium Navigation -->
-<nav>
-  <a href="index.html" class="logo">Golden Touch</a>
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="services.html">Services</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
+  <!-- Hero Section -->
+  <header>
+    <div class="container">
+      <h1>Find Cleaning Jobs Near You. Be Your Own Boss.</h1>
+      <p>Work independently. Choose your schedule. Earn instantly.</p>
+      <a href="#signup" class="cta-btn">Join Golden Touch Now</a>
+    </div>
+  </header>
 
-<header>
-  <h1>Golden Touch Cleaning</h1>
-  <p class="tagline">
-    Where Clean Meets Luxury — Premium residential and executive cleaning services
-    delivering white-glove care and exceptional attention to detail.
-  </p>
-  <a href="contact.html" class="btn">Get a Quote</a>
-</header>
+  <!-- Cleaners Section -->
+  <section class="cleaners-section container">
+    <div class="cleaner-card">
+      <img src="placeholder.jpg" alt="Male Cleaner in Uniform">
+      <div class="ui-element earnings">💰 Earnings</div>
+      <div class="ui-element jobs">🧹 Jobs</div>
+      <div class="ui-element map">📍 Neighborhood Map</div>
+    </div>
+    <div class="cleaner-card">
+      <img src="placeholder.jpg" alt="Female Cleaner in Uniform">
+      <div class="ui-element earnings">💰 Earnings</div>
+      <div class="ui-element jobs">🧹 Jobs</div>
+      <div class="ui-element map">📍 Neighborhood Map</div>
+    </div>
+  </section>
 
-<section>
-  <h2>Our Services</h2>
-  <div class="services">
-    <div class="card">
-      <h3>Regular Cleaning</h3>
-      <p>Consistent luxury upkeep to keep your home immaculate.</p>
+  <!-- Earnings / Job Cards Section -->
+  <section class="cards-section container">
+    <h2>Featured Earnings & Jobs</h2>
+    <div class="card-container">
+      <div class="card">
+        <h3>Weekly Home Clean</h3>
+        <p>Earn R1,500 per visit. Flexible schedule. Premium clients.</p>
+      </div>
+      <div class="card">
+        <h3>Executive Office Clean</h3>
+        <p>Earn R2,500 per visit. Work high-end offices in your area.</p>
+      </div>
+      <div class="card">
+        <h3>VIP Concierge Add-on</h3>
+        <p>Earn R500 – R1,200 per service. Hotel-style reset and premium perks.</p>
+      </div>
     </div>
-    <div class="card">
-      <h3>Deep Cleaning</h3>
-      <p>Detailed top-to-bottom cleaning for a complete refresh.</p>
-    </div>
-    <div class="card">
-      <h3>Move In / Out</h3>
-      <p>Comprehensive cleaning for homes before or after moving.</p>
-    </div>
-    <div class="card">
-      <h3>Office Cleaning</h3>
-      <p>Professional environments maintained to the highest standards.</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section>
-  <h2>Why Choose Us</h2>
-  <div class="why-choose-us">
-    <div class="card">
-      <h3>Luxury Standard</h3>
-      <p>Every space is treated with meticulous care.</p>
-    </div>
-    <div class="card">
-      <h3>Trusted Professionals</h3>
-      <p>Vetted and trained team you can rely on.</p>
-    </div>
-    <div class="card">
-      <h3>Attention to Detail</h3>
-      <p>We focus on the finishing touches others miss.</p>
-    </div>
-    <div class="card">
-      <h3>Satisfaction Guaranteed</h3>
-      <p>Your comfort and happiness are our priority.</p>
-    </div>
-  </div>
-</section>
-
-<section class="cta">
-  <h2>Experience the Golden Standard of Clean</h2>
-  <p>Contact us today to schedule your luxury cleaning service.</p>
-  <a href="contact.html" class="btn">Get a Quote</a>
-</section>
-
-<footer>
-  © 2026 Golden Touch Cleaning — All Rights Reserved
-</footer>
+  <!-- Footer -->
+  <footer>
+    <p>www.goldentouchcleaning.com</p>
+    <a href="#"><img src="placeholder.jpg" alt="Facebook" width="24"></a>
+    <a href="#"><img src="placeholder.jpg" alt="Instagram" width="24"></a>
+    <a href="#"><img src="placeholder.jpg" alt="LinkedIn" width="24"></a>
+  </footer>
 
 </body>
 </html>
