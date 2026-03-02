@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cleaner Dashboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    color:white;
+    min-height:100vh;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 40px;
+    background:#111827;
+}
+
+header h2{
+    font-weight:600;
+}
+
+header button{
+    padding:8px 14px;
+    border:none;
+    border-radius:8px;
+    background:#ef4444;
+    color:white;
+    cursor:pointer;
+}
+
+.container{
+    max-width:900px;
+    margin:40px auto;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(15px);
+    padding:40px;
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,0.1);
+}
+
+h3{
+    margin-bottom:20px;
+}
+
+.profile-section{
+    display:grid;
+    grid-template-columns:200px 1fr;
+    gap:30px;
+}
+
+.profile-image{
+    text-align:center;
+}
+
+.profile-image img{
+    width:160px;
+    height:160px;
+    object-fit:cover;
+    border-radius:20px;
+    border:2px solid #00f2ff;
+}
+
+.profile-image input{
+    margin-top:10px;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+label{
+    font-size:14px;
+    display:block;
+    margin-bottom:6px;
+}
+
+input, textarea, select{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    background:rgba(255,255,255,0.08);
+    color:white;
+}
+
+textarea{
+    resize:none;
+    height:80px;
+}
+
+.save-btn{
+    margin-top:20px;
+    padding:12px;
+    width:100%;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(90deg,#00f2ff,#7c3aed);
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.success{
+    margin-top:10px;
+    color:#22c55e;
+    font-size:14px;
+}
+
+@media(max-width:768px){
+    .profile-section{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>Cleaner Dashboard</h2>
+    <button onclick="logout()">Logout</button>
+</header>
+
+<div class="container">
+
+<h3>Your Professional Profile</h3>
+
+<div class="profile-section">
+
+    <div class="profile-image">
+        <img id="preview" src="https://via.placeholder.com/160" alt="Profile Image">
+        <input type="file" accept="image/*" onchange="uploadImage(event)">
+    </div>
+
+    <div>
+
+        <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="name" required>
+        </div>
+
+        <div class="form-group">
+            <label>Phone Number</label>
+            <input type="text" id="phone" disabled>
+        </div>
+
+        <div class="form-group">
+            <label>Service Area *</label>
+            <input type="text" id="area" placeholder="e.g Johannesburg">
+        </div>
+
+        <div class="form-group">
+            <label>Years of Experience *</label>
+            <input type="number" id="experience">
+        </div>
+
+        <div class="form-group">
+            <label>Specialty *</label>
+            <select id="specialty">
+                <option>Residential Cleaning</option>
+                <option>Luxury Apartment Cleaning</option>
+                <option>Office Cleaning</option>
+                <option>Deep Cleaning</option>
+                <option>Hotel Housekeeping</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Hourly Rate (ZAR) *</label>
+            <input type="number" id="rate">
+        </div>
+
+        <div class="form-group">
+            <label>Short Bio *</label>
+            <textarea id="bio" placeholder="Brief description about your professionalism and reliability"></textarea>
+        </div>
+
+        <button class="save-btn" onclick="saveProfile()">Save Profile</button>
+
+        <p class="success" id="successMsg"></p>
+
+    </div>
+
+</div>
+
+</div>
+
+<script>
+
+// PROTECT ROUTE
+const loggedIn = localStorage.getItem("loggedInCleaner");
+if(!loggedIn){
+    window.location.href = "cleaner-auth.html";
+}
+
+// Load Users
+let users = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
+let currentUser = users[loggedIn];
+
+document.getElementById("phone").value = loggedIn;
+
+// Load existing profile if exists
+if(currentUser.profile){
+    document.getElementById("name").value = currentUser.profile.name || "";
+    document.getElementById("area").value = currentUser.profile.area || "";
+    document.getElementById("experience").value = currentUser.profile.experience || "";
+    document.getElementById("specialty").value = currentUser.profile.specialty || "";
+    document.getElementById("rate").value = currentUser.profile.rate || "";
+    document.getElementById("bio").value = currentUser.profile.bio || "";
+
+    if(currentUser.profile.image){
+        document.getElementById("preview").src = currentUser.profile.image;
+    }
+}
+
+// Upload Image
+function uploadImage(event){
+    const reader = new FileReader();
+    reader.onload = function(){
+        document.getElementById("preview").src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+// Save Profile
+function saveProfile(){
+
+    const profileData = {
+        name: document.getElementById("name").value,
+        area: document.getElementById("area").value,
+        experience: document.getElementById("experience").value,
+        specialty: document.getElementById("specialty").value,
+        rate: document.getElementById("rate").value,
+        bio: document.getElementById("bio").value,
+        image: document.getElementById("preview").src
+    };
+
+    users[loggedIn].profile = profileData;
+
+    localStorage.setItem("cleanerUsers", JSON.stringify(users));
+
+    document.getElementById("successMsg").innerText = "Profile saved successfully!";
+}
+
+// Logout
+function logout(){
+    localStorage.removeItem("loggedInCleaner");
+    window.location.href = "cleaner-auth.html";
+}
+
+</script>
+
+</body>
+</html>
