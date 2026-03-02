@@ -13,18 +13,20 @@ body{
     color:#fff;
 }
 
+/* Header */
 header{
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding:15px 20px;
-    background:#1A1A1A;
-    box-shadow:0 2px 10px rgba(0,0,0,0.5);
+    background:#111;
+    box-shadow:0 2px 10px rgba(0,0,0,0.6);
 }
 header img.logo{
     width:45px;
     height:45px;
     border-radius:50%;
+    box-shadow:0 0 15px #22c55e66;
 }
 header h1{
     font-size:20px;
@@ -45,26 +47,26 @@ header button.logout:hover{
     box-shadow:0 0 10px #22c55e66;
 }
 
-/* Main container */
+/* Container */
 .container{
     max-width:950px;
-    margin:20px auto;
+    margin:20px auto 80px;
     padding:0 15px;
 }
 
-/* Profile card */
+/* Profile Card */
 .profile-card{
     background:#1A1A1A;
-    border-radius:15px;
+    border-radius:20px;
     display:flex;
     align-items:center;
-    padding:20px;
+    padding:25px;
     margin-bottom:30px;
-    box-shadow:0 0 10px #22c55e44;
+    box-shadow:0 0 20px #22c55e44;
     transition:0.3s;
 }
 .profile-card:hover{
-    box-shadow:0 0 15px #22c55e66;
+    box-shadow:0 0 25px #22c55e66;
 }
 .profile-card img{
     width:120px;
@@ -76,7 +78,7 @@ header button.logout:hover{
 }
 .profile-details h2{
     margin:0 0 5px 0;
-    font-size:20px;
+    font-size:22px;
 }
 .profile-details p{
     margin:3px 0;
@@ -87,7 +89,7 @@ header button.logout:hover{
     margin-top:5px;
 }
 
-/* Stats grid */
+/* Stats Grid */
 .stats-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
@@ -112,7 +114,7 @@ header button.logout:hover{
     font-size:16px;
 }
 
-/* Footer */
+/* Footer 3D profile icon */
 footer{
     position:fixed;
     bottom:0;
@@ -121,7 +123,7 @@ footer{
     background:#111;
     display:flex;
     justify-content:center;
-    padding:10px 0;
+    padding:12px 0;
 }
 footer a{
     color:#22c55e;
@@ -132,14 +134,21 @@ footer a{
     justify-content:center;
 }
 footer img{
-    width:40px;
-    height:40px;
+    width:50px;
+    height:50px;
     border-radius:50%;
+    border:3px solid #22c55e;
+    box-shadow:0 0 20px #22c55e66;
+    transition:0.3s;
 }
+footer img:hover{
+    box-shadow:0 0 25px #22c55e99;
+}
+
 @media(max-width:480px){
     header h1{font-size:16px;}
-    .profile-card{flex-direction:column; text-align:center;}
-    .profile-card img{margin-bottom:10px; margin-right:0;}
+    .profile-card{flex-direction:column;text-align:center;}
+    .profile-card img{margin-bottom:10px;margin-right:0;}
     .profile-details h2{font-size:18px;}
     .profile-details p, .stat-card p{font-size:14px;}
     .stat-card h3{font-size:16px;}
@@ -157,14 +166,12 @@ footer img{
 </header>
 
 <div class="container">
-
     <div class="profile-card" id="profileCard">
-        <!-- Profile image, name, city, specialty, rating -->
         <img src="https://via.placeholder.com/120" alt="Profile">
         <div class="profile-details">
             <h2 id="profileName">Cleaner Name</h2>
             <p id="profileSpecialty">Specialty</p>
-            <p id="profileLocation">Location</p>
+            <p id="profileLocation">City</p>
             <p class="rating" id="profileRating">⭐ N/A</p>
         </div>
     </div>
@@ -190,7 +197,9 @@ footer img{
 </div>
 
 <footer>
-    <a href="profile.html" title="Profile"><img src="https://via.placeholder.com/40" alt="Profile"></a>
+    <a href="profile.html" title="Profile">
+        <img src="https://via.placeholder.com/50" alt="Profile">
+    </a>
 </footer>
 
 <script>
@@ -200,42 +209,40 @@ function logout(){
     window.location.href="index.html";
 }
 
-// Fetch logged-in cleaner
+// Load cleaner profile
 const loggedCleanerPhone = localStorage.getItem("loggedCleaner");
 if(!loggedCleanerPhone){
     alert("No cleaner logged in!");
     window.location.href="cleaner-login.html";
 }
 
-// Load cleaner profile
 let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
 let profile = cleaners[loggedCleanerPhone]?.profile || {};
 
 // Update profile card
-document.getElementById("profileCard").querySelector("img").src = profile.image || "https://via.placeholder.com/120";
+const profileCardImg = document.getElementById("profileCard").querySelector("img");
+profileCardImg.src = profile.image || "https://via.placeholder.com/120";
 document.getElementById("profileName").innerText = profile.name || "Cleaner Name";
 document.getElementById("profileSpecialty").innerText = profile.specialty || "Specialty";
-document.getElementById("profileLocation").innerText = profile.location || "Location";
+document.getElementById("profileLocation").innerText = profile.location || "City";
 let avgRating = profile.ratings?.length > 0 ? (profile.ratings.reduce((a,b)=>a+b,0)/profile.ratings.length).toFixed(1) : "N/A";
 document.getElementById("profileRating").innerText = `⭐ ${avgRating}`;
 
 // Update earnings and jobs
-document.getElementById("totalJobs").innerText = profile.totalJobs || 0;
-document.getElementById("totalEarnings").innerText = `R${profile.totalEarnings || 0}`;
+function updateStats(){
+    document.getElementById("totalJobs").innerText = profile.totalJobs || 0;
+    document.getElementById("totalEarnings").innerText = `R${profile.totalEarnings || 0}`;
+    document.getElementById("weeklyEarnings").innerText = `R${Math.floor((profile.totalEarnings||0)*0.25)}`;
+    document.getElementById("monthlyEarnings").innerText = `R${profile.totalEarnings || 0}`;
+}
+updateStats();
 
-// Weekly & monthly earnings (dummy calculation for demonstration)
-document.getElementById("weeklyEarnings").innerText = `R${Math.floor((profile.totalEarnings||0)*0.25)}`;
-document.getElementById("monthlyEarnings").innerText = `R${profile.totalEarnings || 0}`;
-
-// Marketplace integration: updates totalJobs/totalEarnings on booking
+// Listen to marketplace updates via localStorage
 window.addEventListener("storage", function(e){
     if(e.key==="cleanerUsers"){
-        let updatedCleaners = JSON.parse(e.newValue);
-        let updatedProfile = updatedCleaners[loggedCleanerPhone]?.profile || {};
-        document.getElementById("totalJobs").innerText = updatedProfile.totalJobs || 0;
-        document.getElementById("totalEarnings").innerText = `R${updatedProfile.totalEarnings || 0}`;
-        document.getElementById("weeklyEarnings").innerText = `R${Math.floor((updatedProfile.totalEarnings||0)*0.25)}`;
-        document.getElementById("monthlyEarnings").innerText = `R${updatedProfile.totalEarnings || 0}`;
+        cleaners = JSON.parse(e.newValue);
+        profile = cleaners[loggedCleanerPhone]?.profile || {};
+        updateStats();
     }
 });
 </script>
