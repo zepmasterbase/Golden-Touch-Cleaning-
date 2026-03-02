@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golden Touch Cleaning | Cleaner Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Montserrat', sans-serif; background: linear-gradient(145deg, #0B0F1A, #1B1F3A); color:#fff; overflow-x:hidden; }
+
+a { text-decoration:none; color:inherit; }
+
+/* Header */
+header { 
+  display:flex; justify-content:space-between; align-items:center; padding:20px 40px; 
+  background:#0F1224; position:sticky; top:0; z-index:1000; box-shadow:0 0 12px rgba(0,0,0,0.5);
+}
+.logo { font-size:1.8rem; font-weight:700; color:#FFD700; }
+.nav-link { font-weight:600; color:#00E5FF; }
+
+/* Hero Section */
+.hero { 
+  position:relative; height:30vh; display:flex; flex-direction:column; justify-content:center; align-items:center; 
+  text-align:center; background: linear-gradient(180deg, #0B0F1A, #111827); padding:20px; 
+}
+.hero h1 { font-size:2.5rem; color:#FFD700; text-shadow:0 0 6px #FFD700; margin-bottom:10px; }
+.hero p { font-size:1.1rem; color:#00E5FF; text-shadow:0 0 6px #00E5FF; }
+
+/* Profile Card */
+.profile-container { max-width:900px; margin:50px auto; background:#1B1F3A; border-radius:15px; overflow:hidden; box-shadow:0 0 15px rgba(0,0,0,0.5); display:flex; flex-wrap:wrap; }
+.profile-image { flex:1 1 300px; min-width:250px; max-height:400px; overflow:hidden; }
+.profile-image img { width:100%; height:100%; object-fit:cover; }
+.profile-details { flex:2 1 500px; padding:25px; display:flex; flex-direction:column; justify-content:space-between; }
+.profile-details h2 { color:#FFD700; font-size:2rem; margin-bottom:15px; }
+.profile-details p { color:#fff; font-size:1rem; margin-bottom:10px; line-height:1.5; }
+.profile-details .badge { display:inline-block; padding:6px 12px; background:#00E5FF; color:#0B0F1A; border-radius:5px; font-weight:700; margin-bottom:15px; }
+
+/* Booking Button */
+.book-btn {
+  display:inline-block; padding:12px 28px; background:#39FF14; color:#0B0F1A; font-weight:700; border-radius:12px; text-align:center; transition:all 0.3s ease;
+}
+.book-btn:hover { transform:scale(1.05); box-shadow:0 0 20px #39FF14; }
+
+/* Footer */
+footer { background:#111827; text-align:center; padding:25px 20px; margin-top:50px; }
+footer p { font-size:0.9rem; color:#888; margin-bottom:10px; }
+footer a { margin:0 8px; transition: color 0.3s; }
+footer a:hover { color:#39FF14; }
+
+/* Responsive */
+@media(max-width:768px){
+  .profile-container { flex-direction:column; align-items:center; }
+  .profile-image, .profile-details { width:100%; }
+  .hero h1 { font-size:2rem; }
+  .hero p { font-size:1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo">Golden Touch</div>
+  <a href="index.html" class="nav-link">Home</a>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>Cleaner Profile</h1>
+  <p>Verified professionals at your service in Johannesburg.</p>
+</div>
+
+<!-- Profile Section -->
+<div class="profile-container">
+  <!-- Cleaner Image -->
+  <div class="profile-image">
+    <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jimucglgl3n122n1g3e18dp18911n.jpg" alt="Cleaner Photo">
+  </div>
+
+  <!-- Cleaner Details -->
+  <div class="profile-details">
+    <div>
+      <h2>John Doe</h2>
+      <span class="badge">Verified</span>
+      <p><strong>Experience:</strong> 5 years in residential and luxury hotel cleaning.</p>
+      <p><strong>Specialties:</strong> Kitchen deep cleaning, bathrooms, luxury rooms, and post-renovation cleaning.</p>
+      <p><strong>Availability:</strong> Mon-Fri, 8am - 6pm</p>
+      <p><strong>Location:</strong> Sandton, Johannesburg</p>
+    </div>
+    <a href="https://wa.me/27624676223" target="_blank" class="book-btn">Book via WhatsApp</a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>Trusted Cleaners. Verified Results.</p>
+  <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" width="24" alt="Facebook"></a>
+  <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="24" alt="Instagram"></a>
+  <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="24" alt="LinkedIn"></a>
+</footer>
+
+</body>
+</html>
