@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marketplace - Golden Touch Cleaning</title>
+<title>Cleaner Marketplace - Golden Touch Cleaning</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <style>
 body{
@@ -13,50 +13,41 @@ body{
     color:#fff;
 }
 
+/* Header */
 header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:15px 30px;
+    padding:15px 20px;
     background:#1A1A1A;
-    position:sticky;
-    top:0;
-    z-index:1000;
     box-shadow:0 2px 10px rgba(0,0,0,0.5);
 }
+header img.logo{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+}
 header h1{
-    font-size:22px;
+    font-size:20px;
     font-weight:600;
-}
-header a.button{
-    padding:8px 16px;
-    border-radius:12px;
-    background:#22c55e;
-    color:#0F0F0F;
-    font-weight:600;
-    text-decoration:none;
-    transition:0.3s;
-}
-header a.button:hover{
-    box-shadow:0 0 10px #22c55e66;
-}
-
-/* Marketplace container */
-.container{
-    max-width:1200px;
-    margin:20px auto;
-    padding:0 15px;
+    margin-left:10px;
 }
 
 /* Cleaner cards */
+.container{
+    max-width:1000px;
+    margin:20px auto;
+    padding:0 15px;
+}
+.cleaners-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
 .cleaner-card{
     background:#1A1A1A;
     border-radius:15px;
     padding:15px;
-    margin-bottom:20px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
     text-align:center;
     transition:0.3s;
 }
@@ -68,7 +59,7 @@ header a.button:hover{
     height:120px;
     border-radius:50%;
     object-fit:cover;
-    border:3px solid #22c55e;
+    border:2px solid #22c55e;
     margin-bottom:10px;
 }
 .cleaner-card h3{
@@ -80,22 +71,23 @@ header a.button:hover{
     font-size:14px;
 }
 .cleaner-card .rating{
-    color:#FFD700;
     margin:5px 0;
+    font-weight:600;
+    color:#22c55e;
 }
 .cleaner-card button{
+    margin-top:10px;
     padding:10px 15px;
     border:none;
-    border-radius:12px;
+    border-radius:10px;
     background:#22c55e;
     color:#0F0F0F;
     font-weight:600;
     cursor:pointer;
-    margin-top:10px;
     transition:0.3s;
 }
 .cleaner-card button:hover{
-    box-shadow:0 0 15px #22c55e66;
+    box-shadow:0 0 10px #22c55e66;
 }
 
 /* Footer */
@@ -110,25 +102,28 @@ footer a{
     color:#22c55e;
     text-decoration:none;
 }
-@media(min-width:768px){
-    .cleaner-grid{
-        display:grid;
-        grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-        gap:20px;
-    }
+
+/* Responsive */
+@media(max-width:480px){
+    .cleaner-card img{width:100px;height:100px;}
+    .cleaner-card h3{font-size:16px;}
+    .cleaner-card p{font-size:12px;}
+    .cleaner-card button{font-size:14px;padding:8px 12px;}
 }
 </style>
 </head>
 <body>
 
 <header>
-    <h1>Golden Touch Cleaning</h1>
-    <a href="dashboard.html" class="button">Home</a>
+    <div style="display:flex;align-items:center;">
+        <img class="logo" src="https://payhip.com/cdn-cgi/image/format=auto,width=1500/https://pe56d.s3.amazonaws.com/o_1jin4vd70ca01qei1kso11qo1sek15.jpg" alt="Logo">
+        <h1>Marketplace</h1>
+    </div>
 </header>
 
 <div class="container">
-    <h2 style="text-align:center; margin-bottom:20px;">Verified Cleaners</h2>
-    <div class="cleaner-grid" id="cleanerGrid">
+    <h2 style="text-align:center;margin-bottom:20px;">Verified Cleaners Near You</h2>
+    <div class="cleaners-grid" id="cleanersGrid">
         <!-- Cleaner cards will be injected here -->
     </div>
 </div>
@@ -138,51 +133,57 @@ footer a{
 </footer>
 
 <script>
-// WhatsApp number for booking
-const whatsappNumber = "+27624676223";
+// Load verified cleaners
+let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
 
-// Fetch all approved cleaners
-const cleanersData = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
-const cleanerGrid = document.getElementById("cleanerGrid");
+// Helper to calculate average rating
+function calcAvgRating(ratings){
+    if(!ratings || ratings.length===0) return "N/A";
+    return (ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1);
+}
 
-Object.keys(cleanersData).forEach(phone => {
-    const cleaner = cleanersData[phone];
-    if(!cleaner.approved) return; // only approved cleaners
+// Render cleaners
+const grid = document.getElementById("cleanersGrid");
+grid.innerHTML = "";
+
+for(const phone in cleaners){
+    const profile = cleaners[phone].profile;
+    if(profile && profile.approved){ // only approved cleaners
+        const card = document.createElement("div");
+        card.className = "cleaner-card";
+        card.innerHTML = `
+            <img src="${profile.image || 'https://via.placeholder.com/120'}" alt="Cleaner">
+            <h3>${profile.name}</h3>
+            <p>${profile.specialty}</p>
+            <p>${profile.location}</p>
+            <p class="rating">⭐ ${calcAvgRating(profile.ratings)}</p>
+            <p>Rate: R${profile.rate}/hr</p>
+            <button onclick="bookCleaner('${phone}')">Book via WhatsApp</button>
+        `;
+        grid.appendChild(card);
+    }
+}
+
+// WhatsApp booking updates
+function bookCleaner(phone){
+    const cleaner = cleaners[phone].profile;
+    const earnings = parseFloat(cleaner.rate || 0);
+    cleaner.totalJobs = (cleaner.totalJobs || 0) + 1;
+    cleaner.totalEarnings = (cleaner.totalEarnings || 0) + earnings;
     
-    const p = cleaner.profile;
-
-    // Calculate average rating
-    const avgRating = p.ratings.length > 0 ? (p.ratings.reduce((a,b)=>a+b,0)/p.ratings.length).toFixed(1) : "N/A";
-
-    // Create card
-    const card = document.createElement("div");
-    card.className="cleaner-card";
-    card.innerHTML = `
-        <img src="${p.image || 'https://via.placeholder.com/120'}" alt="Cleaner Image">
-        <h3>${p.name}</h3>
-        <p><strong>Specialty:</strong> ${p.specialty}</p>
-        <p><strong>Location:</strong> ${p.location}</p>
-        <p><strong>Experience:</strong> ${p.experience} yrs</p>
-        <p><strong>Rate:</strong> R${p.rate}/hr</p>
-        <p class="rating">⭐ ${avgRating}</p>
-        <button onclick="bookCleaner('${phone}', ${p.rate})">Book via WhatsApp</button>
-    `;
-    cleanerGrid.appendChild(card);
-});
-
-// Booking function
-function bookCleaner(phone, rate){
-    const cleaner = cleanersData[phone];
-    if(!cleaner) return;
-
-    // Update jobs and earnings
-    cleaner.profile.totalJobs = (cleaner.profile.totalJobs || 0) + 1;
-    cleaner.profile.totalEarnings = (cleaner.profile.totalEarnings || 0) + rate;
-    localStorage.setItem("cleanerUsers", JSON.stringify(cleanersData));
-
+    // Weekly & Monthly (approximation)
+    cleaner.weeklyJobs = (cleaner.weeklyJobs || 0) + 1;
+    cleaner.monthlyJobs = (cleaner.monthlyJobs || 0) + 1;
+    
+    // Save back
+    cleaners[phone].profile = cleaner;
+    localStorage.setItem("cleanerUsers", JSON.stringify(cleaners));
+    
     // Open WhatsApp
-    const message = encodeURIComponent(`Hello ${cleaner.profile.name}, I would like to book your cleaning services.`);
-    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
+    const message = encodeURIComponent(`Hello ${cleaner.name}, I would like to book your cleaning service.`);
+    window.open(`https://wa.me/27624676223?text=${message}`, "_blank");
+    
+    alert(`Booking sent to ${cleaner.name}!\nDashboard stats updated.`);
 }
 </script>
 
