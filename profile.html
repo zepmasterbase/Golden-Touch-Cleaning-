@@ -39,7 +39,7 @@ header a.button:hover{
     box-shadow:0 0 10px #22c55e66;
 }
 
-/* Form styles */
+/* Profile Form Container */
 .container{
     max-width:700px;
     margin:30px auto;
@@ -157,13 +157,21 @@ footer a{
 </footer>
 
 <script>
+// ============================
 // Fetch logged-in cleaner
+// ============================
 const loggedCleanerPhone = localStorage.getItem("loggedCleaner");
 if(!loggedCleanerPhone){
-    alert("No cleaner logged in!");
+    alert("No cleaner logged in! Please login first.");
 }
 
-// Preview image
+// Load existing cleaners
+let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
+let profile = cleaners[loggedCleanerPhone]?.profile || {};
+
+// ============================
+// Profile Image Preview
+// ============================
 const imageInput = document.getElementById("image");
 const preview = document.getElementById("preview");
 
@@ -178,10 +186,9 @@ imageInput.addEventListener("change", function(){
     }
 });
 
-// Load existing profile
-let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
-let profile = cleaners[loggedCleanerPhone]?.profile || {};
-
+// ============================
+// Load existing profile values
+// ============================
 document.getElementById("name").value = profile.name || "";
 document.getElementById("specialty").value = profile.specialty || "";
 document.getElementById("location").value = profile.location || "";
@@ -190,9 +197,12 @@ document.getElementById("rate").value = profile.rate || "";
 document.getElementById("description").value = profile.description || "";
 if(profile.image) preview.src = profile.image;
 
-// Save profile
+// ============================
+// Save profile to localStorage
+// ============================
 document.getElementById("profileForm").addEventListener("submit", function(e){
     e.preventDefault();
+
     const image = preview.src;
     const name = document.getElementById("name").value;
     const specialty = document.getElementById("specialty").value;
@@ -201,10 +211,22 @@ document.getElementById("profileForm").addEventListener("submit", function(e){
     const rate = parseFloat(document.getElementById("rate").value) || 0;
     const description = document.getElementById("description").value;
 
-    const profileData = {image,name,specialty,location,experience,rate,description,totalJobs: profile.totalJobs || 0,totalEarnings: profile.totalEarnings || 0,ratings: profile.ratings || []};
+    const profileData = {
+        image,
+        name,
+        specialty,
+        location,
+        experience,
+        rate,
+        description,
+        totalJobs: profile.totalJobs || 0,
+        totalEarnings: profile.totalEarnings || 0,
+        ratings: profile.ratings || []
+    };
 
     cleaners[loggedCleanerPhone] = {profile: profileData};
     localStorage.setItem("cleanerUsers", JSON.stringify(cleaners));
+    profile = profileData;
 
     alert("Profile updated successfully!");
 });
