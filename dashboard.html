@@ -20,9 +20,6 @@ header{
     align-items:center;
     padding:15px 30px;
     background:#1A1A1A;
-    position:sticky;
-    top:0;
-    z-index:100;
     box-shadow:0 2px 10px rgba(0,0,0,0.5);
 }
 header h1{font-size:22px;font-weight:600;}
@@ -37,7 +34,7 @@ header a.button{
 }
 header a.button:hover{box-shadow:0 0 10px #22c55e66;}
 
-/* Profile section */
+/* Profile Section */
 .profile{
     display:flex;
     align-items:center;
@@ -58,7 +55,7 @@ header a.button:hover{box-shadow:0 0 10px #22c55e66;}
 .profile .info h3{margin:0;font-size:22px;}
 .profile .info p{margin:5px 0;font-size:14px;opacity:0.8;}
 
-/* Dashboard cards */
+/* Dashboard Stats */
 .dashboard{
     max-width:1200px;
     margin:20px auto 40px;
@@ -97,11 +94,7 @@ footer a{color:#22c55e;text-decoration:none;}
 
 /* Responsive */
 @media(max-width:768px){
-    .profile{
-        flex-direction:column;
-        align-items:center;
-        text-align:center;
-    }
+    .profile{flex-direction:column;text-align:center;}
     .profile img{margin-bottom:10px;}
 }
 </style>
@@ -114,13 +107,13 @@ footer a{color:#22c55e;text-decoration:none;}
 </header>
 
 <section class="profile">
-    <img id="profileImage" src="https://via.placeholder.com/100" alt="Cleaner Profile">
+    <img id="profileImage" src="https://via.placeholder.com/100" alt="Profile Image">
     <div class="info">
         <h3 id="profileName">Cleaner Name</h3>
         <p id="profileSpecialty">Specialty</p>
         <p id="profileLocation">Location</p>
         <p id="profileExperience">Years of Experience: 0</p>
-        <p id="profileRating">Rating: ★★☆☆☆ (0)</p>
+        <p id="profileRating">Rating: ★☆☆☆☆ (0)</p>
     </div>
 </section>
 
@@ -144,18 +137,22 @@ footer a{color:#22c55e;text-decoration:none;}
 </footer>
 
 <script>
-// Logged-in cleaner
+// ============================
+// Fetch logged-in cleaner from localStorage
+// ============================
 const loggedCleanerPhone = localStorage.getItem("loggedCleaner");
-if(!loggedCleanerPhone) alert("No cleaner logged in!");
+if(!loggedCleanerPhone){
+    alert("No cleaner logged in! Please login first.");
+}
 
-// Load cleaners from localStorage
+// Load all cleaner profiles
 let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
 let cleaner = cleaners[loggedCleanerPhone]?.profile || null;
 
-function updateDashboard(){
+function renderDashboard(){
     if(!cleaner) return;
 
-    // Profile info
+    // Profile Info
     document.getElementById("profileImage").src = cleaner.image || "https://via.placeholder.com/100";
     document.getElementById("profileName").innerText = cleaner.name || "Unnamed Cleaner";
     document.getElementById("profileSpecialty").innerText = cleaner.specialty || "Specialty";
@@ -172,24 +169,26 @@ function updateDashboard(){
     document.getElementById("profileRating").innerText = `Rating: ${stars} (${avg})`;
     document.getElementById("avgRating").innerText = `${avg} ★`;
 
-    // Stats
+    // Jobs and Earnings
     cleaner.totalJobs = cleaner.totalJobs || 0;
     cleaner.totalEarnings = cleaner.totalEarnings || 0;
     document.getElementById("jobsCount").innerText = cleaner.totalJobs;
     document.getElementById("earningsTotal").innerText = `R${cleaner.totalEarnings}`;
 }
 
-// Function to increment stats when booking happens from marketplace
+// Call renderDashboard on load
+renderDashboard();
+
+// ============================
+// Optional: function to update jobs and earnings dynamically when booking from marketplace
+// Usage: addBooking(rate) whenever WhatsApp booking happens
 function addBooking(rate){
-    cleaner.totalJobs +=1;
+    cleaner.totalJobs += 1;
     cleaner.totalEarnings += rate;
     cleaners[loggedCleanerPhone].profile = cleaner;
     localStorage.setItem("cleanerUsers", JSON.stringify(cleaners));
-    updateDashboard();
+    renderDashboard();
 }
-
-// Initialize dashboard
-updateDashboard();
 </script>
 
 </body>
