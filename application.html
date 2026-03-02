@@ -3,13 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jobs Application - Golden Touch Cleaning</title>
+<title>Apply for Jobs - Golden Touch Cleaning</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <style>
-/* Reset & body */
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; }
-body { background:#0F0F0F; color:#fff; }
-
+body {
+    margin:0;
+    font-family:'Montserrat',sans-serif;
+    background:#0F0F0F;
+    color:#fff;
+}
 /* Header */
 header {
     display:flex;
@@ -28,6 +30,10 @@ header img {
     border-radius:50%;
     border:2px solid #22c55e;
 }
+header h1 {
+    font-size:22px;
+    font-weight:600;
+}
 header a.button {
     padding:10px 20px;
     border-radius:12px;
@@ -37,61 +43,79 @@ header a.button {
     text-decoration:none;
     transition:0.3s;
 }
-header a.button:hover { box-shadow:0 0 15px #22c55e66; transform:translateY(-2px); }
+header a.button:hover {
+    box-shadow:0 0 15px #22c55e66;
+    transform:translateY(-2px);
+}
 
-/* Container */
-.container {
-    max-width:600px;
-    margin:40px auto;
-    background:#1A1A1A;
-    padding:30px;
-    border-radius:15px;
-}
-.container h2 {
+/* Hero Section */
+.hero {
     text-align:center;
+    padding:60px 20px 40px;
+}
+.hero h2 {
+    font-size:32px;
     font-weight:600;
-    margin-bottom:20px;
+    margin-bottom:15px;
 }
-.container p {
+.hero p {
+    font-size:18px;
+    opacity:0.85;
+    margin-bottom:30px;
+}
+
+/* Jobs Grid */
+.jobs-section {
+    max-width:1200px;
+    margin:0 auto 60px;
+    padding:0 20px;
+}
+.jobs-section h2 {
     text-align:center;
+    font-size:28px;
+    font-weight:600;
+    margin-bottom:30px;
+}
+.jobs-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+.job-card {
+    background:#1A1A1A;
+    border-radius:15px;
+    overflow:hidden;
+    padding:15px;
+    transition:0.3s;
+    cursor:pointer;
+}
+.job-card:hover {
+    transform:translateY(-5px);
+    box-shadow:0 0 15px rgba(34,197,94,0.4);
+}
+.job-card h3 {
+    font-size:20px;
+    margin-bottom:8px;
+}
+.job-card p {
     font-size:14px;
     opacity:0.8;
-    margin-bottom:25px;
+    margin-bottom:12px;
 }
-
-/* Form styles */
-form label {
-    display:block;
-    margin-top:15px;
-    margin-bottom:5px;
-    font-weight:600;
-}
-form input, form select, form textarea {
-    width:100%;
-    padding:12px;
-    border-radius:10px;
-    border:none;
-    outline:none;
-    margin-bottom:10px;
-    background:#0F0F0F;
-    color:#fff;
-    font-size:14px;
-}
-form textarea { resize:vertical; }
-form button {
-    margin-top:15px;
-    padding:14px 20px;
-    border:none;
+.job-card .apply-btn {
+    display:inline-block;
+    padding:10px 20px;
     border-radius:12px;
     background:#22c55e;
     color:#0F0F0F;
     font-weight:600;
-    cursor:pointer;
+    text-decoration:none;
     transition:0.3s;
-    font-size:16px;
-    width:100%;
 }
-form button:hover { box-shadow:0 0 15px #22c55e66; transform:translateY(-2px); }
+.job-card .apply-btn:hover {
+    box-shadow:0 0 15px #22c55e66;
+    transform:translateY(-2px);
+}
 
 /* Footer */
 footer {
@@ -101,12 +125,15 @@ footer {
     opacity:0.7;
     background:#111;
 }
-footer a { color:#22c55e; text-decoration:none; }
+footer a {
+    color:#22c55e;
+    text-decoration:none;
+}
 
-@media(max-width:480px){
-    header img { width:40px; height:40px; }
-    .container { padding:20px; margin:20px 10px; }
-    form input, form select, form textarea, form button { font-size:14px; padding:10px; }
+/* Responsive */
+@media(max-width:768px){
+    .hero h2 { font-size:26px; }
+    .hero p { font-size:16px; }
 }
 </style>
 </head>
@@ -114,56 +141,39 @@ footer a { color:#22c55e; text-decoration:none; }
 
 <header>
     <a href="index.html"><img src="https://payhip.com/cdn-cgi/image/format=auto,width=1500/https://pe56d.s3.amazonaws.com/o_1jin4vd70ca01qei1kso11qo1sek15.jpg" alt="Golden Touch Cleaning Logo"></a>
+    <h1>Apply for Jobs</h1>
     <a href="index.html" class="button">Home</a>
 </header>
 
-<div class="container">
-    <h2>Apply for Jobs</h2>
-    <p>Become a verified cleaner and start working independently. Fill the details below to submit your application.</p>
-    <form id="applicationForm">
-        <label for="fullname">Full Name</label>
-        <input type="text" id="fullname" placeholder="Jane Doe" required>
+<section class="hero">
+    <h2>Work With Golden Touch Cleaning</h2>
+    <p>Join our team of professional verified cleaners. Choose your schedule, work independently, and earn instantly.</p>
+</section>
 
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" placeholder="+27 62 467 6223" required>
-
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="jane@example.com">
-
-        <label for="specialty">Specialty</label>
-        <select id="specialty" required>
-            <option value="">Select Specialty</option>
-            <option value="Kitchen & Bathroom">Kitchen & Bathroom</option>
-            <option value="Luxury Hotel Rooms">Luxury Hotel Rooms</option>
-            <option value="General Cleaning">General Cleaning</option>
-        </select>
-
-        <label for="experience">Years of Experience</label>
-        <input type="number" id="experience" min="0" max="50" placeholder="5" required>
-
-        <label for="address">Location (City / Area)</label>
-        <input type="text" id="address" placeholder="Sandton, Johannesburg" required>
-
-        <label for="description">Short Description / Skills</label>
-        <textarea id="description" rows="4" placeholder="Describe your cleaning experience and specialties..." required></textarea>
-
-        <button type="submit">Submit Application</button>
-    </form>
-</div>
+<section class="jobs-section">
+    <h2>Available Opportunities</h2>
+    <div class="jobs-grid">
+        <div class="job-card">
+            <h3>Kitchen & Bathroom Cleaning</h3>
+            <p>Flexible hours, premium clients, R120/hr. Perfect for experienced cleaners specializing in domestic or luxury bathroom/kitchen services.</p>
+            <a href="#" target="_blank" class="apply-btn">Apply Now</a>
+        </div>
+        <div class="job-card">
+            <h3>Luxury Hotel & Residential Rooms</h3>
+            <p>High-end clients, flexible scheduling. Showcase your professional skills and earn top rates R150/hr.</p>
+            <a href="#" target="_blank" class="apply-btn">Apply Now</a>
+        </div>
+        <div class="job-card">
+            <h3>General Cleaning Services</h3>
+            <p>Domestic or office cleaning. R75/hr standard rate. Ideal for cleaners starting out or seeking regular gigs.</p>
+            <a href="#" target="_blank" class="apply-btn">Apply Now</a>
+        </div>
+    </div>
+</section>
 
 <footer>
     &copy; 2026 <a href="#">www.goldentouchcleaning.com</a>. Trusted Cleaners. Verified Results.
 </footer>
-
-<script>
-// Placeholder for future Google Form link
-document.getElementById("applicationForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    alert("Thank you! Your application has been submitted. We will contact you shortly.");
-    // Here you can redirect to Google Form or store data if needed
-    // window.location.href = "GOOGLE_FORM_LINK";
-});
-</script>
 
 </body>
 </html>
