@@ -3,164 +3,155 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Golden Touch Cleaning – Find verified professional cleaners in Johannesburg instantly. Book trusted cleaners or become verified yourself.">
-<title>Golden Touch Cleaning | Verified Cleaners Near You</title>
-
-<!-- Google Fonts -->
+<title>Golden Touch Cleaning | Verified Cleaners</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
-
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Montserrat', sans-serif; background:#0B0F1A; color:#fff; overflow-x:hidden; }
-  a { text-decoration:none; color:inherit; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Montserrat', sans-serif; background:#0B0F1A; color:#fff; overflow-x:hidden; }
 
-  /* Particle Background */
-  .particles { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+a { text-decoration:none; color:inherit; }
 
-  /* Hero Section */
-  header { 
-    position:relative; 
-    height:90vh; 
-    display:flex; 
-    flex-direction:column; 
-    justify-content:center; 
-    align-items:center; 
-    text-align:center; 
-    overflow:hidden; 
-    background: url('https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jimuft28101agnl108r18r4qk215.jpg') center/cover no-repeat; 
-  }
-  header::after {
-    content:"";
-    position:absolute; top:0; left:0; width:100%; height:100%;
-    background: rgba(11,15,26,0.5);
-    z-index:0;
-  }
-  .hero-content { position:relative; z-index:1; max-width:800px; padding:20px; }
-  header h1 { font-size:3rem; color:#FFD700; font-weight:700; margin-bottom:20px; text-shadow: 0 0 10px #FFD700; }
-  header p { font-size:1.25rem; color:#00E5FF; margin-bottom:30px; text-shadow:0 0 8px #00E5FF; }
+/* Header */
+header { 
+  display:flex; justify-content:space-between; align-items:center; padding:20px 40px; 
+  background: #0F1224; position:sticky; top:0; z-index:1000; 
+  box-shadow:0 0 10px rgba(0,0,0,0.5);
+}
+.logo { font-size:1.8rem; font-weight:700; color:#FFD700; animation: pulse 2s infinite; }
+.header-title { font-size:1.2rem; color:#00E5FF; font-weight:600; animation: pulse 2s infinite; }
 
-  .cta-primary {
-    padding:18px 40px; font-size:1.1rem; font-weight:700; border-radius:12px; border:none;
-    background:#00E5FF; color:#0B0F1A; cursor:pointer; transition: all 0.3s ease;
-    box-shadow:0 0 15px #00E5FF, 0 0 30px #39FF14;
-  }
-  .cta-primary:hover { transform:scale(1.05); box-shadow:0 0 25px #00E5FF, 0 0 50px #39FF14; }
+/* Hero */
+.hero { 
+  position:relative; height:80vh; display:flex; flex-direction:column; justify-content:center; align-items:center; 
+  text-align:center; background: url('https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jimuft28101agnl108r18r4qk215.jpg') center/cover no-repeat; 
+}
+.hero::after {
+  content:""; position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(11,15,26,0.6); z-index:0;
+}
+.hero-content { position:relative; z-index:1; max-width:800px; }
+.hero h1 { font-size:2.8rem; color:#FFD700; text-shadow:0 0 10px #FFD700; margin-bottom:15px; }
+.hero p { font-size:1.2rem; color:#00E5FF; text-shadow:0 0 8px #00E5FF; margin-bottom:25px; }
+.hero .cta-primary {
+  padding:15px 35px; font-weight:700; border-radius:12px; border:none; background:#00E5FF; color:#0B0F1A; cursor:pointer; 
+  box-shadow:0 0 15px #00E5FF, 0 0 30px #39FF14; transition:all 0.3s ease;
+}
+.hero .cta-primary:hover { transform:scale(1.05); box-shadow:0 0 25px #00E5FF,0 0 50px #39FF14; }
 
-  .cta-secondary {
-    padding:10px 20px; font-size:0.95rem; font-weight:600; border-radius:25px; border:1px solid #39FF14;
-    background:transparent; color:#39FF14; position:absolute; top:30px; right:30px; transition: all 0.3s ease;
-  }
-  .cta-secondary:hover { background:#39FF14; color:#0B0F1A; box-shadow:0 0 10px #39FF14; }
+/* Pulse animation */
+@keyframes pulse {
+  0%, 100% { opacity:1; }
+  50% { opacity:0.6; }
+}
 
-  /* Service Request Section */
-  .service-request { padding:80px 20px; text-align:center; }
-  .service-request h2 { font-size:2.5rem; color:#FFD700; margin-bottom:40px; }
-  .service-form { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; max-width:900px; margin:auto; }
-  .service-form input, .service-form select, .service-form button {
-    padding:15px 20px; border-radius:12px; border:none; font-size:1rem; outline:none;
-  }
-  .service-form input, .service-form select { flex:1 1 200px; background:#1B1F3A; color:#fff; }
-  .service-form input:focus, .service-form select:focus { border:2px solid #00E5FF; }
-  .service-form button {
-    background:#39FF14; color:#0B0F1A; font-weight:700; cursor:pointer; flex:1 1 150px;
-    transition:all 0.3s ease; box-shadow:0 0 10px #39FF14;
-  }
-  .service-form button:hover { background:#00E5FF; box-shadow:0 0 20px #00E5FF,0 0 35px #39FF14; }
+/* Section Headings */
+section h2 { text-align:center; color:#FFD700; font-size:2.2rem; margin:50px 0 30px; }
 
-  /* Verified Cleaners Section */
-  .verified-cleaners { padding:80px 20px; text-align:center; background:#0F1224; position:relative; z-index:1; }
-  .verified-cleaners h2 { font-size:2.5rem; color:#FFD700; margin-bottom:40px; }
-  .cleaner-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:30px; }
-  .cleaner-card { background:#1B1F3A; border-radius:15px; overflow:hidden; width:250px; transition:transform 0.3s ease, box-shadow 0.3s ease; }
-  .cleaner-card:hover { transform:translateY(-8px); box-shadow:0 0 20px #00E5FF,0 0 35px #39FF14; }
-  .cleaner-card img { width:100%; height:200px; object-fit:cover; }
-  .cleaner-info { padding:15px; text-align:left; }
-  .cleaner-info h3 { font-size:1.2rem; color:#FFD700; margin-bottom:5px; }
-  .cleaner-info p { font-size:0.95rem; color:#fff; margin-bottom:10px; }
-  .verified-badge { display:inline-block; padding:5px 10px; background:#00E5FF; color:#0B0F1A; border-radius:6px; font-size:0.75rem; font-weight:700; }
+/* Card Layout */
+.card-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:25px; margin-bottom:60px; }
+.card { background:#1B1F3A; width:250px; border-radius:15px; overflow:hidden; cursor:pointer; transition: transform 0.3s, box-shadow 0.3s; animation: pulse 2s infinite; }
+.card:hover { transform:translateY(-8px); box-shadow:0 0 20px #00E5FF,0 0 35px #39FF14; }
+.card img { width:100%; height:180px; object-fit:cover; }
+.card-content { padding:15px; text-align:left; }
+.card-content h3 { font-size:1.2rem; color:#FFD700; margin-bottom:8px; }
+.card-content p { font-size:0.95rem; color:#fff; margin-bottom:5px; }
+.card-content .badge { display:inline-block; padding:4px 8px; background:#00E5FF; color:#0B0F1A; border-radius:5px; font-size:0.75rem; font-weight:700; }
 
-  /* Footer */
-  footer { background:#111827; text-align:center; padding:30px 20px; }
-  footer p { margin-bottom:10px; font-size:0.9rem; color:#888; }
-  footer a { margin:0 10px; transition: color 0.3s ease; }
-  footer a:hover { color:#39FF14; }
+/* Footer */
+footer { background:#111827; text-align:center; padding:25px 20px; }
+footer p { font-size:0.9rem; color:#888; margin-bottom:10px; }
+footer a { margin:0 8px; transition: color 0.3s; }
+footer a:hover { color:#39FF14; }
 
-  /* Responsive */
-  @media(max-width:768px){
-    header h1 { font-size:2rem; }
-    header p { font-size:1rem; }
-    .cta-secondary { position:static; margin-bottom:20px; }
-    .service-form { flex-direction:column; align-items:center; }
-    .cleaner-grid { flex-direction:column; align-items:center; }
-  }
+/* Responsive */
+@media(max-width:768px){
+  .hero h1 { font-size:2rem; }
+  .hero p { font-size:1rem; }
+  .card-grid { flex-direction:column; align-items:center; }
+  header { flex-direction:column; gap:10px; }
+}
 </style>
 </head>
 <body>
 
-<!-- Hero Section -->
+<!-- Header -->
 <header>
-  <button class="cta-secondary" onclick="window.location.href='#signup'">Become a Verified Cleaner</button>
-  <div class="hero-content">
-    <h1>Find Verified Cleaners Near You Instantly</h1>
-    <p>Book appointments with trusted professionals in minutes.</p>
-    <a href="https://forms.gle/your-google-form-link" target="_blank" class="cta-primary">Request a Cleaner</a>
-  </div>
+  <div class="logo">Golden Touch</div>
+  <div class="header-title">Find Verified Cleaners Near You</div>
 </header>
 
-<!-- Service Request Section -->
-<section class="service-request">
-  <h2>Request a Cleaning Service</h2>
-  <form class="service-form">
-    <input type="text" placeholder="Enter your location" />
-    <select>
-      <option selected disabled>Type of Cleaning Service</option>
-      <option>Kitchen Cleaning</option>
-      <option>Bathroom Cleaning</option>
-      <option>Luxury Hotel Room Cleaning</option>
-      <option>Home Cleaning</option>
-      <option>Office Cleaning</option>
-    </select>
-    <input type="datetime-local" />
-    <button type="submit">Schedule Appointment</button>
-  </form>
+<!-- Hero Section -->
+<div class="hero">
+  <div class="hero-content">
+    <h1>Book Trusted Cleaners Instantly</h1>
+    <p>Professional, verified cleaners in Johannesburg at your fingertips.</p>
+    <a href="https://forms.gle/your-google-form-link" target="_blank" class="cta-primary">Request a Cleaner</a>
+  </div>
+</div>
+
+<!-- Services & Rates Section -->
+<section>
+  <h2>Our Services & Rates</h2>
+  <div class="card-grid">
+    <a href="service.html" class="card">
+      <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jimucglgl3n122n1g3e18dp18911n.jpg" alt="Kitchen Cleaning">
+      <div class="card-content">
+        <h3>Kitchen Cleaning</h3>
+        <p>Starting at R350</p>
+      </div>
+    </a>
+    <a href="service.html" class="card">
+      <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jimubpd4v6r1u2sqi0lfb1gmp15.jpg" alt="Bathroom Cleaning">
+      <div class="card-content">
+        <h3>Bathroom Cleaning</h3>
+        <p>Starting at R300</p>
+      </div>
+    </a>
+    <a href="service.html" class="card">
+      <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jimubtku1o2j1mpibp18801m2u1b.jpg" alt="Luxury Hotel Room Cleaning">
+      <div class="card-content">
+        <h3>Luxury Room Cleaning</h3>
+        <p>Starting at R500</p>
+      </div>
+    </a>
+  </div>
 </section>
 
-<!-- Verified Cleaners Section -->
-<section class="verified-cleaners">
-  <h2>Our Verified Cleaners</h2>
-  <div class="cleaner-grid">
-    <div class="cleaner-card">
+<!-- Verified Cleaners Marketplace -->
+<section>
+  <h2>Verified Cleaners Marketplace</h2>
+  <div class="card-grid">
+    <a href="cleaner-profile.html" class="card">
       <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jimucglgl3n122n1g3e18dp18911n.jpg" alt="Cleaner 1">
-      <div class="cleaner-info">
+      <div class="card-content">
         <h3>John Doe</h3>
         <p>Sandton, Johannesburg</p>
-        <span class="verified-badge">Verified</span>
+        <span class="badge">Verified</span>
       </div>
-    </div>
-    <div class="cleaner-card">
+    </a>
+    <a href="cleaner-profile.html" class="card">
       <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jimubpd4v6r1u2sqi0lfb1gmp15.jpg" alt="Cleaner 2">
-      <div class="cleaner-info">
+      <div class="card-content">
         <h3>Mary Smith</h3>
         <p>Bryanston, Johannesburg</p>
-        <span class="verified-badge">Verified</span>
+        <span class="badge">Verified</span>
       </div>
-    </div>
-    <div class="cleaner-card">
+    </a>
+    <a href="cleaner-profile.html" class="card">
       <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jimubtku1o2j1mpibp18801m2u1b.jpg" alt="Cleaner 3">
-      <div class="cleaner-info">
+      <div class="card-content">
         <h3>James Brown</h3>
         <p>Houghton, Johannesburg</p>
-        <span class="verified-badge">Verified</span>
+        <span class="badge">Verified</span>
       </div>
-    </div>
-    <div class="cleaner-card">
+    </a>
+    <a href="cleaner-profile.html" class="card">
       <img src="https://payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jimur0tbp1q5ki1cju9g81lfs15.jpg" alt="Cleaner 4">
-      <div class="cleaner-info">
+      <div class="card-content">
         <h3>Sarah Lee</h3>
         <p>Bryanston, Johannesburg</p>
-        <span class="verified-badge">Verified</span>
+        <span class="badge">Verified</span>
       </div>
-    </div>
+    </a>
   </div>
 </section>
 
