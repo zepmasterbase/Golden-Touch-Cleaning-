@@ -6,253 +6,195 @@
 <title>Cleaner Dashboard - Golden Touch Cleaning</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <style>
-/* Basic Reset */
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Montserrat',sans-serif;background:#0F172A;color:white;line-height:1.5;}
-a{text-decoration:none;color:inherit;}
+body{
+    margin:0;
+    font-family:'Montserrat',sans-serif;
+    background:#0F0F0F;
+    color:#fff;
+}
 
 /* Header */
 header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:20px 25px;
-    background:linear-gradient(90deg,#00E5FF,#FFD700,#39FF14);
-    animation:pulse 3s infinite;
-    border-bottom:1px solid #333;
+    padding:15px 30px;
+    background:#1A1A1A;
+    position:sticky;
+    top:0;
+    z-index:100;
+    box-shadow:0 2px 10px rgba(0,0,0,0.5);
 }
-@keyframes pulse{
-    0%,100%{opacity:1;}
-    50%{opacity:0.85;}
+header h1{
+    font-size:22px;
+    font-weight:600;
 }
-header h1{font-size:1.5rem;font-weight:600;}
-header .profile-btn{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    cursor:pointer;
+header a.button{
+    padding:8px 16px;
+    border-radius:12px;
+    background:#22c55e;
+    color:#0F0F0F;
+    font-weight:600;
+    text-decoration:none;
+    transition:0.3s;
 }
-header .profile-btn img{
-    width:40px;height:40px;border-radius:50%;object-fit:cover;
-    border:2px solid #FFD700;
-}
-header button.logout{
-    margin-left:15px;
-    background:#ef4444;
-    border:none;
-    border-radius:8px;
-    padding:8px 12px;
-    cursor:pointer;
-    color:white;
+header a.button:hover{
+    box-shadow:0 0 10px #22c55e66;
 }
 
-/* Stats Cards */
-.stats{
+/* Dashboard cards */
+.dashboard{
+    max-width:1200px;
+    margin:30px auto;
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:20px;
-    padding:20px;
+    padding:0 20px;
 }
-.stats .card{
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(10px);
+.card{
+    background:#1A1A1A;
+    border-radius:15px;
     padding:20px;
-    border-radius:12px;
     text-align:center;
     transition:0.3s;
 }
-.stats .card:hover{
+.card:hover{
     transform:translateY(-5px);
-    box-shadow:0 0 15px #00E5FF66;
+    box-shadow:0 0 15px rgba(34,197,94,0.4);
 }
-.stats .card h2{font-size:1.5rem;margin-bottom:5px;}
-.stats .card p{opacity:0.8;font-size:0.9rem;}
+.card h2{
+    font-size:32px;
+    margin-bottom:10px;
+    color:#22c55e;
+}
+.card p{
+    font-size:16px;
+    opacity:0.85;
+}
 
-/* Booking Table */
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin:20px 0;
-}
-th,td{
-    padding:10px;
-    border-bottom:1px solid rgba(255,255,255,0.1);
-    text-align:center;
-    font-size:0.9rem;
-}
-th{
-    background:rgba(255,255,255,0.05);
-    font-weight:600;
-}
-button.action{
-    padding:6px 10px;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
-    margin:2px;
-    font-size:0.85rem;
-}
-button.accept{background:#22c55e;color:white;}
-button.complete{background:#3b82f6;color:white;}
-
-/* Profile Card */
-.profile-card{
+/* Profile section */
+.profile{
     display:flex;
     align-items:center;
-    gap:15px;
-    background:rgba(255,255,255,0.05);
-    padding:15px 20px;
-    border-radius:12px;
-    margin:20px;
+    gap:20px;
+    background:#1A1A1A;
+    padding:20px;
+    border-radius:15px;
+    max-width:500px;
+    margin:0 auto 30px;
 }
-.profile-card img{
-    width:80px;height:80px;
-    border-radius:12px;
+.profile img{
+    width:80px;
+    height:80px;
+    border-radius:50%;
     object-fit:cover;
-    border:2px solid #FFD700;
+    border:3px solid #22c55e;
 }
-.profile-card div p{margin-bottom:5px;opacity:0.85;font-size:0.9rem;}
+.profile .info h3{
+    margin:0;
+    font-size:20px;
+}
+.profile .info p{
+    margin:5px 0 0;
+    font-size:14px;
+    opacity:0.8;
+}
+
+/* Footer */
+footer{
+    text-align:center;
+    padding:20px;
+    font-size:14px;
+    opacity:0.7;
+    background:#111;
+}
+footer a{
+    color:#22c55e;
+    text-decoration:none;
+}
 
 /* Responsive */
 @media(max-width:768px){
-    .stats{grid-template-columns:repeat(auto-fit,minmax(120px,1fr));}
-    header h1{font-size:1.2rem;}
-    table, th, td{font-size:0.8rem;}
+    .profile{
+        flex-direction:column;
+        align-items:center;
+    }
+    .profile img{margin-bottom:10px;}
 }
 </style>
 </head>
 <body>
 
 <header>
-<h1>Cleaner Dashboard</h1>
-<div style="display:flex;align-items:center;">
-    <a href="profile.html" class="profile-btn">
-        <img id="profileImage" src="placeholder.jpg" alt="Profile Image">
-        <span id="profileName">Cleaner Name</span>
-    </a>
-    <button class="logout" onclick="logout()">Logout</button>
-</div>
+    <h1>Cleaner Dashboard</h1>
+    <a href="marketplace.html" class="button">Browse Clients</a>
 </header>
 
-<!-- Profile Card -->
-<div class="profile-card">
-    <img id="dashImage" src="placeholder.jpg" alt="Profile Image">
-    <div>
-        <h2 id="dashName">Cleaner Name</h2>
-        <p><strong>Specialty:</strong> <span id="dashSpecialty"></span></p>
-        <p><strong>Experience:</strong> <span id="dashExperience"></span> years</p>
-        <p><strong>Rate:</strong> R <span id="dashRate"></span>/hour</p>
+<section class="profile">
+    <img id="profileImage" src="https://via.placeholder.com/80" alt="Profile Picture">
+    <div class="info">
+        <h3 id="profileName">Cleaner Name</h3>
+        <p id="profileSpecialty">Specialty</p>
     </div>
-</div>
+</section>
 
-<!-- Stats -->
-<div class="stats">
+<section class="dashboard">
     <div class="card">
-        <h2 id="pendingCount">0</h2>
-        <p>Pending Jobs</p>
+        <h2 id="jobsCount">0</h2>
+        <p>Total Jobs Completed</p>
     </div>
     <div class="card">
-        <h2 id="confirmedCount">0</h2>
-        <p>Confirmed Jobs</p>
-    </div>
-    <div class="card">
-        <h2 id="completedCount">0</h2>
-        <p>Completed Jobs</p>
-    </div>
-    <div class="card">
-        <h2 id="earnings">R 0</h2>
+        <h2 id="earningsTotal">R0</h2>
         <p>Total Earnings</p>
     </div>
-</div>
+    <div class="card">
+        <h2 id="experienceYears">0</h2>
+        <p>Years of Experience</p>
+    </div>
+</section>
 
-<!-- Bookings Table -->
-<h2 style="margin-left:20px;">Booking Requests</h2>
-<div style="overflow-x:auto; padding:0 20px;">
-<table>
-<thead>
-<tr>
-<th>Client</th>
-<th>Date</th>
-<th>Hours</th>
-<th>Total</th>
-<th>Status</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody id="bookingTable"></tbody>
-</table>
-</div>
+<footer>
+    &copy; 2026 <a href="#">www.goldentouchcleaning.com</a>. Trusted Cleaners. Verified Results.
+</footer>
 
 <script>
-// Check login
-const loggedIn = localStorage.getItem("loggedInCleaner");
-if(!loggedIn){window.location.href="cleaner-login.html";}
+// Fetch logged-in cleaner
+const loggedCleanerPhone = localStorage.getItem("loggedCleaner"); // Store this when login
+if(!loggedCleanerPhone) alert("No cleaner logged in!");
 
-// Fetch cleaner profile
-const users = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
-const profile = users[loggedIn].profile;
+// Fetch cleaner data from localStorage
+let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
+let cleaner = cleaners[loggedCleanerPhone]?.profile || null;
 
-document.getElementById("profileImage").src = profile.image || "https://via.placeholder.com/80";
-document.getElementById("profileName").innerText = profile.name || "Cleaner Name";
-document.getElementById("dashImage").src = profile.image || "https://via.placeholder.com/80";
-document.getElementById("dashName").innerText = profile.name || "Cleaner Name";
-document.getElementById("dashSpecialty").innerText = profile.specialty || "N/A";
-document.getElementById("dashExperience").innerText = profile.experience || "N/A";
-document.getElementById("dashRate").innerText = profile.rate || "N/A";
+// Update dashboard dynamically
+if(cleaner){
+    document.getElementById("profileImage").src = cleaner.image || "https://via.placeholder.com/80";
+    document.getElementById("profileName").innerText = cleaner.name || "Unnamed Cleaner";
+    document.getElementById("profileSpecialty").innerText = cleaner.specialty || "Specialty";
 
-// Load Bookings and Stats
-function loadBookings(){
-    const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
-    const table = document.getElementById("bookingTable");
-    table.innerHTML="";
+    // Ensure stats exist
+    cleaner.totalJobs = cleaner.totalJobs || 0;
+    cleaner.totalEarnings = cleaner.totalEarnings || 0;
+    cleaner.experience = cleaner.experience || 0;
 
-    let pending=0, confirmed=0, completed=0, earnings=0;
-
-    bookings.forEach(b=>{
-        if(b.cleanerPhone === loggedIn){
-            if(b.status==="pending") pending++;
-            if(b.status==="confirmed") confirmed++;
-            if(b.status==="completed") {completed++; earnings+=b.total;}
-
-            const row = document.createElement("tr");
-            row.innerHTML=`
-                <td>${b.clientName}</td>
-                <td>${b.date}</td>
-                <td>${b.hours}</td>
-                <td>R ${b.total}</td>
-                <td>${b.status}</td>
-                <td>
-                ${b.status==="pending"?`<button class="action accept" onclick="updateStatus(${b.id},'confirmed')">Accept</button>`:''}
-                ${b.status==="confirmed"?`<button class="action complete" onclick="updateStatus(${b.id},'completed')">Complete</button>`:''}
-                </td>
-            `;
-            table.appendChild(row);
-        }
-    });
-
-    document.getElementById("pendingCount").innerText = pending;
-    document.getElementById("confirmedCount").innerText = confirmed;
-    document.getElementById("completedCount").innerText = completed;
-    document.getElementById("earnings").innerText = "R " + earnings;
+    document.getElementById("jobsCount").innerText = cleaner.totalJobs;
+    document.getElementById("earningsTotal").innerText = `R${cleaner.totalEarnings}`;
+    document.getElementById("experienceYears").innerText = cleaner.experience;
 }
 
-// Update Booking Status
-function updateStatus(id, status){
-    const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
-    bookings.forEach(b=>{
-        if(b.id===id){b.status=status;}
-    });
-    localStorage.setItem("bookings", JSON.stringify(bookings));
-    loadBookings();
+// Function to update stats when a job is booked
+function updateStatsOnBooking(rate){
+    cleaner.totalJobs +=1;
+    cleaner.totalEarnings += rate;
+    document.getElementById("jobsCount").innerText = cleaner.totalJobs;
+    document.getElementById("earningsTotal").innerText = `R${cleaner.totalEarnings}`;
+    // Save back to localStorage
+    cleaners[loggedCleanerPhone].profile = cleaner;
+    localStorage.setItem("cleanerUsers", JSON.stringify(cleaners));
 }
 
-// Logout
-function logout(){
-    localStorage.removeItem("loggedInCleaner");
-    window.location.href="cleaner-login.html";
-}
-
-loadBookings();
+// Example: call updateStatsOnBooking(rate) when a WhatsApp booking is made
+// e.g., updateStatsOnBooking(350);
 </script>
 
 </body>
