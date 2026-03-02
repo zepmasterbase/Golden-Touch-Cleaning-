@@ -42,10 +42,38 @@ header a.button:hover{
     box-shadow:0 0 10px #22c55e66;
 }
 
+/* Profile section */
+.profile{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    background:#1A1A1A;
+    padding:20px;
+    border-radius:15px;
+    max-width:600px;
+    margin:30px auto;
+}
+.profile img{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid #22c55e;
+}
+.profile .info h3{
+    margin:0;
+    font-size:22px;
+}
+.profile .info p{
+    margin:5px 0;
+    font-size:14px;
+    opacity:0.8;
+}
+
 /* Dashboard cards */
 .dashboard{
     max-width:1200px;
-    margin:30px auto;
+    margin:20px auto 40px;
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:20px;
@@ -63,41 +91,13 @@ header a.button:hover{
     box-shadow:0 0 15px rgba(34,197,94,0.4);
 }
 .card h2{
-    font-size:32px;
+    font-size:28px;
     margin-bottom:10px;
     color:#22c55e;
 }
 .card p{
-    font-size:16px;
-    opacity:0.85;
-}
-
-/* Profile section */
-.profile{
-    display:flex;
-    align-items:center;
-    gap:20px;
-    background:#1A1A1A;
-    padding:20px;
-    border-radius:15px;
-    max-width:500px;
-    margin:0 auto 30px;
-}
-.profile img{
-    width:80px;
-    height:80px;
-    border-radius:50%;
-    object-fit:cover;
-    border:3px solid #22c55e;
-}
-.profile .info h3{
-    margin:0;
-    font-size:20px;
-}
-.profile .info p{
-    margin:5px 0 0;
     font-size:14px;
-    opacity:0.8;
+    opacity:0.85;
 }
 
 /* Footer */
@@ -118,6 +118,7 @@ footer a{
     .profile{
         flex-direction:column;
         align-items:center;
+        text-align:center;
     }
     .profile img{margin-bottom:10px;}
 }
@@ -127,14 +128,17 @@ footer a{
 
 <header>
     <h1>Cleaner Dashboard</h1>
-    <a href="marketplace.html" class="button">Browse Clients</a>
+    <a href="profile.html" class="button">Profile</a>
 </header>
 
 <section class="profile">
-    <img id="profileImage" src="https://via.placeholder.com/80" alt="Profile Picture">
+    <img id="profileImage" src="https://via.placeholder.com/100" alt="Cleaner Profile">
     <div class="info">
         <h3 id="profileName">Cleaner Name</h3>
         <p id="profileSpecialty">Specialty</p>
+        <p id="profileLocation">Location</p>
+        <p id="profileExperience">Years of Experience: 0</p>
+        <p id="profileRating">Rating: ★★☆☆☆ (0)</p>
     </div>
 </section>
 
@@ -148,8 +152,8 @@ footer a{
         <p>Total Earnings</p>
     </div>
     <div class="card">
-        <h2 id="experienceYears">0</h2>
-        <p>Years of Experience</p>
+        <h2 id="avgRating">0 ★</h2>
+        <p>Average Rating</p>
     </div>
 </section>
 
@@ -158,43 +162,57 @@ footer a{
 </footer>
 
 <script>
-// Fetch logged-in cleaner
-const loggedCleanerPhone = localStorage.getItem("loggedCleaner"); // Store this when login
-if(!loggedCleanerPhone) alert("No cleaner logged in!");
+// Logged-in cleaner phone stored on login
+const loggedCleanerPhone = localStorage.getItem("loggedCleaner");
+if(!loggedCleanerPhone){
+    alert("No cleaner logged in!");
+}
 
-// Fetch cleaner data from localStorage
+// Fetch cleaner data
 let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
 let cleaner = cleaners[loggedCleanerPhone]?.profile || null;
 
-// Update dashboard dynamically
-if(cleaner){
-    document.getElementById("profileImage").src = cleaner.image || "https://via.placeholder.com/80";
+function updateDashboard(){
+    if(!cleaner) return;
+    // Profile
+    document.getElementById("profileImage").src = cleaner.image || "https://via.placeholder.com/100";
     document.getElementById("profileName").innerText = cleaner.name || "Unnamed Cleaner";
     document.getElementById("profileSpecialty").innerText = cleaner.specialty || "Specialty";
+    document.getElementById("profileLocation").innerText = cleaner.location || "Unknown";
+    document.getElementById("profileExperience").innerText = `Years of Experience: ${cleaner.experience || 0}`;
+    
+    // Ratings
+    const ratings = cleaner.ratings || [];
+    const avg = ratings.length ? (ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1) : 0;
+    const fullStars = Math.floor(avg);
+    const halfStar = avg - fullStars >= 0.5 ? "½" : "";
+    const emptyStars = 5 - fullStars - (halfStar?"1":"0");
+    const stars = "★".repeat(fullStars)+halfStar+"☆".repeat(emptyStars);
+    
+    document.getElementById("profileRating").innerText = `Rating: ${stars} (${avg})`;
+    document.getElementById("avgRating").innerText = `${avg} ★`;
 
-    // Ensure stats exist
+    // Stats
     cleaner.totalJobs = cleaner.totalJobs || 0;
     cleaner.totalEarnings = cleaner.totalEarnings || 0;
-    cleaner.experience = cleaner.experience || 0;
-
     document.getElementById("jobsCount").innerText = cleaner.totalJobs;
     document.getElementById("earningsTotal").innerText = `R${cleaner.totalEarnings}`;
-    document.getElementById("experienceYears").innerText = cleaner.experience;
 }
 
-// Function to update stats when a job is booked
-function updateStatsOnBooking(rate){
-    cleaner.totalJobs +=1;
-    cleaner.totalEarnings += rate;
-    document.getElementById("jobsCount").innerText = cleaner.totalJobs;
-    document.getElementById("earningsTotal").innerText = `R${cleaner.totalEarnings}`;
-    // Save back to localStorage
+// Update stats dynamically when job booked from marketplace
+function addBooking(rate){
+    cleaner.totalJobs = (cleaner.totalJobs || 0) + 1;
+    cleaner.totalEarnings = (cleaner.totalEarnings || 0) + rate;
     cleaners[loggedCleanerPhone].profile = cleaner;
     localStorage.setItem("cleanerUsers", JSON.stringify(cleaners));
+    updateDashboard();
 }
 
-// Example: call updateStatsOnBooking(rate) when a WhatsApp booking is made
-// e.g., updateStatsOnBooking(350);
+// Initialize dashboard
+updateDashboard();
+
+// Example: simulate booking
+// addBooking(350);
 </script>
 
 </body>
