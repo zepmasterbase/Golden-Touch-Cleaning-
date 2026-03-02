@@ -1,21 +1,130 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Cleaner Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cleaner Profile - Golden Touch Cleaning</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <style>
-body{font-family:Segoe UI;background:#0f172a;color:white;margin:0;padding:20px;}
-header{display:flex;justify-content:space-between;align-items:center;}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin:30px 0;}
-.card{background:#1e293b;padding:20px;border-radius:12px;text-align:center;}
-table{width:100%;border-collapse:collapse;margin-top:20px;}
-th,td{padding:10px;border-bottom:1px solid #333;text-align:center;}
-button{padding:6px 10px;border:none;border-radius:6px;cursor:pointer;}
-.accept{background:#22c55e;color:white;}
-.complete{background:#3b82f6;color:white;}
-.logout{background:#ef4444;color:white;padding:8px 12px;}
-.profile{display:flex;align-items:center;gap:15px;}
-.profile img{width:70px;height:70px;border-radius:12px;object-fit:cover;}
+body {
+    margin:0;
+    font-family:'Montserrat',sans-serif;
+    background:#0F0F0F;
+    color:#fff;
+}
+
+/* Header */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 30px;
+    background:#1A1A1A;
+    box-shadow:0 2px 10px rgba(0,0,0,0.5);
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+header h2{font-size:22px;font-weight:600;}
+header a.button{
+    padding:8px 16px;
+    border-radius:12px;
+    background:#22c55e;
+    color:#0F0F0F;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s;
+}
+header a.button:hover{box-shadow:0 0 10px #22c55e66;}
+header button.logout{
+    padding:8px 12px;
+    border:none;
+    border-radius:12px;
+    background:#ef4444;
+    color:white;
+    cursor:pointer;
+    font-weight:600;
+    transition:0.3s;
+}
+header button.logout:hover{box-shadow:0 0 10px #ef444466;}
+
+/* Profile Section */
+.profile{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    background:#1A1A1A;
+    padding:20px;
+    border-radius:15px;
+    max-width:600px;
+    margin:30px auto;
+}
+.profile img{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid #22c55e;
+}
+.profile .info h3{margin:0;font-size:20px;}
+.profile .info p{margin:5px 0 0;font-size:14px;opacity:0.85;}
+
+/* Stats Cards */
+.stats{
+    max-width:1200px;
+    margin:20px auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+    padding:0 20px;
+}
+.card{
+    background:#1A1A1A;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    transition:0.3s;
+}
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 15px rgba(34,197,94,0.4);
+}
+.card h3{font-size:28px;color:#22c55e;margin-bottom:8px;}
+.card p{font-size:14px;opacity:0.85;}
+
+/* Table */
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:30px;
+}
+th,td{
+    padding:12px;
+    border-bottom:1px solid #333;
+    text-align:center;
+}
+th{opacity:0.8;}
+button.action{
+    padding:6px 10px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+    transition:0.3s;
+}
+button.accept{background:#22c55e;color:#0F0F0F;}
+button.complete{background:#3b82f6;color:#0F0F0F;}
+button.accept:hover{box-shadow:0 0 10px #22c55e66;}
+button.complete:hover{box-shadow:0 0 10px #3b82f666;}
+
+/* Responsive */
+@media(max-width:768px){
+    .profile{
+        flex-direction:column;
+        align-items:center;
+    }
+    .profile img{margin-bottom:10px;}
+}
 </style>
 </head>
 <body>
@@ -26,20 +135,23 @@ if(!loggedIn){window.location.href="cleaner-auth.html";}
 </script>
 
 <header>
-<h2>Cleaner Dashboard</h2>
-<button class="logout" onclick="logout()">Logout</button>
+    <h2>Cleaner Profile</h2>
+    <div>
+        <a href="dashboard.html" class="button">Home</a>
+        <button class="logout" onclick="logout()">Logout</button>
+    </div>
 </header>
 
 <div class="profile" id="profileBox"></div>
 
 <div class="stats">
-<div class="card"><h3 id="pendingCount">0</h3><p>Pending Jobs</p></div>
-<div class="card"><h3 id="confirmedCount">0</h3><p>Confirmed Jobs</p></div>
-<div class="card"><h3 id="completedCount">0</h3><p>Completed Jobs</p></div>
-<div class="card"><h3 id="earnings">R 0</h3><p>Total Earnings</p></div>
+    <div class="card"><h3 id="pendingCount">0</h3><p>Pending Jobs</p></div>
+    <div class="card"><h3 id="confirmedCount">0</h3><p>Confirmed Jobs</p></div>
+    <div class="card"><h3 id="completedCount">0</h3><p>Completed Jobs</p></div>
+    <div class="card"><h3 id="earnings">R 0</h3><p>Total Earnings</p></div>
 </div>
 
-<h3>Booking Requests</h3>
+<h3 style="text-align:center;margin-top:40px;">Booking Requests</h3>
 <table>
 <thead>
 <tr>
@@ -55,71 +167,66 @@ if(!loggedIn){window.location.href="cleaner-auth.html";}
 </table>
 
 <script>
+let users = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
+let profile = users[loggedIn]?.profile;
 
-let users = JSON.parse(localStorage.getItem("cleanerUsers"));
-let profile = users[loggedIn].profile;
-
-document.getElementById("profileBox").innerHTML=`
-<img src="${profile.image}">
-<div>
-<h3>${profile.name}</h3>
-<p>${profile.experience} years experience</p>
-</div>
-`;
+if(profile){
+    document.getElementById("profileBox").innerHTML=`
+    <img src="${profile.image || 'https://via.placeholder.com/80'}">
+    <div class="info">
+        <h3>${profile.name || "Unnamed Cleaner"}</h3>
+        <p>${profile.experience || 0} years experience</p>
+        <p>${profile.specialty || "Specialty"}</p>
+    </div>
+    `;
+}
 
 function loadBookings(){
+    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+    let table=document.getElementById("bookingTable");
+    table.innerHTML="";
+    let pending=0,confirmed=0,completed=0,earnings=0;
 
-let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
-let table=document.getElementById("bookingTable");
-table.innerHTML="";
+    bookings.forEach(b=>{
+        if(b.cleanerPhone===loggedIn){
+            if(b.status==="pending") pending++;
+            if(b.status==="confirmed") confirmed++;
+            if(b.status==="completed"){completed++; earnings+=b.total;}
 
-let pending=0,confirmed=0,completed=0,earnings=0;
+            let row=document.createElement("tr");
+            row.innerHTML=`
+            <td>${b.clientName}</td>
+            <td>${b.date}</td>
+            <td>${b.hours}</td>
+            <td>R ${b.total}</td>
+            <td>${b.status}</td>
+            <td>
+            ${b.status==="pending" ? `<button class="action accept" onclick="updateStatus(${b.id},'confirmed')">Accept</button>`:''}
+            ${b.status==="confirmed" ? `<button class="action complete" onclick="updateStatus(${b.id},'completed')">Complete</button>`:''}
+            </td>`;
+            table.appendChild(row);
+        }
+    });
 
-bookings.forEach(b=>{
-if(b.cleanerPhone===loggedIn){
-
-if(b.status==="pending") pending++;
-if(b.status==="confirmed") confirmed++;
-if(b.status==="completed"){completed++; earnings+=b.total;}
-
-let row=document.createElement("tr");
-row.innerHTML=`
-<td>${b.clientName}</td>
-<td>${b.date}</td>
-<td>${b.hours}</td>
-<td>R ${b.total}</td>
-<td>${b.status}</td>
-<td>
-${b.status==="pending" ? `<button class="accept" onclick="updateStatus(${b.id},'confirmed')">Accept</button>`:''}
-${b.status==="confirmed" ? `<button class="complete" onclick="updateStatus(${b.id},'completed')">Complete</button>`:''}
-</td>
-`;
-table.appendChild(row);
-}
-});
-
-document.getElementById("pendingCount").innerText=pending;
-document.getElementById("confirmedCount").innerText=confirmed;
-document.getElementById("completedCount").innerText=completed;
-document.getElementById("earnings").innerText="R "+earnings;
+    document.getElementById("pendingCount").innerText=pending;
+    document.getElementById("confirmedCount").innerText=confirmed;
+    document.getElementById("completedCount").innerText=completed;
+    document.getElementById("earnings").innerText="R "+earnings;
 }
 
 function updateStatus(id,status){
-let bookings=JSON.parse(localStorage.getItem("bookings"));
-bookings.forEach(b=>{
-if(b.id===id){b.status=status;}
-});
-localStorage.setItem("bookings",JSON.stringify(bookings));
-loadBookings();
+    let bookings=JSON.parse(localStorage.getItem("bookings")) || [];
+    bookings.forEach(b=>{if(b.id===id) b.status=status;});
+    localStorage.setItem("bookings",JSON.stringify(bookings));
+    loadBookings();
 }
 
 function logout(){
-localStorage.removeItem("loggedInCleaner");
-window.location.href="cleaner-auth.html";
+    localStorage.removeItem("loggedInCleaner");
+    window.location.href="cleaner-auth.html";
 }
 
 loadBookings();
-
 </script>
 
 </body>
