@@ -7,12 +7,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-body{
+body {
     margin:0;
     font-family:'Montserrat',sans-serif;
     background:#0F0F0F;
     color:#fff;
 }
+
+/* Header */
 header{
     display:flex;
     justify-content:space-between;
@@ -21,15 +23,15 @@ header{
     background:#1A1A1A;
     box-shadow:0 2px 10px rgba(0,0,0,0.5);
 }
-header h1{
-    font-size:20px;
-    font-weight:600;
-}
 header img.logo{
     width:40px;
     height:40px;
     border-radius:50%;
-    margin-right:10px;
+}
+header h1{
+    font-size:20px;
+    font-weight:600;
+    margin-left:10px;
 }
 header button.logout{
     padding:6px 12px;
@@ -44,28 +46,41 @@ header button.logout{
 header button.logout:hover{
     box-shadow:0 0 10px #22c55e66;
 }
+
+/* Main container */
 .container{
-    max-width:900px;
+    max-width:1000px;
     margin:20px auto;
     padding:0 15px;
 }
-.cleaner-info{
+
+/* Cleaner Card */
+.cleaner-card{
+    display:flex;
+    background:#1A1A1A;
+    border-radius:15px;
+    padding:15px;
+    align-items:center;
+    margin-bottom:20px;
+    transition:0.3s;
+}
+.cleaner-card:hover{
+    box-shadow:0 0 15px #22c55e66;
+}
+.cleaner-card img{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-right:15px;
+    border:2px solid #22c55e;
+}
+.cleaner-card-info{
     display:flex;
     flex-direction:column;
-    align-items:center;
-    text-align:center;
-    margin-bottom:30px;
 }
-.cleaner-info img{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    border:3px solid #22c55e;
-    object-fit:cover;
-    margin-bottom:10px;
-}
-.cleaner-info h2{margin:5px 0;font-size:20px;}
-.cleaner-info p{margin:3px 0;font-size:14px;}
+
+/* Stats grid */
 .stats-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
@@ -82,8 +97,15 @@ header button.logout:hover{
 .stat-card:hover{
     box-shadow:0 0 15px #22c55e66;
 }
-.stat-card h3{font-size:18px;margin-bottom:10px;}
-.stat-card p{font-size:16px;}
+.stat-card h3{
+    font-size:18px;
+    margin-bottom:10px;
+}
+.stat-card p{
+    font-size:16px;
+}
+
+/* Footer */
 footer{
     position:fixed;
     bottom:0;
@@ -94,43 +116,32 @@ footer{
     justify-content:center;
     padding:10px 0;
 }
-footer .profile-card{
+footer a{
+    color:#22c55e;
+    text-decoration:none;
+    font-size:20px;
     display:flex;
     align-items:center;
-    background:#1A1A1A;
-    border-radius:15px;
-    padding:5px 10px;
-    cursor:pointer;
-    transition:0.3s;
+    justify-content:center;
 }
-footer .profile-card:hover{
-    box-shadow:0 0 10px #22c55e66;
-}
-footer .profile-card img{
-    width:40px;
-    height:40px;
+footer img{
+    width:45px;
+    height:45px;
     border-radius:50%;
-    margin-right:10px;
     border:2px solid #22c55e;
 }
-footer .profile-card div{
-    display:flex;
-    flex-direction:column;
-    color:#fff;
-}
-footer .profile-card div span{
-    font-size:12px;
-}
-canvas{
+
+/* Earnings Graph */
+#earningsChart{
     background:#1A1A1A;
-    border-radius:15px;
     padding:15px;
+    border-radius:15px;
 }
 @media(max-width:480px){
     header h1{font-size:16px;}
-    .cleaner-info h2{font-size:18px;}
-    .cleaner-info p,.stat-card p{font-size:14px;}
     .stat-card h3{font-size:16px;}
+    .stat-card p{font-size:14px;}
+    .cleaner-card img{width:60px;height:60px;}
 }
 </style>
 </head>
@@ -145,10 +156,19 @@ canvas{
 </header>
 
 <div class="container">
-    <div class="cleaner-info" id="cleanerInfo">
-        <!-- Cleaner image, name, city, specialty -->
+
+    <!-- Cleaner Info Card -->
+    <div class="cleaner-card" id="cleanerCard">
+        <img id="profileImage" src="https://via.placeholder.com/80" alt="Cleaner">
+        <div class="cleaner-card-info">
+            <h3 id="cleanerName">Cleaner Name</h3>
+            <p id="cleanerSpecialty">Specialty</p>
+            <p id="cleanerLocation">City</p>
+            <p id="cleanerRating">⭐ 0.0</p>
+        </div>
     </div>
 
+    <!-- Stats Grid -->
     <div class="stats-grid">
         <div class="stat-card">
             <h3>Total Jobs</h3>
@@ -159,32 +179,23 @@ canvas{
             <p id="totalEarnings">R0</p>
         </div>
         <div class="stat-card">
-            <h3>Average Rating</h3>
-            <p id="avgRating">N/A</p>
+            <h3>Weekly Jobs</h3>
+            <p id="weeklyJobs">0</p>
+        </div>
+        <div class="stat-card">
+            <h3>Monthly Jobs</h3>
+            <p id="monthlyJobs">0</p>
         </div>
     </div>
 
-    <div class="stats-grid">
-        <div class="stat-card">
-            <h3>Weekly Earnings</h3>
-            <canvas id="weeklyChart" height="150"></canvas>
-        </div>
-        <div class="stat-card">
-            <h3>Monthly Earnings</h3>
-            <canvas id="monthlyChart" height="150"></canvas>
-        </div>
+    <!-- Earnings Graph -->
+    <div id="earningsChartContainer">
+        <canvas id="earningsChart"></canvas>
     </div>
 </div>
 
 <footer>
-    <a href="profile.html" class="profile-card" title="Profile">
-        <img id="footerImage" src="https://via.placeholder.com/40" alt="Profile">
-        <div>
-            <span id="footerName">Name</span>
-            <span id="footerCity">City</span>
-            <span id="footerSpecialty">Specialty</span>
-        </div>
-    </a>
+    <a href="profile.html" title="Profile"><img id="footerProfileImage" src="https://via.placeholder.com/45" alt="Profile"></a>
 </footer>
 
 <script>
@@ -194,56 +205,64 @@ function logout(){
     window.location.href="index.html";
 }
 
-// Load cleaner profile
+// Fetch logged-in cleaner
 const loggedCleanerPhone = localStorage.getItem("loggedCleaner");
 if(!loggedCleanerPhone){
-    alert("No cleaner logged in!");
+    alert("No cleaner logged in! Redirecting to login.");
     window.location.href="cleaner-login.html";
 }
 
-const cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
-const profile = cleaners[loggedCleanerPhone]?.profile;
+// Load cleaner data
+let cleaners = JSON.parse(localStorage.getItem("cleanerUsers")) || {};
+let cleaner = cleaners[loggedCleanerPhone]?.profile;
 
-if(profile){
-    // Dashboard info
-    document.getElementById("cleanerInfo").innerHTML = `
-        <img src="${profile.image || 'https://via.placeholder.com/120'}" alt="Profile">
-        <h2>${profile.name}</h2>
-        <p>${profile.location}</p>
-        <p>${profile.specialty}</p>
-    `;
-    document.getElementById("totalJobs").textContent = profile.totalJobs || 0;
-    document.getElementById("totalEarnings").textContent = "R" + (profile.totalEarnings || 0);
-    const avg = profile.ratings && profile.ratings.length>0 ? (profile.ratings.reduce((a,b)=>a+b,0)/profile.ratings.length).toFixed(1) : "N/A";
-    document.getElementById("avgRating").textContent = avg;
+if(cleaner){
+    document.getElementById("profileImage").src = cleaner.image || "https://via.placeholder.com/80";
+    document.getElementById("footerProfileImage").src = cleaner.image || "https://via.placeholder.com/45";
+    document.getElementById("cleanerName").textContent = cleaner.name;
+    document.getElementById("cleanerSpecialty").textContent = cleaner.specialty;
+    document.getElementById("cleanerLocation").textContent = cleaner.location;
+    const avgRating = cleaner.ratings.length > 0 ? (cleaner.ratings.reduce((a,b)=>a+b,0)/cleaner.ratings.length).toFixed(1) : "N/A";
+    document.getElementById("cleanerRating").textContent = "⭐ "+avgRating;
 
-    // Footer
-    document.getElementById("footerImage").src = profile.image || 'https://via.placeholder.com/40';
-    document.getElementById("footerName").textContent = profile.name;
-    document.getElementById("footerCity").textContent = profile.location;
-    document.getElementById("footerSpecialty").textContent = profile.specialty;
+    document.getElementById("totalJobs").textContent = cleaner.totalJobs || 0;
+    document.getElementById("totalEarnings").textContent = "R"+(cleaner.totalEarnings || 0);
+    
+    // Weekly and Monthly Jobs (dummy calculation, can expand to track per booking date)
+    const weeklyJobs = Math.floor((cleaner.totalJobs || 0)/4); // approximate
+    const monthlyJobs = cleaner.totalJobs || 0;
+    document.getElementById("weeklyJobs").textContent = weeklyJobs;
+    document.getElementById("monthlyJobs").textContent = monthlyJobs;
 }
 
 // Earnings Graph
-const weeklyData = profile.weeklyEarnings || [0,0,0,0,0,0,0];
-const monthlyData = profile.monthlyEarnings || Array(30).fill(0);
-
-new Chart(document.getElementById('weeklyChart').getContext('2d'),{
-    type:'bar',
-    data:{
-        labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
-        datasets:[{label:'R',data:weeklyData,backgroundColor:'#22c55e'}]
+const ctx = document.getElementById('earningsChart').getContext('2d');
+const earningsChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Week 1','Week 2','Week 3','Week 4'],
+        datasets: [{
+            label: 'Weekly Earnings (R)',
+            data: [
+                ((cleaner?.totalEarnings || 0)/4).toFixed(2),
+                ((cleaner?.totalEarnings || 0)/4).toFixed(2),
+                ((cleaner?.totalEarnings || 0)/4).toFixed(2),
+                ((cleaner?.totalEarnings || 0)/4).toFixed(2)
+            ],
+            backgroundColor:'#22c55e'
+        }]
     },
-    options:{responsive:true, plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}
-});
-
-new Chart(document.getElementById('monthlyChart').getContext('2d'),{
-    type:'line',
-    data:{
-        labels:Array.from({length:30},(_,i)=>i+1),
-        datasets:[{label:'R',data:monthlyData,borderColor:'#22c55e',backgroundColor:'rgba(34,197,94,0.2)',fill:true}]
-    },
-    options:{responsive:true, plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}
+    options: {
+        responsive:true,
+        plugins:{
+            legend:{display:false}
+        },
+        scales:{
+            y:{
+                beginAtZero:true
+            }
+        }
+    }
 });
 </script>
 
